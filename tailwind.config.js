@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'primary-btn': '0 2px 20px rgba(59, 171, 54, 0.54)'
+        'primary-btn': '0 2px 20px rgba(59, 171, 54, 0.54)',
+        'secondary-btn': '0 2px 20px rgba(59, 171, 54, 0.54)'
       },
       colors: {
         primary: {
