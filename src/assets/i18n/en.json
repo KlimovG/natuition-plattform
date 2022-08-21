@@ -1,7 +1,7 @@
 {
   "main": {
     "signIn": "Sign In",
-    "signUn": "Sign Up"
+    "signUp": "Sign Up"
   },
   "btn": "tranlation works!"
 }
