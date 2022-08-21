@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-button',
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  selector: 'app-button-primary',
+  templateUrl: './button-primary.component.html',
+  styleUrls: ['./button-primary.component.scss']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonPrimaryComponent implements OnInit {
   @Output() click = new EventEmitter<any>()
   @Input() text: string = 'Default Button';
   constructor() { }

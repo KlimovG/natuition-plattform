@@ -3,9 +3,12 @@ module.exports = {
   content: ["./src/**/*.{html,ts}",],
   theme: {
     extend: {
+      boxShadow: {
+        'primary-btn': '0 2px 20px rgba(59, 171, 54, 0.54)'
+      },
       colors: {
         primary: {
-          main: '#81BF45',
+          main: '#3BAB36',
           dark: '#256320',
           light: '#EBFFD9',
         },
