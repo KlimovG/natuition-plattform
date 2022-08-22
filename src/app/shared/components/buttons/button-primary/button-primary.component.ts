@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ButtonPrimaryComponent implements OnInit {
   @Output() click = new EventEmitter<any>()
+  @Input() link!: string;
   @Input() text: string = 'btn';
   constructor() { }
 

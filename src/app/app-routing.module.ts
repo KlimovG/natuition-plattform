@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {MainPageComponent} from "./pages/main/main-page.component";
-import {ButtonPrimaryComponent} from "./shared/components/buttons/button-primary/button-primary.component";
+import {LoginPageComponent} from "./pages/login-page/login-page.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
+  {path: 'login', component: LoginPageComponent},
 ];
 
 @NgModule({

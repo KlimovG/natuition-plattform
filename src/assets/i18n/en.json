@@ -3,5 +3,9 @@
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
-  "btn": "tranlation works!"
+  "login": {
+    "signIn": "Sign In",
+    "decline": "Decline",
+
+  }
 }

@@ -16,6 +16,8 @@ import {EffectsModule} from "@ngrx/effects";
 import {TranslationService} from "./shared/i18n/translation.service";
 import { MainPageComponent } from './pages/main/main-page.component';
 import { LogoComponent } from './shared/components/logo/logo.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { LogoComponent } from './shared/components/logo/logo.component';
     ButtonPrimaryComponent,
     ButtonSecondaryComponent,
     MainPageComponent,
-    LogoComponent
+    LogoComponent,
+    LoginPageComponent,
+    RegistrationPageComponent
   ],
   imports: [
     BrowserModule,
