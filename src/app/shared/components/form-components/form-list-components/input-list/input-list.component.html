@@ -1,0 +1,7 @@
+<div *ngFor="let item of data; let i = index">
+  <app-input-text
+    [id]="i.toString()"
+    [placeholder]="item.placeholder"
+    [controlName]="item.controlName"
+  ></app-input-text>
+</div>
