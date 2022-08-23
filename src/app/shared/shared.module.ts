@@ -9,6 +9,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { InputBaseComponent } from './components/form-components/base/input-base/input-base.component';
 import { InputTextComponent } from './components/form-components/input-components/input-text/input-text.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputListComponent } from './components/form-components/form-list-components/input-list/input-list.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LogoComponent,
     InputBaseComponent,
     InputTextComponent,
+    InputListComponent,
   ],
   exports: [
     CommonModule,
