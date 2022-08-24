@@ -1,16 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { InputListModel } from '../../../../shared/components/form-components/form-list-components/input-list/input-list.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBase } from '../../../../shared/models/form-base';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
-  @Input() form!: FormGroup;
-  @Input() data!: InputListModel[];
-  constructor() {}
+export class LoginFormComponent extends FormBase implements OnInit {
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
 }

@@ -1,1 +1,6 @@
-<p>registration-page works!</p>
+<form [formGroup]="this.form" class="my-6">
+  <app-input-list
+    [formGroup]="this.form"
+    [data]="this.data"
+  ></app-input-list>
+</form>

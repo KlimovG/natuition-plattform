@@ -17,6 +17,7 @@ import { RegistrationFormComponent } from './pages/main/components/registration-
 import { SharedModule } from './shared/shared.module';
 import { SmartLoginComponent } from './pages/main/components/smart/smart-login/smart-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SmartRegistrationFormComponent } from './pages/main/components/smart/smart-registration-form/smart-registration-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginFormComponent,
     RegistrationFormComponent,
     SmartLoginComponent,
+    SmartRegistrationFormComponent,
   ],
   imports: [
     BrowserModule,

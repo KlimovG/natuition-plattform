@@ -11,6 +11,7 @@ import { InputTextComponent } from './components/form-components/input-component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputListComponent } from './components/form-components/form-list-components/input-list/input-list.component';
 import { ButtonMainComponent } from './components/buttons/button-main/button-main.component';
+import { FormBaseComponent } from './components/form-components/base/form-base/form-base.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ButtonMainComponent } from './components/buttons/button-main/button-mai
     InputTextComponent,
     InputListComponent,
     ButtonMainComponent,
+    FormBaseComponent,
   ],
   exports: [
     CommonModule,
