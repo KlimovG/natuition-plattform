@@ -1,11 +1,18 @@
 {
   "main": {
-    "signIn": "Sign In",
-    "signUp": "Sign Up"
+    "btnPrimary": "Sign Up",
+    "btnSecondary": "Sign In"
   },
   "login": {
-    "signIn": "Sign In",
-    "decline": "Decline"
-
+    "email": "Email",
+    "password": "Password",
+    "btnPrimary": "Sign In",
+    "btnSecondary": "Decline"
+  },
+  "registration": {
+    "email": "Email",
+    "password": "Password",
+    "btnPrimary": "Create account",
+    "btnSecondary": "Decline"
   }
 }

@@ -1,7 +1,8 @@
-<div *ngFor="let item of data; let i = index">
+<div *ngFor="let item of data; let i = index" class="text-center mb-3.5">
   <app-input-text
+    [formGroup]="this.formGroup"
     [id]="i.toString()"
-    [placeholder]="item.placeholder"
+    [placeholder]="item.placeholder | translate"
     [controlName]="item.controlName"
   ></app-input-text>
 </div>

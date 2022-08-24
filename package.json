@@ -24,6 +24,7 @@
     "@ngrx/store-devtools": "^14.2.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "class-validator": "^0.13.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -34,6 +35,7 @@
     "@angular/compiler-cli": "^14.1.0",
     "@ngrx/schematics": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "@types/validator": "^13.7.5",
     "autoprefixer": "^10.4.8",
     "jasmine-core": "~4.2.0",
     "karma": "~6.4.0",
