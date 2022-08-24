@@ -1,0 +1,5 @@
+<button
+  [routerLink]="routerLink"
+  role="button"
+  [class]="'Montserrat-Medium px-6 py-4 border transition-all rounded-md hover:shadow-none ' + css"
+  (click)="this.click.emit()" >{{text | translate}}</button>

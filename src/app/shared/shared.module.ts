@@ -10,6 +10,7 @@ import { InputBaseComponent } from './components/form-components/base/input-base
 import { InputTextComponent } from './components/form-components/input-components/input-text/input-text.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputListComponent } from './components/form-components/form-list-components/input-list/input-list.component';
+import { ButtonMainComponent } from './components/buttons/button-main/button-main.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { InputListComponent } from './components/form-components/form-list-compo
     InputBaseComponent,
     InputTextComponent,
     InputListComponent,
+    ButtonMainComponent,
   ],
   exports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { InputListComponent } from './components/form-components/form-list-compo
     ButtonSecondaryComponent,
     LogoComponent,
     InputTextComponent,
+    InputListComponent,
   ],
   providers: [TranslationService],
 })

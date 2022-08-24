@@ -1,14 +1,10 @@
-<button
-  [routerLink]="link"
-  class="Montserrat-Medium
-  border
-  border-primary-dark
-  px-6 py-4
+<app-button-main
+  (click)="this.click.emit()"
+  css="border-primary-dark
   text-primary-dark
   shadow-secondary-btn
-  rounded-md
   hover:bg-primary-dark
-  hover:text-white
-  hover:shadow-none
-  transition-all"
-  (click)="this.click.emit()" >{{text | translate}}</button>
+  hover:text-white"
+  [routerLink]="link"
+  [text]="text | translate"
+></app-button-main>
