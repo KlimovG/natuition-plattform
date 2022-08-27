@@ -3,8 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home/home-page.component';
 import { SmartLoginComponent } from './pages/home/components/smart/smart-login/smart-login.component';
 import { SmartRegistrationFormComponent } from './pages/home/components/smart/smart-registration-form/smart-registration-form.component';
+import { MainPageComponent } from './pages/main/main-page.component';
 
 const routes: Routes = [
+  //TODO: remove redirect, after mage registration and login form
+  {
+    path: '',
+    redirectTo: 'main',
+    pathMatch: 'full',
+  },
   {
     path: 'home',
     component: HomePageComponent,
@@ -20,9 +27,8 @@ const routes: Routes = [
     ],
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: 'main',
+    component: MainPageComponent,
   },
 ];
 
