@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form-base',
-  templateUrl: './form-base.component.html',
-  styleUrls: ['./form-base.component.scss']
+  template: '',
 })
-export class FormBaseComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class FormBaseComponent {
+  @Input() form!: FormGroup;
+  @Input() data!: any;
+  @Output() onSubmit = new EventEmitter<any>();
 }

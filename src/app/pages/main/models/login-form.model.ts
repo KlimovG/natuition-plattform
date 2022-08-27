@@ -3,8 +3,10 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 export class LoginFormOutput {
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsNotEmpty()
-  password: string;
+  password!: string;
 }
+
+export type LoginFormOutputType = typeof LoginFormOutput;

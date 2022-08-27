@@ -38,6 +38,7 @@ import { FormBaseComponent } from './components/form-components/base/form-base/f
     LogoComponent,
     InputTextComponent,
     InputListComponent,
+    FormBaseComponent,
   ],
   providers: [TranslationService],
 })

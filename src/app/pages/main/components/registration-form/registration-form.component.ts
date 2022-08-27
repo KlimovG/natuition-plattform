@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBase } from '../../../../shared/models/form-base';
+import { FormBaseComponent } from '../../../../shared/components/form-components/base/form-base/form-base.component';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss'],
 })
-export class RegistrationFormComponent extends FormBase implements OnInit {
+export class RegistrationFormComponent
+  extends FormBaseComponent
+  implements OnInit
+{
   constructor() {
     super();
   }
