@@ -20,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SmartRegistrationFormComponent } from './pages/home/components/smart/smart-registration-form/smart-registration-form.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MainPageComponent } from './pages/main/main-page.component';
+import { DashboardPageComponent } from './pages/dashboard/dashboard-page.component';
+import { CoreModule } from './modules/core/core.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { MainPageComponent } from './pages/main/main-page.component';
     RegistrationFormComponent,
     SmartLoginComponent,
     SmartRegistrationFormComponent,
-    MainPageComponent,
+    DashboardPageComponent,
   ],
   imports: [
     RouterModule,
@@ -56,6 +57,7 @@ import { MainPageComponent } from './pages/main/main-page.component';
     }),
     SharedModule,
     ReactiveFormsModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
