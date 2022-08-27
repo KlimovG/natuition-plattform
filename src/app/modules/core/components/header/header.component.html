@@ -1,8 +1,9 @@
-<div class="flex">
-    <app-logo
-      class="h-14 w-auto flex"
-    ></app-logo>
-  <div class="flex">
-
+<div class="flex justify-between items-center h-12">
+  <app-logo
+    class="h-full h-12 w-auto flex"
+  ></app-logo>
+  <div class="flex items-center">
+    <app-user-label [userName]="userName"></app-user-label>
+    <app-button-primary></app-button-primary>
   </div>
 </div>
