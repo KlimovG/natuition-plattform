@@ -1,5 +1,5 @@
 {
-  "main": {
+  "home": {
     "btnPrimary": "Sign Up",
     "btnSecondary": "Sign In"
   },
@@ -10,8 +10,11 @@
     "btnSecondary": "Decline"
   },
   "registration": {
+    "name": "Name",
+    "phone": "Phone",
     "email": "Email",
     "password": "Password",
+    "passwordRepeat": "Password",
     "btnPrimary": "Create account",
     "btnSecondary": "Decline"
   }

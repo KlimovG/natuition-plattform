@@ -7,27 +7,27 @@ import {
 } from '@angular/common';
 
 @Component({
-  selector: 'app-main-page',
+  selector: 'app-home-page',
   providers: [
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
   ],
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss'],
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class HomePageComponent implements OnInit, OnDestroy {
   get translationText(): string {
     if (this.location.path().includes('login')) return 'login';
     if (this.location.path().includes('registration')) return 'registration';
-    return 'main';
+    return 'home';
   }
 
-  get primaryLink(): string | null {
-    return this.translationText === 'main' ? 'registration' : null;
+  get primaryLink(): [string] | null {
+    return this.translationText === 'home' ? ['registration'] : null;
   }
 
-  get secondaryLink(): string | null {
-    return this.translationText === 'main' ? 'login' : null;
+  get secondaryLink(): [string] | null {
+    return this.translationText === 'home' ? ['login'] : null;
   }
 
   constructor(private router: Router, private location: Location) {}

@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageComponent } from './pages/main/main-page.component';
-import { SmartLoginComponent } from './pages/main/components/smart/smart-login/smart-login.component';
-import { LogoComponent } from './shared/components/logo/logo.component';
+import { HomePageComponent } from './pages/home/home-page.component';
+import { SmartLoginComponent } from './pages/home/components/smart/smart-login/smart-login.component';
+import { SmartRegistrationFormComponent } from './pages/home/components/smart/smart-registration-form/smart-registration-form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
-    component: MainPageComponent,
+    component: HomePageComponent,
     children: [
       {
-        path: 'login',
-        component: SmartLoginComponent,
+        path: 'registration',
+        component: SmartRegistrationFormComponent,
       },
       {
-        path: 'registration',
+        path: 'login',
         component: SmartLoginComponent,
       },
     ],
   },
   {
-    path: 'test',
-    component: LogoComponent,
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
 ];
 

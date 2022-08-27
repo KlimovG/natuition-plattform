@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputListModel } from '../../../../../shared/components/form-components/form-list-components/input-list/input-list.model';
-import { LoginFormOutput } from '../../../models/login-form.model';
-import { FormBaseComponent } from '../../../../../shared/components/form-components/base/form-base/form-base.component';
 
 @Component({
-  selector: 'app-smart-login-form',
-  templateUrl: './smart-login.component.html',
+  selector: 'app-smart-registration-form',
+  templateUrl: './smart-registration-form.component.html',
+  styleUrls: ['./smart-registration-form.component.scss'],
 })
-export class SmartLoginComponent extends FormBaseComponent implements OnInit {
+export class SmartRegistrationFormComponent implements OnInit {
+  form!: FormGroup;
   textData!: InputListModel[];
-  loginFormObject = new LoginFormOutput();
-  private prefix = 'login';
-  constructor(private formBuilder: FormBuilder) {
-    super();
-  }
+  private prefix = 'registration';
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.form = this.initData();
+    this.form = this.initFormEmpty();
     this.textData = this.initText(this.form);
   }
 
-  initData(): FormGroup {
+  initFormEmpty(): FormGroup {
     return this.formBuilder.group({
+      name: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.nullValidator]],
+      password: ['', [Validators.required]],
+      passwordRepeat: ['', [Validators.required]],
     });
   }
 

@@ -11,26 +11,32 @@ import { metaReducers, reducers } from './state';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { MainPageComponent } from './pages/main/main-page.component';
-import { LoginFormComponent } from './pages/main/components/login-form/login-form.component';
-import { RegistrationFormComponent } from './pages/main/components/registration-form/registration-form.component';
+import { HomePageComponent } from './pages/home/home-page.component';
+import { LoginFormComponent } from './pages/home/components/login-form/login-form.component';
+import { RegistrationFormComponent } from './pages/home/components/registration-form/registration-form.component';
 import { SharedModule } from './shared/shared.module';
-import { SmartLoginComponent } from './pages/main/components/smart/smart-login/smart-login.component';
+import { SmartLoginComponent } from './pages/home/components/smart/smart-login/smart-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SmartRegistrationFormComponent } from './pages/main/components/smart/smart-registration-form/smart-registration-form.component';
+import { SmartRegistrationFormComponent } from './pages/home/components/smart/smart-registration-form/smart-registration-form.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MainPageComponent } from './pages/main/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageComponent,
+    HomePageComponent,
     LoginFormComponent,
     RegistrationFormComponent,
     SmartLoginComponent,
     SmartRegistrationFormComponent,
+    MainPageComponent,
   ],
   imports: [
-    BrowserModule,
+    RouterModule,
     AppRoutingModule,
+    CommonModule,
+    BrowserModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
