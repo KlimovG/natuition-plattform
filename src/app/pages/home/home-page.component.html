@@ -1,0 +1,18 @@
+<section>
+    <div class="max-w-full w-64" >
+      <app-logo></app-logo>
+    </div>
+  <router-outlet></router-outlet>
+  <div class="flex justify-center items-center mt-6">
+    <app-button-primary
+      [link]="this.primaryLink"
+      class="mr-3"
+      [text]="this.translationText + '.btnPrimary'"
+    ></app-button-primary>
+    <app-button-secondary
+      [link]="this.secondaryLink"
+      class="ml-3"
+      [text]="this.translationText + '.btnSecondary'"
+    ></app-button-secondary>
+  </div>
+</section>

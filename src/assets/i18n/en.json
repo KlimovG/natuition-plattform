@@ -1,3 +1,21 @@
 {
-  "btn": "tranlation works!"
+  "home": {
+    "btnPrimary": "Sign Up",
+    "btnSecondary": "Sign In"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "btnPrimary": "Sign In",
+    "btnSecondary": "Decline"
+  },
+  "registration": {
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "password": "Password",
+    "passwordRepeat": "Password",
+    "btnPrimary": "Create account",
+    "btnSecondary": "Decline"
+  }
 }
