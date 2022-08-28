@@ -12,6 +12,8 @@ import { InputListComponent } from './components/form-components/form-list-compo
 import { ButtonMainComponent } from './components/buttons/button-main/button-main.component';
 import { FormBaseComponent } from './components/form-components/base/form-base/form-base.component';
 import { RouterModule } from '@angular/router';
+import { UserImageComponent } from './components/user/user-image/user-image.component';
+import { UserLabelComponent } from './components/user/user-label/user-label.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,8 @@ import { RouterModule } from '@angular/router';
     InputListComponent,
     ButtonMainComponent,
     FormBaseComponent,
+    UserImageComponent,
+    UserLabelComponent,
   ],
   exports: [
     CommonModule,
@@ -40,6 +44,8 @@ import { RouterModule } from '@angular/router';
     InputListComponent,
     FormBaseComponent,
     RouterModule,
+    UserLabelComponent,
+    UserImageComponent,
   ],
   providers: [TranslationService],
 })

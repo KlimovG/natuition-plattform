@@ -1,1 +1,9 @@
-<p>header component works!</p>
+<div class="flex justify-between items-center h-12">
+  <app-logo
+    class="h-full h-12 w-auto flex"
+  ></app-logo>
+  <div class="flex items-center">
+    <app-user-label [userName]="userName"></app-user-label>
+    <app-button-primary text="header.signOut"></app-button-primary>
+  </div>
+</div>

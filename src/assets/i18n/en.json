@@ -17,5 +17,8 @@
     "passwordRepeat": "Password",
     "btnPrimary": "Create account",
     "btnSecondary": "Decline"
+  },
+  "header": {
+    "signOut": "Sign out"
   }
 }
