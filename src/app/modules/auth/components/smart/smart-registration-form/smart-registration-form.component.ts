@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputListModel } from '../../../../../shared/components/form-components/form-list-components/input-list/input-list.model';
 
@@ -6,6 +6,7 @@ import { InputListModel } from '../../../../../shared/components/form-components
   selector: 'app-smart-registration-form',
   templateUrl: './smart-registration-form.component.html',
   styleUrls: ['./smart-registration-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmartRegistrationFormComponent implements OnInit {
   form!: FormGroup;

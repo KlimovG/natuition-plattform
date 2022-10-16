@@ -1,0 +1,11 @@
+<section>
+    <div class="max-w-full w-64" >
+      <app-logo></app-logo>
+    </div>
+  <router-outlet></router-outlet>
+  <div class="flex justify-center items-center mt-6">
+    <app-auth-buttons
+      [formName]="translationText"
+    ></app-auth-buttons>
+  </div>
+</section>
