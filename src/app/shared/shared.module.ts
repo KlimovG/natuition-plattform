@@ -16,7 +16,7 @@ import { UserImageComponent } from './components/user/user-image/user-image.comp
 import { UserLabelComponent } from './components/user/user-label/user-label.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { GraphQLModule } from './modules/graphQL/graphQL.module';
 
 @NgModule({
   imports: [
@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     CommonModule,
     BrowserModule,
-    HttpClientModule,
+    GraphQLModule,
   ],
   declarations: [
     ButtonPrimaryComponent,
@@ -54,6 +54,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserLabelComponent,
     UserImageComponent,
     ReactiveFormsModule,
+    GraphQLModule,
   ],
   providers: [TranslationService],
 })

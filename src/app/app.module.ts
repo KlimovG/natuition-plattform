@@ -12,6 +12,17 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthEffects } from './modules/auth/state/auth.effects';
+import { HttpLink } from 'apollo-angular/http';
+import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+
+const uri = 'http://localhost:3000/graphql';
+export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+  return {
+    link: httpLink.create({ uri }),
+    cache: new InMemoryCache(),
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  };
+}
 
 @NgModule({
   declarations: [AppComponent],

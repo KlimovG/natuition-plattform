@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GC_AUTH_TOKEN, GC_USER_ID } from '../constants';
-import { LoginFormOutput } from '../models/login-form.model';
+import { LoginInput } from '../models/login-form.model';
+import { GraphQLService } from '../../../shared/modules/graphQL/graphQL.service';
+
+const LOGIN = `
+  mutation Login($input: UserLoginInput!) {
+    login(input: $input){
+      id
+      token
+    }
+  }
+`;
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +19,7 @@ import { LoginFormOutput } from '../models/login-form.model';
 export class AuthService {
   private _userId: string | null = null;
   private _isAuthenticated = new BehaviorSubject(false);
-  constructor() {}
+  constructor(private graphQlService: GraphQLService) {}
 
   get isAuthenticated(): Observable<boolean> {
     return this._isAuthenticated.asObservable();
@@ -21,14 +31,13 @@ export class AuthService {
   }
 
   save(id: string, token: string) {
-    localStorage.setItem(GC_USER_ID, id);
+    localStorage.setItem(GC_USER_ID, id.toString());
     localStorage.setItem(GC_AUTH_TOKEN, token);
     this.userId = id;
   }
 
-  async logIn(data: LoginFormOutput): Promise<string> {
-    console.log(data);
-    return 'user';
+  logIn(data: LoginInput): Observable<any> {
+    return this.graphQlService.mutation(LOGIN, { input: data });
   }
 
   logOut() {
