@@ -7,7 +7,7 @@ import { GraphQLService } from '../../../shared/modules/graphQL/graphQL.service'
 const LOGIN = `
   mutation Login($input: UserLoginInput!) {
     login(input: $input){
-      id
+      email
       token
     }
   }
@@ -30,10 +30,10 @@ export class AuthService {
     this._isAuthenticated.next(true);
   }
 
-  save(id: string, token: string) {
-    localStorage.setItem(GC_USER_ID, id.toString());
+  save(email: string, token: string) {
+    localStorage.setItem(GC_USER_ID, email);
     localStorage.setItem(GC_AUTH_TOKEN, token);
-    this.userId = id;
+    this.userId = email;
   }
 
   logIn(data: LoginInput): Observable<any> {

@@ -19,13 +19,13 @@ export class AuthEffects {
       switchMap(({ payload }) =>
         this.service.logIn(payload).pipe(
           map(({ data }) => {
-            const { id, token } = data.login;
+            const { email, token } = data.login;
 
-            this.service.save(id, token);
+            this.service.save(email, token);
 
             return new LogInSuccess({
               isLogged: true,
-              user: id.toString(),
+              user: email,
             });
           })
         )
