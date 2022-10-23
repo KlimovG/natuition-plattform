@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBaseComponent } from '../../../../shared/components/form-components/base/form-base/form-base.component';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormBaseComponent } from '../../../../shared/components/form-components
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent extends FormBaseComponent implements OnInit {
+  @Output() save = new EventEmitter();
   constructor() {
     super();
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GC_AUTH_TOKEN, GC_USER_ID } from '../constants';
+import { LoginFormOutput } from '../models/login-form.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,11 @@ export class AuthService {
     localStorage.setItem(GC_USER_ID, id);
     localStorage.setItem(GC_AUTH_TOKEN, token);
     this.userId = id;
+  }
+
+  async logIn(data: LoginFormOutput): Promise<string> {
+    console.log(data);
+    return 'user';
   }
 
   logOut() {

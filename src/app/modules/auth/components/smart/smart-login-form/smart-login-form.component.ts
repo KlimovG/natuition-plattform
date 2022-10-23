@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputListModel } from '../../../../../shared/components/form-components/form-list-components/input-list/input-list.model';
+import { Store } from '@ngrx/store';
+import { State } from '../../../../../state';
+import { LogIn } from '../../../state/auth.actions';
 
 @Component({
-  selector: 'app-smart-login-form',
-  templateUrl: './smart-login.component.html',
+  selector: 'app-smart-login-form-form',
+  templateUrl: './smart-login-form.component.html',
 })
-export class SmartLoginComponent implements OnInit {
+export class SmartLoginFormComponent implements OnInit {
   form!: FormGroup;
   textData!: InputListModel[];
   private prefix = 'login';
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private store: Store<State>) {}
 
   ngOnInit(): void {
     this.form = this.initFormEmpty();
@@ -34,5 +37,11 @@ export class SmartLoginComponent implements OnInit {
       })
     );
     return result;
+  }
+
+  onSubmit(): void {
+    const result = this.form.value;
+    console.log(result);
+    this.store.dispatch(new LogIn(result));
   }
 }

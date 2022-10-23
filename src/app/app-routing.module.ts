@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthPageComponent } from './modules/auth/pages/home/auth-page.component';
-import { SmartLoginComponent } from './modules/auth/components/smart/smart-login/smart-login.component';
+import { SmartLoginFormComponent } from './modules/auth/components/smart/smart-login-form/smart-login-form.component';
 import { SmartRegistrationFormComponent } from './modules/auth/components/smart/smart-registration-form/smart-registration-form.component';
 
 const routes: Routes = [
@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: SmartLoginComponent,
+        component: SmartLoginFormComponent,
       },
     ],
   },

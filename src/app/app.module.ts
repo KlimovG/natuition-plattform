@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './modules/core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { AuthEffects } from './modules/auth/state/auth.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,7 @@ import { AuthModule } from './modules/auth/auth.module';
       },
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 100 })
       : [],

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthPageComponent } from './pages/home/auth-page.component';
 import { SmartRegistrationFormComponent } from './components/smart/smart-registration-form/smart-registration-form.component';
-import { SmartLoginComponent } from './components/smart/smart-login/smart-login.component';
+import { SmartLoginFormComponent } from './components/smart/smart-login-form/smart-login-form.component';
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: SmartLoginComponent,
+        component: SmartLoginFormComponent,
       },
     ],
   },

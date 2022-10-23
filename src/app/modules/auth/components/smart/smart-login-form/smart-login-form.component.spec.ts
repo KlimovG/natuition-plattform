@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SmartLoginComponent } from './smart-login.component';
+import { SmartLoginFormComponent } from './smart-login-form.component';
 
 describe('SmartLoginComponent', () => {
-  let component: SmartLoginComponent;
-  let fixture: ComponentFixture<SmartLoginComponent>;
+  let component: SmartLoginFormComponent;
+  let fixture: ComponentFixture<SmartLoginFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SmartLoginComponent ]
-    })
-    .compileComponents();
+      declarations: [SmartLoginFormComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(SmartLoginComponent);
+    fixture = TestBed.createComponent(SmartLoginFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
