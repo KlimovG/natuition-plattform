@@ -6,6 +6,7 @@ import { SmartLoginFormComponent } from './components/smart/smart-login-form/sma
 import { SmartRegistrationFormComponent } from './components/smart/smart-registration-form/smart-registration-form.component';
 import { SharedModule } from '../../shared/shared.module';
 import { AuthButtonsComponent } from './components/auth-buttons/auth-buttons.component';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -18,5 +19,6 @@ import { AuthButtonsComponent } from './components/auth-buttons/auth-buttons.com
     AuthButtonsComponent,
   ],
   imports: [SharedModule],
+  providers: [AuthService],
 })
 export class AuthModule {}
