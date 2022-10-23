@@ -14,6 +14,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AuthEffects } from './modules/auth/state/auth.effects';
 import { HttpLink } from 'apollo-angular/http';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 const uri = 'http://localhost:3000/graphql';
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
@@ -27,6 +30,9 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
+    BrowserModule,
+    RouterModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,7 +50,6 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
       logOnly: environment.production,
     }),
     SharedModule,
-    CoreModule,
     AuthModule,
   ],
   providers: [],

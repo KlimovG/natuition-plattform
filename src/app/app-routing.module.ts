@@ -4,6 +4,7 @@ import { AuthPageComponent } from './modules/auth/pages/home/auth-page.component
 import { SmartLoginFormComponent } from './modules/auth/components/smart/smart-login-form/smart-login-form.component';
 import { SmartRegistrationFormComponent } from './modules/auth/components/smart/smart-registration-form/smart-registration-form.component';
 import { CoreComponent } from './modules/core/components/core/core.component';
+import { LoginGuardService } from './modules/auth/service/login-guard.service';
 
 const routes: Routes = [
   //TODO: remove redirect, after complete registration and login form
@@ -25,7 +26,8 @@ const routes: Routes = [
 
   {
     path: 'dashboard',
-    component: CoreComponent,
+    loadChildren: () =>
+      import('./modules/core/core.module').then((m) => m.CoreModule),
   },
 ];
 
