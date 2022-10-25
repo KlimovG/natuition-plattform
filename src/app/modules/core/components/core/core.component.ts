@@ -16,7 +16,8 @@ export class CoreComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptionsList.push(
-      this.authService.isAuthenticated
+      this.authService
+        .isAuthenticated()
         .pipe(distinctUntilChanged())
         .subscribe((isAuth) => (this.logged = isAuth))
     );

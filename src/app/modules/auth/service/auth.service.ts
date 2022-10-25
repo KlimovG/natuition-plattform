@@ -1,56 +1,26 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GC_AUTH_TOKEN, GC_USER_ID } from '../constants';
+import { catchError, Observable, of } from 'rxjs';
 import { LoginInput } from '../models/login-form.model';
 import { GraphQLService } from '../../../shared/modules/graphQL/graphQL.service';
-
-const LOGIN = `
-  mutation Login($input: UserLoginInput!) {
-    login(input: $input){
-      email
-      token
-    }
-  }
-`;
+import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _userId: string | null = null;
-  private _isAuthenticated = new BehaviorSubject(false);
-  constructor(private graphQlService: GraphQLService) {}
+  constructor(
+    private graphQlService: GraphQLService,
+    private httpClient: HttpClient
+  ) {}
 
-  get isAuthenticated(): Observable<boolean> {
-    return this._isAuthenticated.asObservable();
+  isAuthenticated(): Observable<boolean> {
+    return this.httpClient
+      .get<boolean>('/api/auth')
+      .pipe(catchError(() => of(false)));
   }
 
-  set userId(id: string | null) {
-    this._userId = id;
-    this._isAuthenticated.next(true);
-  }
-
-  save(email: string, token: string) {
-    localStorage.setItem(GC_USER_ID, email);
-    localStorage.setItem(GC_AUTH_TOKEN, token);
-    this.userId = email;
-  }
-
-  logIn(data: LoginInput): Observable<any> {
-    return this.graphQlService.mutation(LOGIN, { input: data });
-  }
-
-  logOut() {
-    localStorage.removeItem(GC_USER_ID);
-    localStorage.removeItem(GC_AUTH_TOKEN);
-    this.userId = null;
-    this._isAuthenticated.next(false);
-  }
-
-  autoLogin() {
-    const id = localStorage.getItem(GC_USER_ID);
-    if (id) {
-      this.userId = id;
-    }
+  login(data: LoginInput): Observable<User> {
+    return this.httpClient.post<User>('api/auth/login', data);
   }
 }

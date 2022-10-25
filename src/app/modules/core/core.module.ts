@@ -3,7 +3,6 @@ import { CoreComponent } from './components/core/core.component';
 import { SharedModule } from '../../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 import { CoreRoutingModule } from './core.routing.module';
-import { RobotsComponent } from './components/robots/robots.component';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { MapComponent } from './components/map/map.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
@@ -12,7 +11,6 @@ import { StatisticComponent } from './components/statistic/statistic.component';
   declarations: [
     CoreComponent,
     HeaderComponent,
-    RobotsComponent,
     SessionsComponent,
     MapComponent,
     StatisticComponent,

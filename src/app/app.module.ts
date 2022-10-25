@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { httpLoaderFactory } from './shared/i18n/http-loader-factory';
 import { StoreModule } from '@ngrx/store';
@@ -9,23 +9,14 @@ import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './modules/core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthEffects } from './modules/auth/state/auth.effects';
 import { HttpLink } from 'apollo-angular/http';
-import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import { InMemoryCache } from '@apollo/client/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
-const uri = 'http://localhost:3000/graphql';
-export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
-  return {
-    link: httpLink.create({ uri }),
-    cache: new InMemoryCache(),
-    headers: { 'Access-Control-Allow-Origin': '*' },
-  };
-}
+import { APOLLO_OPTIONS } from 'apollo-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +24,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     AppRoutingModule,
     BrowserModule,
     RouterModule,
+    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -52,7 +44,20 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     SharedModule,
     AuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'api/',
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

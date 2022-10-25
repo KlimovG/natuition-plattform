@@ -17,12 +17,8 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType<LogIn>(AuthActionTypes.LOG_IN),
       switchMap(({ payload }) =>
-        this.service.logIn(payload).pipe(
-          map(({ data }) => {
-            const { email, token } = data.login;
-
-            this.service.save(email, token);
-
+        this.service.login(payload).pipe(
+          map(({ email }) => {
             return new LogInSuccess({
               isLogged: true,
               user: email,

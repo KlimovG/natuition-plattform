@@ -13,6 +13,7 @@ export class SmartLoginFormComponent implements OnInit {
   form!: FormGroup;
   textData!: InputListModel[];
   private prefix = 'login';
+
   constructor(private formBuilder: FormBuilder, private store: Store<State>) {}
 
   ngOnInit(): void {
@@ -41,7 +42,6 @@ export class SmartLoginFormComponent implements OnInit {
 
   onSubmit(): void {
     const result = this.form.value;
-    console.log(result);
     this.store.dispatch(new LogIn(result));
   }
 }
