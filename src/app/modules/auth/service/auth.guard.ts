@@ -22,8 +22,10 @@ export class AuthGuard implements CanActivate {
       select((state) => state.auth.isLogged),
       take(1)
     );
+    console.log('here');
     return merge(validFromApi$, validFromState$).pipe(
       tap(async (authenticated) => {
+        console.log(authenticated);
         if (!authenticated) await this.router.navigate(['home/login']);
       })
     );
