@@ -7,41 +7,42 @@ const USER_KEY = 'auth-user';
 @Injectable({
   providedIn: 'root',
 })
-export class TokenStorageServiceService {
+export class TokenStorageService {
   constructor() {}
-  signOut(): void {
+
+  public signOut(): void {
     localStorage.clear();
   }
 
-  public saveToken(token: string): void {
+  set token(token: string | null) {
     localStorage.removeItem(TOKEN_KEY);
-    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_KEY, token as string);
 
-    const user = this.getUser();
+    const user = this.user;
     if (user.id) {
-      this.saveUser({ ...user, accessToken: token });
+      this.user = { ...user, accessToken: token };
     }
   }
 
-  public getToken(): string | null {
+  get token(): string | null {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  public saveRefreshToken(token: string): void {
+  set refreshToken(token: string | null) {
     localStorage.removeItem(REFRESHTOKEN_KEY);
-    localStorage.setItem(REFRESHTOKEN_KEY, token);
+    localStorage.setItem(REFRESHTOKEN_KEY, token as string);
   }
 
-  public getRefreshToken(): string | null {
+  get refreshToken(): string | null {
     return localStorage.getItem(REFRESHTOKEN_KEY);
   }
 
-  public saveUser(user: any): void {
+  set user(user: any) {
     localStorage.removeItem(USER_KEY);
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser(): any {
+  get user(): any {
     const user = localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
