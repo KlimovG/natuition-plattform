@@ -6,7 +6,7 @@ import { SmartRegistrationFormComponent } from './modules/auth/components/smart/
 import { AuthGuard } from './modules/auth/service/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'home',
     component: AuthPageComponent,
@@ -26,7 +26,7 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () =>
       import('./modules/core/core.module').then((m) => m.CoreModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 ];
 

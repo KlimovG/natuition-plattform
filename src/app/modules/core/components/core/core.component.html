@@ -1,10 +1,15 @@
-  <app-header class="w-full self-start"></app-header>
-  <div class="w-full h-full mt-4">
-  <div class="w-1/4 p-6 h-auto bg-gray-light relative rounded-2xl overflow-hidden xl:mr-6 max-h-42-5">
-    <router-outlet name="robots"></router-outlet>
-
+<div class="flex flex-col h-full">
+  <app-header class="w-full"></app-header>
+  <div class="w-full h-full mt-4 flex-grow flex justify-between">
+    <div class="w-1/4 p-6 bg-gray-white relative rounded-2xl overflow-hidden xl:mr-6 max-h-42-5">
+      <router-outlet name="robots"></router-outlet>
+    </div>
+    <div class="flex flex-col p-6 w-1/2">
+      <router-outlet name="map"></router-outlet>
+      <router-outlet name="statistic"></router-outlet>
+    </div>
+    <div class="w-1/4 p-6 bg-gray-white relative rounded-2xl overflow-hidden xl:ml-6 max-h-42-5">
+      <router-outlet name="sessions"></router-outlet>
+    </div>
   </div>
-    <router-outlet name="map"></router-outlet>
-    <router-outlet name="statistic"></router-outlet>
-    <router-outlet name="sessions"></router-outlet>
-  </div>
+</div>
