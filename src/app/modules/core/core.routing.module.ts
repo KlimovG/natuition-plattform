@@ -14,7 +14,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/robots/robots.module').then((m) => m.RobotsModule),
+          import('../robots/robots.module').then((m) => m.RobotsModule),
         outlet: 'robots',
       },
       {

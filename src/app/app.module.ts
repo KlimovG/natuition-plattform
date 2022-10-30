@@ -49,10 +49,13 @@ import { APOLLO_OPTIONS } from 'apollo-angular';
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
         return {
-          cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: 'api/',
+          cache: new InMemoryCache({
+            addTypename: false,
           }),
+          link: httpLink.create({
+            uri: '/graphql',
+          }),
+          connectToDevTools: true,
         };
       },
       deps: [HttpLink],

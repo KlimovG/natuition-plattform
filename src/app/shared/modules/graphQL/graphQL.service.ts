@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GraphQLService {
   constructor(private apollo: Apollo) {}
   mutation<T>(
@@ -15,6 +17,15 @@ export class GraphQLService {
         ${mutation}
       `,
       variables,
+    });
+  }
+
+  query(query: string, variables?: any) {
+    return this.apollo.watchQuery({
+      query: gql`
+        ${query}
+      `,
+      variables: { variables },
     });
   }
 }

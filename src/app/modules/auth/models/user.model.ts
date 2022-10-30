@@ -9,9 +9,9 @@ export class User {
   email!: string;
 
   @IsNotEmpty()
-  name!: string;
+  name?: string;
 
   @IsNotEmpty()
   @IsPhoneNumber()
-  phone!: string;
+  phone?: string;
 }
