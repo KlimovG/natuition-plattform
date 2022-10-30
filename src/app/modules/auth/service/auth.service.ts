@@ -4,6 +4,7 @@ import { LoginInput } from '../models/login-form.model';
 import { GraphQLService } from '../../../shared/modules/graphQL/graphQL.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { TokenStorageService } from './token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -17,7 +18,8 @@ export class AuthService {
 
   constructor(
     private graphQlService: GraphQLService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private tokenService: TokenStorageService
   ) {}
 
   isAuthenticated(): Observable<boolean> {
