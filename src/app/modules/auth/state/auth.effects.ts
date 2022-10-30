@@ -21,7 +21,7 @@ export class AuthEffects {
           map(({ email }) => {
             return new LogInSuccess({
               isLogged: true,
-              user: email,
+              user: { id: 1, email },
             });
           })
         )

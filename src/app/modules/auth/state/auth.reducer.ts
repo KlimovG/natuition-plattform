@@ -1,13 +1,18 @@
 import { AuthActionTypes, AuthActionUnion } from './auth.actions';
+import { User } from '../models/user.model';
+import { State } from '../../../state';
 
 export interface AuthState {
   isLogged: boolean;
-  user: string | null;
+  user: User;
 }
 
 export const initialState: AuthState = {
   isLogged: false,
-  user: null,
+  user: {
+    id: 1,
+    email: 'v.modylevskii@natuition.com',
+  },
 };
 
 export function reducer(
@@ -27,3 +32,5 @@ export function reducer(
       return state;
   }
 }
+
+export const selectUserID = (state: State): number => state.auth.user.id;
