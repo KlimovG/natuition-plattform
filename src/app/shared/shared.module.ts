@@ -14,9 +14,8 @@ import { FormBaseComponent } from './components/form-components/base/form-base/f
 import { RouterModule } from '@angular/router';
 import { UserImageComponent } from './components/user/user-image/user-image.component';
 import { UserLabelComponent } from './components/user/user-label/user-label.component';
-import { AppRoutingModule } from '../app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { GraphQLModule } from './modules/graphQL/graphQL.module';
+import { ButtonsListComponent } from './components/buttons-list/buttons-list.component';
 
 @NgModule({
   imports: [
@@ -39,6 +38,7 @@ import { GraphQLModule } from './modules/graphQL/graphQL.module';
     FormBaseComponent,
     UserImageComponent,
     UserLabelComponent,
+    ButtonsListComponent,
   ],
   exports: [
     CommonModule,
@@ -55,6 +55,7 @@ import { GraphQLModule } from './modules/graphQL/graphQL.module';
     FormBaseComponent,
     UserLabelComponent,
     UserImageComponent,
+    ButtonsListComponent,
   ],
   providers: [TranslationService],
 })
