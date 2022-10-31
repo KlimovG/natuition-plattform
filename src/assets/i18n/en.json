@@ -23,5 +23,14 @@
   },
   "robots": {
     "title": "Robots"
+  },
+  "sessions": {
+    "title": "Sessions"
+  },
+  "map": {
+    "title": "Map view"
+  },
+  "statistic": {
+    "title": "Statistics of extractions"
   }
 }

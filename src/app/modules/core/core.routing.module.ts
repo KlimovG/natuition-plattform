@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { CoreComponent } from './components/core/core.component';
 import { NgModule } from '@angular/core';
-import { SessionsComponent } from './components/sessions/sessions.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { MapComponent } from './components/map/map.component';
 
@@ -29,7 +28,8 @@ const routes: Routes = [
       },
       {
         path: '',
-        component: SessionsComponent,
+        loadChildren: () =>
+          import('../sessions/sessions.module').then((m) => m.SessionsModule),
         outlet: 'sessions',
       },
     ],
