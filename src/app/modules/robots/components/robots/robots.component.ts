@@ -16,8 +16,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./robots.component.scss'],
 })
 export class RobotsComponent implements OnInit {
-  @Input() robots!: string[] | null;
-  @Input() activeRobot!: string;
+  @Input() robots: string[] | null;
+  @Input() activeRobot: string;
   @Output() onRobotClick = new EventEmitter<string>();
   constructor() {}
 

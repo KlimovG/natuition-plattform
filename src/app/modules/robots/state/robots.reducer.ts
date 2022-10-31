@@ -9,11 +9,13 @@ import {
 export interface RobotsState {
   robotsForCustomer: RobotModel[];
   isLoading: boolean;
+  activeRobot: string;
 }
 
 export const initialState: RobotsState = {
   robotsForCustomer: [],
   isLoading: false,
+  activeRobot: null,
 };
 
 export function reducer(
@@ -21,8 +23,15 @@ export function reducer(
   action: RobotsActionUnion
 ): RobotsState {
   switch (action.type) {
+    case RobotsActionTypes.SET_ACTIVE_ROBOT:
+      return {
+        ...state,
+        activeRobot: action.payload,
+      };
+
     case RobotsActionTypes.GET_ROBOTS_CUSTOMER_SUCCESS:
       return {
+        ...state,
         isLoading: false,
         robotsForCustomer: action.payload,
       };
@@ -38,5 +47,8 @@ export function reducer(
 
 const selectFeature = createFeatureSelector<RobotsState>('robots');
 
-export const selectRobots = (): MemoizedSelector<RobotsState, RobotModel[]> =>
+export const selectRobots = (): MemoizedSelector<any, RobotModel[]> =>
   createSelector(selectFeature, (state) => state.robotsForCustomer);
+
+export const selectActiveRobot = (): MemoizedSelector<any, string> =>
+  createSelector(selectFeature, (state) => state.activeRobot);

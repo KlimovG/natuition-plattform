@@ -20,7 +20,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
           Authorization: `Bearer ${token}`,
         },
       };
-    return;
+    return undefined;
   });
   const link = ApolloLink.from([auth, httpLink.create({ uri })]);
   return {

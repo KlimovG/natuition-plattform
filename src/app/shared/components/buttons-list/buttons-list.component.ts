@@ -6,8 +6,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./buttons-list.component.scss'],
 })
 export class ButtonsListComponent implements OnInit {
-  @Input() buttonsData!: any;
-  @Input() active!: string;
+  @Input() buttonsData: any;
+  @Input() active: string;
   @Output() onClick = new EventEmitter<any>();
   constructor() {}
 

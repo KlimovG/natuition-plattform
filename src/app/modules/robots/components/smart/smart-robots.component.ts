@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { GetRobotsForCustomer } from '../../state/robots.actions';
+import {
+  GetRobotsForCustomer,
+  SetActiveRobot,
+} from '../../state/robots.actions';
 import { selectUserID } from '../../../auth/state/auth.reducer';
 import { State } from '../../../../state';
-import { RobotsState, selectRobots } from '../../state/robots.reducer';
-import { map, Observable, Subscription } from 'rxjs';
+import { selectActiveRobot, selectRobots } from '../../state/robots.reducer';
+import { filter, map, Observable, skip, Subscription } from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
 
 @Component({
@@ -12,38 +15,34 @@ import { RobotModel } from '../../models/robot.model';
   template: ` <app-robots-list
     *ngIf="robots$ | async"
     [robots]="robots$ | async"
-    [activeRobot]="activeRobot"
+    [activeRobot]="activeRobot$ | async"
     (onRobotClick)="onRobotClick($event)"
   >
   </app-robots-list>`,
   styleUrls: ['./smart-robots.component.scss'],
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
-  robots$!: Observable<string[]>;
-  _activeRobot!: string;
+  robots$: Observable<string[]>;
+  activeRobot$: Observable<string>;
+  _activeRobot: string;
   private subscriptionsList: Subscription[] = [];
 
-  constructor(
-    private store: Store<State>,
-    private robotsStore: Store<RobotsState>
-  ) {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {
     this.store.select(selectUserID).subscribe((id) => {
       this.store.dispatch(new GetRobotsForCustomer(id));
     });
-    this.robots$ = this.robotsStore.pipe(
+    this.activeRobot$ = this.store.pipe(select(selectActiveRobot()), skip(1));
+    this.robots$ = this.store.pipe(
       select(selectRobots()),
+      filter((robots) => !!robots),
       map((robots) => {
-        if (robots) {
-          return robots.map((robot: RobotModel) => {
-            return robot.robotSerialNumber;
-          });
-        }
-        return [];
+        return robots.map((robot: RobotModel) => {
+          return robot.robotSerialNumber;
+        });
       })
     );
-
     this.subscriptionsList.push(
       this.robots$.subscribe((robots) =>
         robots.forEach((robot, i) => {
@@ -61,6 +60,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
 
   onRobotClick(robot: string) {
     this.activeRobot = robot;
+    this.store.dispatch(new SetActiveRobot(robot));
   }
 
   set activeRobot(robot: string) {
