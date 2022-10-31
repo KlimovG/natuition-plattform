@@ -1,8 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { CoreComponent } from './components/core/core.component';
 import { NgModule } from '@angular/core';
-import { StatisticComponent } from './components/statistic/statistic.component';
-import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   {
@@ -18,12 +16,16 @@ const routes: Routes = [
       },
       {
         path: '',
-        component: MapComponent,
+        loadChildren: () =>
+          import('../map/map.module').then((m) => m.MapModule),
         outlet: 'map',
       },
       {
         path: '',
-        component: StatisticComponent,
+        loadChildren: () =>
+          import('../statistic/statistic.module').then(
+            (m) => m.StatisticModule
+          ),
         outlet: 'statistic',
       },
       {

@@ -32,6 +32,17 @@
     "title": "Map view"
   },
   "statistic": {
-    "title": "Statistics of extractions"
+    "title": "Statistics of extractions",
+    "types": {
+      "title": "Type of plants:",
+      "total": "Total number:"
+    },
+    "stats": {
+      "title": "Stats of robot:",
+      "voltage": "Voltage:",
+      "surface": "Target surface:",
+      "cover": "Covered:",
+      "time": "Time left:"
+    }
   }
 }

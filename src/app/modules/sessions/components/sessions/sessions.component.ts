@@ -4,7 +4,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 @Component({
   selector: 'app-sessions-list',
   template: `
-    <app-section-title title="sessions.title"> </app-section-title>
+    <app-title-section title="sessions.title"> </app-title-section>
     <app-buttons-list
       [buttonsData]="sessions"
       [active]="activeSession"

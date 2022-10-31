@@ -5,8 +5,12 @@
       <router-outlet name="robots"></router-outlet>
     </div>
     <div class="flex flex-col p-6 w-1/2">
-      <router-outlet name="map"></router-outlet>
-      <router-outlet name="statistic"></router-outlet>
+      <div class="h-1/2">
+        <router-outlet name="map"></router-outlet>
+      </div>
+      <div class="h-1/2">
+        <router-outlet name="statistic"></router-outlet>
+      </div>
     </div>
     <div class="w-1/4 p-6 bg-gray-white relative rounded-2xl overflow-hidden xl:ml-6 max-h-42-5">
       <router-outlet name="sessions"></router-outlet>

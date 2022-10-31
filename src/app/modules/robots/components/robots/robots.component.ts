@@ -4,7 +4,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 @Component({
   selector: 'app-robots-list',
   template: `
-    <app-section-title title="robots.title"> </app-section-title>
+    <app-title-section title="robots.title"> </app-title-section>
     <app-buttons-list
       [buttonsData]="robots"
       [active]="activeRobot"
