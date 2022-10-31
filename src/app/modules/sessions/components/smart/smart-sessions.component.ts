@@ -40,7 +40,7 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
     this.sessions$ = this.store.pipe(
       select(selectSessions()),
       map((sessions) => {
-        if (sessions?.length === 0) {
+        if (sessions?.length === 0 || !sessions) {
           return null;
         }
         return sessions.map((session: SessionModel) => ({
@@ -51,12 +51,13 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
     );
     this.subscriptionsList.push(
       this.sessions$.subscribe((sessions) =>
-        sessions.forEach((session, i) => {
-          console.log(sessions);
-          if (i === 0) {
-            this.store.dispatch(new SetActiveSession(session.id));
-          }
-        })
+        sessions
+          ? sessions.forEach((session, i) => {
+              if (i === 0) {
+                this.store.dispatch(new SetActiveSession(session.id));
+              }
+            })
+          : null
       )
     );
   }

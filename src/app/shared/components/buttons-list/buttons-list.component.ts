@@ -17,4 +17,12 @@ export class ButtonsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  btnClick(event: MouseEvent, id: string | number) {
+    event.preventDefault();
+    console.log(this.active);
+    console.log(id);
+    if (this.active === id) {
+    }
+  }
 }

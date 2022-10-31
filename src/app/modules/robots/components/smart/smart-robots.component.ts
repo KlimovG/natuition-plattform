@@ -7,7 +7,14 @@ import {
 import { selectUserID } from '../../../auth/state/auth.reducer';
 import { State } from '../../../../state';
 import { selectActiveRobot, selectRobots } from '../../state/robots.reducer';
-import { filter, map, Observable, skip } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  map,
+  Observable,
+  Subscription,
+  takeWhile,
+} from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
@@ -26,7 +33,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   robots$: Observable<IButtonsData[]>;
   activeRobot$: Observable<string>;
   _activeRobot: string;
-  // private subscriptionsList: Subscription[] = [];
+  private subscriptionsList: Subscription[] = [];
 
   constructor(private store: Store<State>) {}
 
@@ -34,7 +41,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
     this.store.select(selectUserID).subscribe((id) => {
       this.store.dispatch(new GetRobotsForCustomer(id));
     });
-    this.activeRobot$ = this.store.pipe(select(selectActiveRobot()), skip(1));
+    this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
     this.robots$ = this.store.pipe(
       select(selectRobots()),
       filter((robots) => !!robots),
@@ -45,10 +52,24 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
         }));
       })
     );
+    this.subscriptionsList.push(
+      combineLatest([
+        this.store.pipe(select(selectRobots())),
+        this.activeRobot$,
+      ])
+        .pipe(takeWhile(([_, active]) => !active))
+        .subscribe(([robots]) => {
+          robots.forEach(({ robotSerialNumber }, i) => {
+            if (i === 0) {
+              this.store.dispatch(new SetActiveRobot(robotSerialNumber));
+            }
+          });
+        })
+    );
   }
 
   ngOnDestroy() {
-    // this.subscriptionsList.forEach((s) => s.unsubscribe());
+    this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
   onRobotClick(robot: string) {
