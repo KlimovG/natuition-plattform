@@ -20,5 +20,8 @@
   },
   "header": {
     "signOut": "Sign out"
+  },
+  "robots": {
+    "title": "Robots"
   }
 }

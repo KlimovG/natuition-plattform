@@ -8,12 +8,14 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/robots.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { RobotsEffects } from './state/robots.effects';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [RobotsComponent, SmartRobotsComponent],
   imports: [
     CommonModule,
     RobotsRoutingModule,
+    SharedModule,
     StoreModule.forFeature('robots', reducer),
     EffectsModule.forFeature([RobotsEffects]),
   ],

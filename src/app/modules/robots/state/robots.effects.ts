@@ -16,9 +16,11 @@ export class RobotsEffects {
     this.action$.pipe(
       ofType<GetRobotsForCustomer>(RobotsActionTypes.GET_ROBOTS_CUSTOMER),
       switchMap(({ payload }) =>
-        this.service
-          .getRobotsForCustomer(payload)
-          .pipe(map(({ data }) => new GetRobotsForCustomerSuccess(data)))
+        this.service.getRobotsForCustomer(payload).pipe(
+          map((robots) => {
+            return new GetRobotsForCustomerSuccess(robots);
+          })
+        )
       )
     )
   );

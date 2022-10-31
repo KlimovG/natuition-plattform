@@ -1,6 +1,10 @@
 import { RobotModel } from '../models/robot.model';
 import { RobotsActionTypes, RobotsActionUnion } from './robots.actions';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
 
 export interface RobotsState {
   robotsForCustomer: RobotModel[];
@@ -34,8 +38,5 @@ export function reducer(
 
 const selectFeature = createFeatureSelector<RobotsState>('robots');
 
-export const selectRobotsForCustomer = (state: RobotsState): RobotModel[] =>
-  state.robotsForCustomer;
-
-export const selectRobots = () =>
-  createSelector(selectFeature, selectRobotsForCustomer);
+export const selectRobots = (): MemoizedSelector<RobotsState, RobotModel[]> =>
+  createSelector(selectFeature, (state) => state.robotsForCustomer);

@@ -6,5 +6,5 @@ export class RobotModel {
   @IsNotEmpty()
   userId!: number;
   @IsNotEmpty()
-  serialNumber!: string;
+  robotSerialNumber!: string;
 }

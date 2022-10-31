@@ -1,8 +1,10 @@
 <div class="flex flex-col" *ngFor="let button of buttonsData">
   <button
+    class="mb-2 border-2 border-green text-green-dark w-full Montserrat-SemiBold rounded-lg py-4 px-6 text-base transition duration-300"
     type="submit"
-    (submit)="onClick.emit($event)"
+    (click)="onClick.emit(button)"
+    [ngClass]="{'text-gray-white bg-green': active === button}"
   >
-    {{ button.text | translate}}
+    {{ button }}
   </button>
 </div>
