@@ -16,6 +16,7 @@ import { UserImageComponent } from './components/user/user-image/user-image.comp
 import { UserLabelComponent } from './components/user/user-label/user-label.component';
 import { GraphQLModule } from './modules/graphQL/graphQL.module';
 import { ButtonsListComponent } from './components/buttons-list/buttons-list.component';
+import { SectionTitleComponent } from './components/section-title/section-title.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { ButtonsListComponent } from './components/buttons-list/buttons-list.com
     UserImageComponent,
     UserLabelComponent,
     ButtonsListComponent,
+    SectionTitleComponent,
   ],
   exports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { ButtonsListComponent } from './components/buttons-list/buttons-list.com
     UserLabelComponent,
     UserImageComponent,
     ButtonsListComponent,
+    SectionTitleComponent,
   ],
   providers: [TranslationService],
 })

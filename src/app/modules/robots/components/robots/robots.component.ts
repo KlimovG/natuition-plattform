@@ -3,9 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-robots-list',
   template: `
-    <h2 class="Montserrat-Bold text-2xl text-left mb-2.5">
-      {{ 'robots.title' | translate }}
-    </h2>
+    <app-section-title title="robots.title"> </app-section-title>
     <app-buttons-list
       [buttonsData]="robots"
       [active]="activeRobot"
