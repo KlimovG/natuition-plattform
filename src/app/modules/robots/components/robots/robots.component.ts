@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
 @Component({
   selector: 'app-robots-list',
@@ -14,7 +15,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./robots.component.scss'],
 })
 export class RobotsComponent implements OnInit {
-  @Input() robots: string[] | null;
+  @Input() robots: IButtonsData[];
   @Input() activeRobot: string;
   @Output() onRobotClick = new EventEmitter<string>();
   constructor() {}

@@ -7,8 +7,9 @@ import {
 import { selectUserID } from '../../../auth/state/auth.reducer';
 import { State } from '../../../../state';
 import { selectActiveRobot, selectRobots } from '../../state/robots.reducer';
-import { filter, map, Observable, skip, Subscription } from 'rxjs';
+import { filter, map, Observable, skip } from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
+import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
 @Component({
   selector: 'app-smart-robots',
@@ -22,10 +23,10 @@ import { RobotModel } from '../../models/robot.model';
   styleUrls: ['./smart-robots.component.scss'],
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
-  robots$: Observable<string[]>;
+  robots$: Observable<IButtonsData[]>;
   activeRobot$: Observable<string>;
   _activeRobot: string;
-  private subscriptionsList: Subscription[] = [];
+  // private subscriptionsList: Subscription[] = [];
 
   constructor(private store: Store<State>) {}
 
@@ -38,24 +39,16 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       select(selectRobots()),
       filter((robots) => !!robots),
       map((robots) => {
-        return robots.map((robot: RobotModel) => {
-          return robot.robotSerialNumber;
-        });
+        return robots.map((robot: RobotModel) => ({
+          label: robot.robotSerialNumber,
+          id: robot.robotSerialNumber,
+        }));
       })
-    );
-    this.subscriptionsList.push(
-      this.robots$.subscribe((robots) =>
-        robots.forEach((robot, i) => {
-          if (i === 0) {
-            this.activeRobot = robot;
-          }
-        })
-      )
     );
   }
 
   ngOnDestroy() {
-    this.subscriptionsList.forEach((s) => s.unsubscribe());
+    // this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
   onRobotClick(robot: string) {

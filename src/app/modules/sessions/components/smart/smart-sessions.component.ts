@@ -12,6 +12,7 @@ import {
   SetActiveSession,
 } from '../../state/sessions.actions';
 import { selectActiveRobot } from '../../../robots/state/robots.reducer';
+import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
 @Component({
   selector: 'app-smart-sessions',
@@ -23,7 +24,7 @@ import { selectActiveRobot } from '../../../robots/state/robots.reducer';
   </app-sessions-list>`,
 })
 export class SmartSessionsComponent implements OnInit, OnDestroy {
-  sessions$: Observable<string[]>;
+  sessions$: Observable<IButtonsData[]>;
   activeSession$: Observable<string>;
   private subscriptionsList: Subscription[] = [];
 
@@ -42,9 +43,10 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
         if (sessions?.length === 0) {
           return null;
         }
-        return sessions.map((session: SessionModel) => {
-          return session.startTime as string;
-        });
+        return sessions.map((session: SessionModel) => ({
+          label: 'sessions.btn',
+          id: session.id.toString(),
+        }));
       })
     );
     this.subscriptionsList.push(
@@ -52,7 +54,7 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
         sessions.forEach((session, i) => {
           console.log(sessions);
           if (i === 0) {
-            this.store.dispatch(new SetActiveSession(session));
+            this.store.dispatch(new SetActiveSession(session.id));
           }
         })
       )

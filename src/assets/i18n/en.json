@@ -25,7 +25,8 @@
     "title": "Robots"
   },
   "sessions": {
-    "title": "Sessions"
+    "title": "Sessions",
+    "btn": "Session {{index}}"
   },
   "map": {
     "title": "Map view"

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
 @Component({
   selector: 'app-sessions-list',
@@ -14,7 +15,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   `,
 })
 export class SessionsComponent implements OnInit {
-  @Input() sessions: string[];
+  @Input() sessions: IButtonsData[];
   @Input() activeSession: string;
   @Output() onSessionClick = new EventEmitter<string>();
   constructor() {}

@@ -1,10 +1,10 @@
-<div class="flex flex-col" *ngFor="let button of buttonsData">
+<div class="flex flex-col" *ngFor="let button of buttonsData; let i = index">
   <button
     class="mb-2 border-2 border-green text-green-dark w-full Montserrat-SemiBold rounded-lg py-4 px-6 text-base transition duration-300"
     type="submit"
-    (click)="onClick.emit(button)"
-    [ngClass]="{'text-gray-white bg-green': active === button}"
+    (click)="onClick.emit(button.id)"
+    [ngClass]="{'text-gray-white bg-green': active === button.id}"
   >
-    {{ button }}
+    {{ button.label | translate : {index: i + 1} }}
   </button>
 </div>
