@@ -19,7 +19,6 @@ import { Component, Input, OnInit } from '@angular/core';
       </div>
     </div>
   `,
-  styleUrls: ['./statistic.component.scss'],
 })
 export class StatisticComponent implements OnInit {
   @Input() translationPrefix: string;
