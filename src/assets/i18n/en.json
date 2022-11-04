@@ -20,5 +20,29 @@
   },
   "header": {
     "signOut": "Sign out"
+  },
+  "robots": {
+    "title": "Robots"
+  },
+  "sessions": {
+    "title": "Sessions",
+    "btn": "Session {{index}}"
+  },
+  "map": {
+    "title": "Map view"
+  },
+  "statistic": {
+    "title": "Statistics of extractions",
+    "types": {
+      "title": "Type of plants:",
+      "total": "Total number:"
+    },
+    "stats": {
+      "title": "Stats of robot:",
+      "voltage": "Voltage:",
+      "surface": "Target surface:",
+      "cover": "Covered:",
+      "time": "Time left:"
+    }
   }
 }

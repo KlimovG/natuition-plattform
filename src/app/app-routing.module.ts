@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './pages/home/home-page.component';
-import { SmartLoginComponent } from './pages/home/components/smart/smart-login/smart-login.component';
-import { SmartRegistrationFormComponent } from './pages/home/components/smart/smart-registration-form/smart-registration-form.component';
+import { AuthPageComponent } from './modules/auth/pages/home/auth-page.component';
+import { SmartLoginFormComponent } from './modules/auth/components/smart/smart-login-form/smart-login-form.component';
+import { SmartRegistrationFormComponent } from './modules/auth/components/smart/smart-registration-form/smart-registration-form.component';
+import { AuthGuard } from './modules/auth/service/auth.guard';
 
 const routes: Routes = [
-  //TODO: remove redirect, after mage registration and login form
-  {
-    path: '',
-    redirectTo: 'core',
-    pathMatch: 'full',
-  },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'home',
-    component: HomePageComponent,
+    component: AuthPageComponent,
     children: [
       {
         path: 'registration',
@@ -21,14 +17,16 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: SmartLoginComponent,
+        component: SmartLoginFormComponent,
       },
     ],
   },
+
   {
-    path: 'core',
+    path: 'dashboard',
     loadChildren: () =>
       import('./modules/core/core.module').then((m) => m.CoreModule),
+    // canActivate: [AuthGuard],
   },
 ];
 

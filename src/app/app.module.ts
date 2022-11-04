@@ -1,7 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -11,33 +8,22 @@ import { metaReducers, reducers } from './state';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { HomePageComponent } from './pages/home/home-page.component';
-import { LoginFormComponent } from './pages/home/components/login-form/login-form.component';
-import { RegistrationFormComponent } from './pages/home/components/registration-form/registration-form.component';
 import { SharedModule } from './shared/shared.module';
-import { SmartLoginComponent } from './pages/home/components/smart/smart-login/smart-login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SmartRegistrationFormComponent } from './pages/home/components/smart/smart-registration-form/smart-registration-form.component';
-import { CommonModule } from '@angular/common';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthEffects } from './modules/auth/state/auth.effects';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { DashboardPageComponent } from './pages/dashboard/dashboard-page.component';
-import { CoreModule } from './modules/core/core.module';
+import { APOLLO_OPTIONS } from 'apollo-angular';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    LoginFormComponent,
-    RegistrationFormComponent,
-    SmartLoginComponent,
-    SmartRegistrationFormComponent,
-    DashboardPageComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
-    RouterModule,
     AppRoutingModule,
-    CommonModule,
     BrowserModule,
+    RouterModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -47,7 +33,7 @@ import { CoreModule } from './modules/core/core.module';
       },
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 100 })
       : [],
@@ -56,10 +42,25 @@ import { CoreModule } from './modules/core/core.module';
       logOnly: environment.production,
     }),
     SharedModule,
-    ReactiveFormsModule,
-    CoreModule,
+    AuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache({
+            addTypename: false,
+          }),
+          link: httpLink.create({
+            uri: '/graphql',
+          }),
+          connectToDevTools: true,
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

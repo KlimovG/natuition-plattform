@@ -9,6 +9,7 @@ export class ButtonPrimaryComponent implements OnInit {
   @Output() click = new EventEmitter<any>();
   @Input() link!: any[] | string | null | undefined;
   @Input() text: string = 'btn';
+  @Input() formName!: string;
   constructor() {}
 
   ngOnInit(): void {}

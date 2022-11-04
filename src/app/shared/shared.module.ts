@@ -14,6 +14,10 @@ import { FormBaseComponent } from './components/form-components/base/form-base/f
 import { RouterModule } from '@angular/router';
 import { UserImageComponent } from './components/user/user-image/user-image.component';
 import { UserLabelComponent } from './components/user/user-label/user-label.component';
+import { GraphQLModule } from './modules/graphQL/graphQL.module';
+import { ButtonsListComponent } from './components/buttons-list/buttons-list.component';
+import { TitleSectionComponent } from './components/title-section/title-section.component';
+import { TitleColumnComponent } from './components/title-column/title-column.component';
 
 @NgModule({
   imports: [
@@ -22,6 +26,8 @@ import { UserLabelComponent } from './components/user/user-label/user-label.comp
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    GraphQLModule,
+    CommonModule,
   ],
   declarations: [
     ButtonPrimaryComponent,
@@ -34,18 +40,28 @@ import { UserLabelComponent } from './components/user/user-label/user-label.comp
     FormBaseComponent,
     UserImageComponent,
     UserLabelComponent,
+    ButtonsListComponent,
+    TitleSectionComponent,
+    TitleColumnComponent,
   ],
   exports: [
     CommonModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
+    GraphQLModule,
     ButtonPrimaryComponent,
     ButtonSecondaryComponent,
     LogoComponent,
     InputTextComponent,
     InputListComponent,
     FormBaseComponent,
-    RouterModule,
     UserLabelComponent,
     UserImageComponent,
+    ButtonsListComponent,
+    TitleSectionComponent,
+    TitleColumnComponent,
   ],
   providers: [TranslationService],
 })

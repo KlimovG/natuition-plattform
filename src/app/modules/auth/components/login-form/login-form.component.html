@@ -1,0 +1,6 @@
+<form [formGroup]="this.form" class="my-6" (ngSubmit)="save.emit()" id="login">
+  <app-input-list
+    [formGroup]="this.form"
+    [data]="this.data"
+  ></app-input-list>
+</form>
