@@ -4,22 +4,22 @@ import { StatisticService } from '../service/statistic.service';
 
 import { map, switchMap } from 'rxjs';
 import {
-  GetSessionsForRobot,
-  GetSessionsForRobotSuccess,
-  SessionsActionTypes,
+  GetStatistic,
+  GetStatisticSuccess,
+  StatisticActionTypes,
 } from './statistic.actions';
 
 @Injectable()
-export class SessionsEffects {
+export class StatisticEffects {
   constructor(private action$: Actions, private service: StatisticService) {}
 
-  getRobotsForCustomer$ = createEffect(() =>
+  getStatistic$ = createEffect(() =>
     this.action$.pipe(
-      ofType<GetSessionsForRobot>(SessionsActionTypes.GET_SESSIONS_ROBOT),
+      ofType<GetStatistic>(StatisticActionTypes.GET_STATISTIC),
       switchMap(({ payload }) =>
-        this.service.getSessionsForRobot(payload).pipe(
-          map((sessions) => {
-            return new GetSessionsForRobotSuccess(sessions);
+        this.service.getStatistic(payload).pipe(
+          map((statistic) => {
+            return new GetStatisticSuccess(statistic);
           })
         )
       )

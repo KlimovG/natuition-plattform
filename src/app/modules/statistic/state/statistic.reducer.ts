@@ -1,53 +1,45 @@
-import { StatisticModel } from '../models/statistic.model';
-import { SessionsActionTypes, SessionsActionUnion } from './statistic.actions';
+import { StatisticDto } from '../models/statistic.dto';
+import {
+  StatisticActionTypes,
+  StatisticActionUnion,
+} from './statistic.actions';
 import {
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
-export interface SesssionsState {
-  sessions: StatisticModel[];
+export interface StatisticState {
+  statistic: StatisticDto;
   isLoading: boolean;
-  activeSession: string;
 }
 
-export const initialState: SesssionsState = {
-  sessions: [],
+export const initialState: StatisticState = {
+  statistic: null,
   isLoading: false,
-  activeSession: null,
 };
 
 export function reducer(
   state = initialState,
-  action: SessionsActionUnion
-): SesssionsState {
+  action: StatisticActionUnion
+): StatisticState {
   switch (action.type) {
-    case SessionsActionTypes.GET_SESSIONS_ROBOT:
+    case StatisticActionTypes.GET_STATISTIC:
       return {
         ...state,
         isLoading: true,
       };
-    case SessionsActionTypes.GET_SESSIONS_ROBOT_SUCCESS:
+    case StatisticActionTypes.GET_STATISTIC_SUCCESS:
       return {
-        ...state,
         isLoading: false,
-        sessions: action.payload,
-      };
-    case SessionsActionTypes.SET_ACTIVE_SESSION:
-      return {
-        ...state,
-        activeSession: action.payload,
+        statistic: action.payload,
       };
     default:
       return state;
   }
 }
 
-const selectFeature = createFeatureSelector<SesssionsState>('sessions');
+const selectFeature = createFeatureSelector<StatisticState>('statistic');
 
-export const selectSessions = (): MemoizedSelector<any, StatisticModel[]> =>
-  createSelector(selectFeature, (state) => state.sessions);
-
-export const selectActiveSession = (): MemoizedSelector<any, string> =>
-  createSelector(selectFeature, (state) => state.activeSession);
+export const selectStatistic = (): MemoizedSelector<any, StatisticDto> =>
+  createSelector(selectFeature, (state) => state.statistic);

@@ -1,28 +1,21 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { StatisticModel } from '../models/statistic.model';
+import { StatisticDto } from '../models/statistic.dto';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 
-const GET_SESSIONS_FOR_ROBOT = `
-  query ($serial: String!) {
-    getSessionsForRobot(serial: $serial) {
-      id
-      startTime
-      endTime
-      prevSessionId
-      fieldId
-      statistic {
-        id
-        sessionId
-        voltage
-        timestamp
+const GET_STATISTIC = `
+  query GetRobotStats($session: Float!) {
+    getRobotStats(session: $session) {
+      voltage
+      duration {
+        hours
+        minutes
       }
-      extractedWeeds {
-        id
-        pointPath
-        weedType
-        sessionId
+      totalNumber
+      chart {
+        data
+        labels
       }
     }
   }
@@ -34,22 +27,18 @@ const GET_SESSIONS_FOR_ROBOT = `
 export class StatisticService {
   constructor(private apollo: Apollo) {}
 
-  getSessionsForRobot(serial: string) {
+  getStatistic(session: number) {
     return this.apollo
-      .query<{ getSessionsForRobot: StatisticModel[] }>({
-        query: gql(GET_SESSIONS_FOR_ROBOT),
+      .query<{ getRobotStats: StatisticDto }>({
+        query: gql(GET_STATISTIC),
         variables: {
-          serial,
+          session,
         },
       })
       .pipe(
-        map(
-          (
-            result: ApolloQueryResult<{ getSessionsForRobot: StatisticModel[] }>
-          ) => {
-            return result.data.getSessionsForRobot;
-          }
-        )
+        map((result: ApolloQueryResult<{ getRobotStats: StatisticDto }>) => {
+          return result.data.getRobotStats;
+        })
       );
   }
 }

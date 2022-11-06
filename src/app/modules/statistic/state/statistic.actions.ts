@@ -1,31 +1,21 @@
 import { Action } from '@ngrx/store';
-import { StatisticModel } from '../models/statistic.model';
+import { StatisticDto } from '../models/statistic.dto';
 
-export enum SessionsActionTypes {
-  GET_SESSIONS_ROBOT = '[Sessions] Get sessions for customer',
-  GET_SESSIONS_ROBOT_SUCCESS = '[Sessions] Get sessions for customer success',
-  SET_ACTIVE_SESSION = '[Sessions] Set active session',
+export enum StatisticActionTypes {
+  GET_STATISTIC = '[Statistic] Get statistic for session',
+  GET_STATISTIC_SUCCESS = '[Statistic] Get statistic for session success',
 }
 
-export class GetSessionsForRobot implements Action {
-  readonly type = SessionsActionTypes.GET_SESSIONS_ROBOT;
+export class GetStatistic implements Action {
+  readonly type = StatisticActionTypes.GET_STATISTIC;
 
-  constructor(public payload: string) {}
+  constructor(public payload: number) {}
 }
 
-export class GetSessionsForRobotSuccess implements Action {
-  readonly type = SessionsActionTypes.GET_SESSIONS_ROBOT_SUCCESS;
+export class GetStatisticSuccess implements Action {
+  readonly type = StatisticActionTypes.GET_STATISTIC_SUCCESS;
 
-  constructor(public payload: StatisticModel[]) {}
+  constructor(public payload: StatisticDto) {}
 }
 
-export class SetActiveSession implements Action {
-  readonly type = SessionsActionTypes.SET_ACTIVE_SESSION;
-
-  constructor(public payload: string) {}
-}
-
-export type SessionsActionUnion =
-  | SetActiveSession
-  | GetSessionsForRobot
-  | GetSessionsForRobotSuccess;
+export type StatisticActionUnion = GetStatistic | GetStatisticSuccess;
