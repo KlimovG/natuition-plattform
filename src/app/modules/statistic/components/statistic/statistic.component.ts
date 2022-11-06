@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
     <div class="flex lg:flex-nowrap ">
       <div class="lg:w-1/2">
         <app-type-plants
-          [translationPrefix]="translationPrefix"
+          [translationPrefix]="translationPrefix + 'types.'"
         ></app-type-plants>
       </div>
       <div class="lg:w-1/2">

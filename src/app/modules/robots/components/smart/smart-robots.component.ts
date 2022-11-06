@@ -27,7 +27,6 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
     (onRobotClick)="onRobotClick($event)"
   >
   </app-robots-list>`,
-  styleUrls: ['./smart-robots.component.scss'],
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
   robots$: Observable<IButtonsData[]>;
