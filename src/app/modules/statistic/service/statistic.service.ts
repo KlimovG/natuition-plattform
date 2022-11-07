@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { StatisticDto } from '../models/statistic.dto';
+import { StatisticModelFromServer } from '../models/statistic.model';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 
@@ -29,16 +29,22 @@ export class StatisticService {
 
   getStatistic(session: number) {
     return this.apollo
-      .query<{ getRobotStats: StatisticDto }>({
+      .query<{ getRobotStats: StatisticModelFromServer }>({
         query: gql(GET_STATISTIC),
         variables: {
           session,
         },
       })
       .pipe(
-        map((result: ApolloQueryResult<{ getRobotStats: StatisticDto }>) => {
-          return result.data.getRobotStats;
-        })
+        map(
+          (
+            result: ApolloQueryResult<{
+              getRobotStats: StatisticModelFromServer;
+            }>
+          ) => {
+            return result.data.getRobotStats;
+          }
+        )
       );
   }
 }

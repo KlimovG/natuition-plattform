@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { StatisticDto } from '../models/statistic.dto';
+import { StatisticModelFromServer } from '../models/statistic.model';
 
 export enum StatisticActionTypes {
   GET_STATISTIC = '[Statistic] Get statistic for session',
@@ -15,7 +15,7 @@ export class GetStatistic implements Action {
 export class GetStatisticSuccess implements Action {
   readonly type = StatisticActionTypes.GET_STATISTIC_SUCCESS;
 
-  constructor(public payload: StatisticDto) {}
+  constructor(public payload: StatisticModelFromServer) {}
 }
 
 export type StatisticActionUnion = GetStatistic | GetStatisticSuccess;

@@ -1,4 +1,4 @@
-import { StatisticDto } from '../models/statistic.dto';
+import { StatisticModelFromServer } from '../models/statistic.model';
 import {
   StatisticActionTypes,
   StatisticActionUnion,
@@ -8,14 +8,22 @@ import {
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
+import { ChartData } from '../models/chart-data.model';
 
 export interface StatisticState {
-  statistic: StatisticDto;
+  statistic: StatisticModelFromServer;
   isLoading: boolean;
 }
 
+export const initialStatistic: StatisticModelFromServer = {
+  voltage: null,
+  duration: null,
+  totalNumber: null,
+  chart: null,
+};
+
 export const initialState: StatisticState = {
-  statistic: null,
+  statistic: initialStatistic,
   isLoading: false,
 };
 
@@ -41,5 +49,10 @@ export function reducer(
 
 const selectFeature = createFeatureSelector<StatisticState>('statistic');
 
-export const selectStatistic = (): MemoizedSelector<any, StatisticDto> =>
-  createSelector(selectFeature, (state) => state.statistic);
+export const selectStatistic = (): MemoizedSelector<
+  any,
+  StatisticModelFromServer
+> => createSelector(selectFeature, (state) => state.statistic);
+
+export const selectChartData = (): MemoizedSelector<any, ChartData> =>
+  createSelector(selectFeature, (state) => state.statistic.chart);

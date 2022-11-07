@@ -34,15 +34,15 @@
   "statistic": {
     "title": "Statistics of extractions",
     "types": {
-      "title": "Type of plants:",
-      "total": "Total number:"
+      "title": "Type of plants:"
     },
     "stats": {
       "title": "Stats of robot:",
       "voltage": "Voltage:",
+      "duration": "Duration:",
+      "total": "Total number:",
       "surface": "Target surface:",
-      "cover": "Covered:",
-      "time": "Time left:"
+      "cover": "Covered:"
     }
   }
 }

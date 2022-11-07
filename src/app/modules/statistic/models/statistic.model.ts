@@ -1,9 +1,14 @@
 import { ChartData } from './chart-data.model';
 import { DurationObjectUnits } from 'luxon';
 
-export class StatisticDto {
+export interface StatisticModelFromServer {
   voltage?: number;
   duration?: DurationObjectUnits;
   totalNumber?: number;
   chart?: ChartData;
+}
+
+export interface StatisticModel
+  extends Omit<StatisticModelFromServer, 'duration'> {
+  duration: string;
 }
