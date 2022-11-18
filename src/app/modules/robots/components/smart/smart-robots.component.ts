@@ -46,8 +46,8 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       filter((robots) => !!robots),
       map((robots) => {
         return robots.map((robot: RobotModel) => ({
-          label: robot.robotSerialNumber,
-          id: robot.robotSerialNumber,
+          label: robot.serial,
+          id: robot.serial,
         }));
       })
     );
@@ -58,9 +58,9 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       ])
         .pipe(takeWhile(([_, active]) => !active))
         .subscribe(([robots]) => {
-          robots.forEach(({ robotSerialNumber }, i) => {
+          robots.forEach(({ serial }, i) => {
             if (i === 0) {
-              this.store.dispatch(new SetActiveRobot(robotSerialNumber));
+              this.store.dispatch(new SetActiveRobot(serial));
             }
           });
         })
