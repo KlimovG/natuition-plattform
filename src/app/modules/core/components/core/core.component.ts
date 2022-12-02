@@ -1,29 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../../auth/service/auth.service';
-import { distinctUntilChanged, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
   host: {
-    class: 'w-full h-full',
+    class: 'w-full h-full flex flex-col justify-between',
   },
 })
-export class CoreComponent implements OnInit, OnDestroy {
+export class CoreComponent {
   logged: boolean = false;
-  private subscriptionsList: Subscription[] = [];
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.subscriptionsList.push(
-      this.authService
-        .isAuthenticated()
-        .pipe(distinctUntilChanged())
-        .subscribe((isAuth) => (this.logged = isAuth))
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscriptionsList.forEach((s) => s.unsubscribe());
-  }
 }

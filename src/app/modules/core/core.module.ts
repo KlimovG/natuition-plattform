@@ -6,6 +6,10 @@ import { CoreRoutingModule } from './core.routing.module';
 import { SessionsComponent } from './components/sessions/sessions.component';
 import { MapComponent } from './components/map/map.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
+import { MapModule } from '../map/map.module';
+import { SessionsModule } from '../sessions/sessions.module';
+import { RobotsModule } from '../robots/robots.module';
+import { StatisticModule } from '../statistic/statistic.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,14 @@ import { StatisticComponent } from './components/statistic/statistic.component';
     StatisticComponent,
   ],
   exports: [CoreComponent, HeaderComponent],
-  imports: [SharedModule, CoreRoutingModule],
+  imports: [
+    SharedModule,
+    CoreRoutingModule,
+    MapModule,
+    SessionsModule,
+    RobotsModule,
+    StatisticModule,
+  ],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

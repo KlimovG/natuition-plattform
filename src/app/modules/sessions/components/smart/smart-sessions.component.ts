@@ -17,9 +17,10 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 @Component({
   selector: 'app-smart-sessions',
   template: ` <app-sessions-list
+    class="p-6 block h-full flex flex-col"
     [sessions]="sessions$ | async"
     [activeSession]="activeSession$ | async"
-    (onSessionClick)="onRobotClick($event)"
+    (onSessionClick)="onSessionClick($event)"
   >
   </app-sessions-list>`,
 })
@@ -66,7 +67,7 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
     this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
-  onRobotClick(session: string) {
+  onSessionClick(session: string) {
     this.store.dispatch(new SetActiveSession(session));
   }
 }

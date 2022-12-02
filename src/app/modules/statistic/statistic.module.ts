@@ -19,5 +19,6 @@ import { StatItemListComponent } from './components/stat-item-list/stat-item-lis
     StatItemListComponent,
   ],
   imports: [CommonModule, SharedModule, StatisticRoutingModule],
+  exports: [SmartStatisticComponent],
 })
 export class StatisticModule {}

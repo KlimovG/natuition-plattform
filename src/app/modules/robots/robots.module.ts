@@ -20,5 +20,6 @@ import { SharedModule } from '../../shared/shared.module';
     EffectsModule.forFeature([RobotsEffects]),
   ],
   providers: [RobotsService],
+  exports: [SmartRobotsComponent],
 })
 export class RobotsModule {}

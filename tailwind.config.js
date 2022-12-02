@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      gridTemplateRows: {
+        core: "1fr 500px",
+      },
       maxWidth: {
         "layout-lg": "1176px",
         wrapper: "73.5rem",
@@ -12,6 +15,7 @@ module.exports = {
       },
       height: {
         wrapper: "51.5rem",
+        dashboard: "44.5rem",
       },
       boxShadow: {
         "primary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",

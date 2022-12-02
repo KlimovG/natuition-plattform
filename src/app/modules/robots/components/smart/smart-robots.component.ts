@@ -20,14 +20,15 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 
 @Component({
   selector: 'app-smart-robots',
-  template: ` <app-robots-list
-    *ngIf="robots$ | async"
-    [robots]="robots$ | async"
-    [activeRobot]="activeRobot$ | async"
-    (onRobotClick)="onRobotClick($event)"
-  >
-  </app-robots-list>`,
-  styleUrls: ['./smart-robots.component.scss'],
+  template: `
+    <app-robots-list
+      class="p-6 block h-full flex flex-col"
+      *ngIf="robots$ | async"
+      [robots]="robots$ | async"
+      [activeRobot]="activeRobot$ | async"
+      (onRobotClick)="onRobotClick($event)"
+    ></app-robots-list>
+  `,
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
   robots$: Observable<IButtonsData[]>;
@@ -46,9 +47,9 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       select(selectRobots()),
       filter((robots) => !!robots),
       map((robots) => {
-        return robots.map((robot: RobotModel) => ({
-          label: robot.robotSerialNumber,
-          id: robot.robotSerialNumber,
+        return robots.map((robot: RobotModel, index) => ({
+          label: robot.serial,
+          id: robot.serial,
         }));
       })
     );
@@ -59,9 +60,10 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       ])
         .pipe(takeWhile(([_, active]) => !active))
         .subscribe(([robots]) => {
-          robots.forEach(({ robotSerialNumber }, i) => {
+          console.log(robots);
+          robots.forEach(({ serial }, i) => {
             if (i === 0) {
-              this.store.dispatch(new SetActiveRobot(robotSerialNumber));
+              this.store.dispatch(new SetActiveRobot(serial));
             }
           });
         })
@@ -73,6 +75,8 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   }
 
   onRobotClick(robot: string) {
+    console.log(robot);
+
     this.activeRobot = robot;
     this.store.dispatch(new SetActiveRobot(robot));
   }
@@ -80,6 +84,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   set activeRobot(robot: string) {
     this._activeRobot = robot;
   }
+
   get activeRobot(): string {
     return this._activeRobot;
   }

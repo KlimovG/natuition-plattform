@@ -35,11 +35,13 @@ export function reducer(
         isLoading: false,
         robotsForCustomer: action.payload,
       };
+
     case RobotsActionTypes.GET_ROBOTS_CUSTOMER:
       return {
         ...state,
         isLoading: true,
       };
+
     default:
       return state;
   }

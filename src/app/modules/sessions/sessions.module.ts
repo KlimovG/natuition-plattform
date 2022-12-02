@@ -18,5 +18,6 @@ import { SessionsEffects } from './state/sessions.effects';
     StoreModule.forFeature('sessions', reducer),
     EffectsModule.forFeature([SessionsEffects]),
   ],
+  exports: [SmartSessionsComponent],
 })
 export class SessionsModule {}

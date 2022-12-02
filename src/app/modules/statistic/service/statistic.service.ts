@@ -20,7 +20,9 @@ const GET_SESSIONS_FOR_ROBOT = `
       }
       extractedWeeds {
         id
-        pointPath
+        pointPath {
+
+        }
         weedType
         sessionId
       }

@@ -5,10 +5,9 @@ import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 
 const GET_ROBOTS_FOR_CUSTOMER = `
-  query ($id: Float!) {
-    getRobotsByCustomer(id: $id) {
-      id
-      robotSerialNumber
+  query {
+    getAllRobotsWithCustomers{
+      serial
     }
   }
 `;
@@ -21,7 +20,7 @@ export class RobotsService {
 
   getRobotsForCustomer(id: number) {
     return this.apollo
-      .query<{ getRobotsByCustomer: RobotModel[] }>({
+      .query<{ getAllRobotsWithCustomers: RobotModel[] }>({
         query: gql(GET_ROBOTS_FOR_CUSTOMER),
         variables: {
           id: id,
@@ -30,9 +29,11 @@ export class RobotsService {
       .pipe(
         map(
           (
-            result: ApolloQueryResult<{ getRobotsByCustomer: RobotModel[] }>
+            result: ApolloQueryResult<{
+              getAllRobotsWithCustomers: RobotModel[];
+            }>
           ) => {
-            return result.data.getRobotsByCustomer;
+            return result.data.getAllRobotsWithCustomers;
           }
         )
       );

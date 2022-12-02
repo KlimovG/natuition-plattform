@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface IButtonsData {
   label: string;
@@ -10,19 +10,8 @@ export interface IButtonsData {
   templateUrl: './buttons-list.component.html',
   styleUrls: ['./buttons-list.component.scss'],
 })
-export class ButtonsListComponent implements OnInit {
+export class ButtonsListComponent {
   @Input() buttonsData: IButtonsData[];
   @Input() active: string;
   @Output() onClick = new EventEmitter<any>();
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  btnClick(event: MouseEvent, id: string | number) {
-    event.preventDefault();
-    console.log(this.active);
-    console.log(id);
-    if (this.active === id) {
-    }
-  }
 }

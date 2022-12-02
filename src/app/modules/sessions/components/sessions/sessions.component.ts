@@ -6,6 +6,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
   template: `
     <app-title-section title="sessions.title"> </app-title-section>
     <app-buttons-list
+      class="overflow-y-scroll max-h-full block"
       [buttonsData]="sessions"
       [active]="activeSession"
       (onClick)="onSessionClick.emit($event)"

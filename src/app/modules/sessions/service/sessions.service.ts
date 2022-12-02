@@ -10,20 +10,6 @@ const GET_SESSIONS_FOR_ROBOT = `
       id
       startTime
       endTime
-      prevSessionId
-      fieldId
-      statistic {
-        id
-        sessionId
-        voltage
-        timestamp
-      }
-      extractedWeeds {
-        id
-        pointPath
-        weedType
-        sessionId
-      }
     }
   }
 `;

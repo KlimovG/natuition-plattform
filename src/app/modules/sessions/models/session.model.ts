@@ -8,26 +8,9 @@ export class SessionModel {
   startTime: Date | string;
 
   @IsNotEmpty()
-  endTime: Date;
+  endTime: Date | string;
 
   prevSessionId?: number;
-
-  // @Field()
-  // @ManyToOne(() => RobotsModel, (robot) => robot.serialNumber, { eager: true })
-  // @JoinColumn({ name: 'robot_serial_number' })
-  // robotSerialNumber: RobotsModel;
-  //
-  // @Field(() => [ExtractedWeedsModel], { nullable: true })
-  // @OneToMany(() => ExtractedWeedsModel, (extracted) => extracted.session)
-  // extractedWeeds: ExtractedWeedsModel[];
-  //
-  // @Field()
-  // @Column({ name: 'field_id' })
-  // fieldId: number;
-  //
-  // @Field(() => VescStatisticModel, { nullable: true })
-  // @OneToOne(() => VescStatisticModel, (vesc) => vesc.session)
-  // statistic: VescStatisticModel;
 }
 // id
 // startTime
