@@ -11,6 +11,8 @@ export class SessionModel {
   endTime: Date | string;
 
   prevSessionId?: number;
+
+  fieldId?: number;
 }
 // id
 // startTime

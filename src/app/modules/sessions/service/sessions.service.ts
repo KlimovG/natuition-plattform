@@ -10,6 +10,7 @@ const GET_SESSIONS_FOR_ROBOT = `
       id
       startTime
       endTime
+      fieldId
     }
   }
 `;
