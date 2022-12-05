@@ -13,6 +13,9 @@ module.exports = {
       maxHeight: {
         wrapper: "51.5rem",
       },
+      minHeight: {
+        wrapper: "51.5rem",
+      },
       height: {
         wrapper: "51.5rem",
         dashboard: "44.5rem",
@@ -20,6 +23,9 @@ module.exports = {
       boxShadow: {
         "primary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",
         "secondary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",
+      },
+      fontSize: {
+        xxs: "0.6rem",
       },
       colors: {
         primary: {

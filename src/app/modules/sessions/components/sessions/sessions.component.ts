@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
 @Component({
-  selector: 'app-sessions-list',
+  selector: 'app-sessions',
   template: `
     <app-title-section title="sessions.title"> </app-title-section>
     <app-buttons-list

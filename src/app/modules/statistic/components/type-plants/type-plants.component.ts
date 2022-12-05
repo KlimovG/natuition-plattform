@@ -31,7 +31,7 @@ export class TypePlantsComponent implements OnChanges {
     cutout: 15,
     plugins: {
       legend: {
-        position: 'right',
+        position: 'bottom',
         maxWidth: 200,
         labels: {
           boxWidth: 20,

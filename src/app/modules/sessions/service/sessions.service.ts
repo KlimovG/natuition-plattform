@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { SessionModel } from '../models/session.model';
+import { SessionModel, SessionModelFromServer } from '../models/session.model';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 
@@ -10,7 +10,10 @@ const GET_SESSIONS_FOR_ROBOT = `
       id
       startTime
       endTime
-      fieldId
+      extracted
+      fieldName {
+        label
+      }
     }
   }
 `;
@@ -23,7 +26,7 @@ export class SessionsService {
 
   getSessionsForRobot(serial: string) {
     return this.apollo
-      .query<{ getSessionsForRobot: SessionModel[] }>({
+      .query<{ getSessionsForRobot: SessionModelFromServer[] }>({
         query: gql(GET_SESSIONS_FOR_ROBOT),
         variables: {
           serial,
@@ -32,11 +35,24 @@ export class SessionsService {
       .pipe(
         map(
           (
-            result: ApolloQueryResult<{ getSessionsForRobot: SessionModel[] }>
+            result: ApolloQueryResult<{
+              getSessionsForRobot: SessionModelFromServer[];
+            }>
           ) => {
-            return result.data.getSessionsForRobot;
+            return result.data.getSessionsForRobot.map((session) =>
+              this.mapFromServer(session)
+            );
           }
         )
       );
   }
+
+  mapFromServer = (data: SessionModelFromServer): SessionModel => ({
+    id: data.id,
+    startTime: data.startTime,
+    endTime: data.endTime,
+    field: data.fieldName.label,
+    prevSessionId: data?.prevSessionId,
+    extracted: data?.extracted,
+  });
 }

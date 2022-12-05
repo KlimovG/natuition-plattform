@@ -44,5 +44,10 @@
       "surface": "Target surface:",
       "cover": "Covered:"
     }
+  },
+  "common": {
+    "duration": "Duration: <b>{{duration}}</b>",
+    "field": "Field: <b>{{field}}</b>",
+    "extracted": "Extracted: <b>{{total}}</b>"
   }
 }

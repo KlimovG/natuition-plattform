@@ -1,8 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface IButtonsData {
-  label: string;
-  id: number | string;
+  label?: string;
+  id?: number | string;
+  subtitle?: string;
+  date?: string;
+  duration?: string;
+  field?: string;
+  extracted?: number;
 }
 
 @Component({

@@ -35,17 +35,16 @@ export class SmartMapComponent implements OnInit {
   ngOnInit(): void {
     this.sessionsSubscription = this.store
       .select(selectActiveSession())
-      .subscribe((session) => this.getMapData(session));
+      .subscribe((session) => this.getMapData(Number(session)));
 
     this.field$ = this.store.select(selectCorners());
   }
 
-  getMapData(session: string) {
-    const sessionId = Number(session);
-    if (session && sessionId) {
-      this.store.dispatch(new GetFieldForSession(sessionId));
-      this.store.dispatch(new GetExtractedForSession(sessionId));
-      this.store.dispatch(new GetPathForSession(sessionId));
+  getMapData(session: number) {
+    if (session) {
+      this.store.dispatch(new GetFieldForSession(session));
+      this.store.dispatch(new GetExtractedForSession(session));
+      this.store.dispatch(new GetPathForSession(session));
     }
   }
 }

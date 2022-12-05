@@ -1,9 +1,8 @@
 import { ChartData } from './chart-data.model';
-import { DurationObjectUnits } from 'luxon';
 
 export interface StatisticModelFromServer {
   voltage?: number;
-  duration?: DurationObjectUnits;
+  duration?: string;
   totalNumber?: number;
   chart?: ChartData;
 }

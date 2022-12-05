@@ -31,5 +31,6 @@ import { StatisticEffects } from './state/statistic.effects';
     StoreModule.forFeature('statistic', reducer),
     EffectsModule.forFeature([StatisticEffects]),
   ],
+  exports: [SmartStatisticComponent],
 })
 export class StatisticModule {}

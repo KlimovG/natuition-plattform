@@ -6,10 +6,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { LngLat, LngLatBounds, PositionOptions } from 'mapbox-gl';
+import { LngLat, LngLatBounds } from 'mapbox-gl';
 import { environment } from '../../../../../environments/environment';
 import { FieldModel } from '../../models/field.model';
-import { Position } from 'postcss';
 
 @Component({
   selector: 'app-map-container',
@@ -21,8 +20,7 @@ export class MapContainerComponent implements OnInit, OnChanges {
   _center: LngLat;
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
-  lat = 37.75;
-  lng = -122.41;
+
   constructor() {}
 
   get center(): LngLat {
@@ -101,7 +99,7 @@ export class MapContainerComponent implements OnInit, OnChanges {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 16,
+      zoom: 17,
       center: this.center,
     });
 

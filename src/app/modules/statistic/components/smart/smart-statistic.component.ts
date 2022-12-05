@@ -41,7 +41,7 @@ export class SmartStatisticComponent implements OnInit, OnDestroy {
       map(({ voltage, totalNumber, duration }) => ({
         voltage,
         totalNumber,
-        duration: `${duration?.hours} : ${duration?.minutes}`,
+        duration,
       }))
     );
   }

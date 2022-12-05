@@ -7,8 +7,6 @@ import {
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
-import { SesssionsState } from '../../sessions/state/sessions.reducer';
-import { LngLat } from 'mapbox-gl';
 
 export interface MapState {
   path: PathModel[];

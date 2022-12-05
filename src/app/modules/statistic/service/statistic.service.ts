@@ -8,10 +8,7 @@ const GET_STATISTIC = `
   query GetRobotStats($session: Float!) {
     getRobotStats(session: $session) {
       voltage
-      duration {
-        hours
-        minutes
-      }
+      duration
       totalNumber
       chart {
         data

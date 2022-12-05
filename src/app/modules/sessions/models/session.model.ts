@@ -1,33 +1,17 @@
-import { IsNotEmpty } from 'class-validator';
-
-export class SessionModel {
-  @IsNotEmpty()
+export interface SessionModel {
   id: number;
-
-  @IsNotEmpty()
-  startTime: Date | string;
-
-  @IsNotEmpty()
-  endTime: Date | string;
-
+  startTime: string;
+  endTime: string;
+  field: string;
+  extracted?: number;
   prevSessionId?: number;
-
-  fieldId?: number;
 }
-// id
-// startTime
-// endTime
-// prevSessionId
-// fieldId
-// statistic {
-//   id
-//   sessionId
-//   voltage
-//   timestamp
-// }
-// extractedWeeds {
-//   id
-//   pointPath
-//   weedType
-//   sessionId
-// }
+
+export interface SessionModelFromServer {
+  id: number;
+  startTime: string;
+  endTime: string;
+  extracted?: number;
+  fieldName: { label: string };
+  prevSessionId?: number;
+}

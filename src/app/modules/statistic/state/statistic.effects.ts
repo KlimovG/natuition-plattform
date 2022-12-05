@@ -17,7 +17,7 @@ export class StatisticEffects {
     this.action$.pipe(
       ofType<GetStatistic>(StatisticActionTypes.GET_STATISTIC),
       switchMap(({ payload }) =>
-        this.service.getStatistic(payload).pipe(
+        this.service.getStatistic(Number(payload)).pipe(
           map((statistic) => {
             return new GetStatisticSuccess(statistic);
           })
