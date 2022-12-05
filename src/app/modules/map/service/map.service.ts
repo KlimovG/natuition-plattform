@@ -7,11 +7,15 @@ import {
   ExtractedWeedModelFromServer,
 } from '../models/extracted-weed.model';
 import { PathModel, PathModelFromServer } from '../models/path.model';
-import { FieldModel } from '../models/field.model';
+import { FieldModel, FieldModelFromServer } from '../models/field.model';
+import { LngLat } from 'mapbox-gl';
+import { GpsPointModel } from '../models/gps-point.model';
 
 const GET_FIELD = `
   query Query($id: Float!) {
     getField(id: $id) {
+      id
+      label
       corners {
         gpsPoint {
           latitude
@@ -75,8 +79,8 @@ export class MapService {
               id: data.id,
               label: data.weedType.label,
               number: data.number,
-              latitude: data.pointPath.gpsPoint.latitude,
-              longitude: data.pointPath.gpsPoint.longitude,
+              lng: data.pointPath.gpsPoint.latitude,
+              lat: data.pointPath.gpsPoint.longitude,
             }));
           }
         )
@@ -100,8 +104,8 @@ export class MapService {
           ) => {
             return result.data.getPath.map((data) => ({
               id: data.id,
-              longitude: data.gpsPoint.longitude,
-              latitude: data.gpsPoint.latitude,
+              lng: data.gpsPoint.longitude,
+              lat: data.gpsPoint.latitude,
             }));
           }
         )
@@ -110,7 +114,7 @@ export class MapService {
 
   getField(id: number): Observable<FieldModel> {
     return this.apollo
-      .query<{ getField: FieldModel }>({
+      .query<{ getField: FieldModelFromServer }>({
         query: gql(GET_FIELD),
         variables: {
           id: id,
@@ -120,10 +124,21 @@ export class MapService {
         map(
           (
             result: ApolloQueryResult<{
-              getField: FieldModel;
+              getField: FieldModelFromServer;
             }>
           ) => {
-            return result.data.getField;
+            const corners: LngLat[] = (
+              result.data.getField.corners as unknown as Array<{
+                gpsPoint: GpsPointModel;
+              }>
+            )
+              .map(({ gpsPoint }) => gpsPoint)
+              .map((point) => new LngLat(point.longitude, point.latitude));
+
+            return {
+              ...result.data.getField,
+              corners,
+            };
           }
         )
       );

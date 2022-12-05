@@ -1,11 +1,9 @@
-import { GpsPointModel } from './gps-point.model';
-
 export interface ExtractedWeedModel {
   id: number;
   label: string;
   number: number;
-  latitude: number;
-  longitude: number;
+  lng: number;
+  lat: number;
 }
 
 export interface ExtractedWeedModelFromServer {
@@ -14,7 +12,10 @@ export interface ExtractedWeedModelFromServer {
     label: string;
   };
   pointPath: {
-    gpsPoint: GpsPointModel;
+    gpsPoint: {
+      latitude: number;
+      longitude: number;
+    };
   };
   number: number;
 }

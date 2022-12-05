@@ -1,7 +1,7 @@
 export interface PathModel {
   id: number;
-  latitude: number;
-  longitude: number;
+  lng: number;
+  lat: number;
 }
 
 export interface PathModelFromServer {

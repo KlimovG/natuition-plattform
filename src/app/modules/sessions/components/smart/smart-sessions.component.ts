@@ -26,7 +26,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 })
 export class SmartSessionsComponent implements OnInit, OnDestroy {
   sessions$: Observable<IButtonsData[]>;
-  activeSession$: Observable<string>;
+  activeSession$: Observable<number>;
   private subscriptionsList: Subscription[] = [];
 
   constructor(private store: Store<State>) {}
@@ -55,7 +55,7 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
         sessions
           ? sessions.forEach((session, i) => {
               if (i === 0) {
-                this.store.dispatch(new SetActiveSession(session.id));
+                this.store.dispatch(new SetActiveSession(Number(session.id)));
               }
             })
           : null
@@ -67,7 +67,7 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
     this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
-  onSessionClick(session: string) {
+  onSessionClick(session: number) {
     this.store.dispatch(new SetActiveSession(session));
   }
 }
