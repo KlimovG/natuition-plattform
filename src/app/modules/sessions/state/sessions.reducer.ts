@@ -9,7 +9,7 @@ import {
 export interface SesssionsState {
   sessions: SessionModel[];
   isLoading: boolean;
-  activeSession: string;
+  activeSession: number;
 }
 
 export const initialState: SesssionsState = {
@@ -49,5 +49,5 @@ const selectFeature = createFeatureSelector<SesssionsState>('sessions');
 export const selectSessions = (): MemoizedSelector<any, SessionModel[]> =>
   createSelector(selectFeature, (state) => state.sessions);
 
-export const selectActiveSession = (): MemoizedSelector<any, string> =>
+export const selectActiveSession = (): MemoizedSelector<any, number> =>
   createSelector(selectFeature, (state) => state.activeSession);

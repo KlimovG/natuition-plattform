@@ -17,8 +17,8 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 })
 export class SessionsComponent implements OnInit {
   @Input() sessions: IButtonsData[];
-  @Input() activeSession: string;
-  @Output() onSessionClick = new EventEmitter<string>();
+  @Input() activeSession: number;
+  @Output() onSessionClick = new EventEmitter<number>();
   constructor() {}
 
   ngOnInit(): void {}

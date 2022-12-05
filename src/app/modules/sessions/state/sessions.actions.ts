@@ -22,7 +22,7 @@ export class GetSessionsForRobotSuccess implements Action {
 export class SetActiveSession implements Action {
   readonly type = SessionsActionTypes.SET_ACTIVE_SESSION;
 
-  constructor(public payload: string) {}
+  constructor(public payload: number) {}
 }
 
 export type SessionsActionUnion =

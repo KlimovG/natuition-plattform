@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface IButtonsData {
   label: string;
-  id: string;
+  id: number | string;
 }
 
 @Component({
@@ -12,6 +12,6 @@ export interface IButtonsData {
 })
 export class ButtonsListComponent {
   @Input() buttonsData: IButtonsData[];
-  @Input() active: string;
+  @Input() active: string | number;
   @Output() onClick = new EventEmitter<any>();
 }

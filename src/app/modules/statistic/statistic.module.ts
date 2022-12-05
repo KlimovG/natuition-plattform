@@ -8,6 +8,11 @@ import { RobotStatsComponent } from './components/robot-stats/robot-stats.compon
 import { TypePlantsComponent } from './components/type-plants/type-plants.component';
 import { StatItemComponent } from './components/stat-item/stat-item.component';
 import { StatItemListComponent } from './components/stat-item-list/stat-item-list.component';
+import { NgChartsModule } from 'ng2-charts';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducer } from './state/statistic.reducer';
+import { StatisticEffects } from './state/statistic.effects';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,13 @@ import { StatItemListComponent } from './components/stat-item-list/stat-item-lis
     StatItemComponent,
     StatItemListComponent,
   ],
-  imports: [CommonModule, SharedModule, StatisticRoutingModule],
-  exports: [SmartStatisticComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    StatisticRoutingModule,
+    NgChartsModule,
+    StoreModule.forFeature('statistic', reducer),
+    EffectsModule.forFeature([StatisticEffects]),
+  ],
 })
 export class StatisticModule {}

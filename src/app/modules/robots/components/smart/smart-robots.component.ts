@@ -75,8 +75,6 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   }
 
   onRobotClick(robot: string) {
-    console.log(robot);
-
     this.activeRobot = robot;
     this.store.dispatch(new SetActiveRobot(robot));
   }
