@@ -8,9 +8,10 @@ import { MapRoutingModule } from './map-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/map.reducer';
+import { MapButtonsComponent } from './components/map-buttons/map-buttons.component';
 
 @NgModule({
-  declarations: [SmartMapComponent, MapContainerComponent],
+  declarations: [SmartMapComponent, MapContainerComponent, MapButtonsComponent],
   exports: [SmartMapComponent],
   imports: [
     CommonModule,

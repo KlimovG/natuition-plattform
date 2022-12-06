@@ -11,7 +11,11 @@ import {
   GetFieldForSession,
   GetPathForSession,
 } from '../../state/map.actions';
-import { selectCorners } from '../../state/map.reducer';
+import {
+  selectCorners,
+  selectExtracted,
+  selectPath,
+} from '../../state/map.reducer';
 
 @Component({
   selector: 'app-smart-map',
@@ -19,7 +23,11 @@ import { selectCorners } from '../../state/map.reducer';
     <app-title-section
       [title]="translationPrefix + 'title'"
     ></app-title-section>
-    <app-map-container [field]="field$ | async"></app-map-container>
+    <app-map-container
+      [field]="field$ | async"
+      [path]="path$ | async"
+      [extractedPoints]="extractedPoints$ | async"
+    ></app-map-container>
   `,
 })
 export class SmartMapComponent implements OnInit {
@@ -38,6 +46,8 @@ export class SmartMapComponent implements OnInit {
       .subscribe((session) => this.getMapData(Number(session)));
 
     this.field$ = this.store.select(selectCorners());
+    this.path$ = this.store.select(selectPath());
+    this.extractedPoints$ = this.store.select(selectExtracted());
   }
 
   getMapData(session: number) {

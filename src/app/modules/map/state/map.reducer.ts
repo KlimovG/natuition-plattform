@@ -46,3 +46,11 @@ export const selectFeature = createFeatureSelector<MapState>('map');
 
 export const selectCorners = (): MemoizedSelector<any, FieldModel> =>
   createSelector(selectFeature, (state) => state.field);
+
+export const selectPath = (): MemoizedSelector<any, PathModel[]> =>
+  createSelector(selectFeature, (state) => state.path);
+
+export const selectExtracted = (): MemoizedSelector<
+  any,
+  ExtractedWeedModel[]
+> => createSelector(selectFeature, (state) => state.extractedPoints);
