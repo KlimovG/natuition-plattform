@@ -1,3 +1,3 @@
 export interface PathModel {
-  path: [number, number][];
+  pathGPS: [number, number][];
 }

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   Input,
   OnChanges,
@@ -6,15 +7,19 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { LngLat, LngLatBounds } from 'mapbox-gl';
+import { GeoJSONSource, LngLat, LngLatBounds } from 'mapbox-gl';
 import { environment } from '../../../../../environments/environment';
-import { FieldModel } from '../../models/field.model';
-import { PathModel } from '../../models/path.model';
-import { ExtractedWeedModel } from '../../models/extracted-weed.model';
+import {
+  ExtractedType,
+  FieldType,
+  MapData,
+  PathType,
+} from '../../models/map.model';
 
 @Component({
   selector: 'app-map-container',
-  template: ` <div id="map" class="map match-parent w-full h-full rounded-2xl">
+  template: `
+    <div id="map" class="w-full h-full"></div>
     <app-map-buttons
       class="flex flex-col absolute top-2.5 left-2.5 z-20 gap-1.5"
       [isExtracted]="isExtracted"
@@ -22,22 +27,16 @@ import { ExtractedWeedModel } from '../../models/extracted-weed.model';
       [isField]="isField"
       (toggleMap)="toggleMap($event)"
     ></app-map-buttons>
-  </div>`,
-  styleUrls: ['./map-container.component.scss'],
+  `,
 })
-export class MapContainerComponent implements OnInit, OnChanges {
-  @Input() field: FieldModel;
-  @Input() path: PathModel[];
-  @Input() extractedPoints: ExtractedWeedModel[];
-
-  isPath: boolean = true;
+export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() data: MapData;
+  isPath: boolean = false;
   isField: boolean = true;
-  isExtracted: boolean = false;
+  isExtracted: boolean = true;
   _center: LngLat;
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
-
-  constructor() {}
 
   get center(): LngLat {
     return this._center;
@@ -48,134 +47,188 @@ export class MapContainerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['field']) {
-      const field = changes['field']?.currentValue;
-      const path = changes['path']?.currentValue;
-      const extracted = changes['extractedPoints']?.currentValue;
+    if (!this.map) return;
 
-      if (field && field.corners.length >= 4) {
-        this.center = this.getCenterCoordinates(field.corners);
-        this.map.setCenter(this.center);
-        this.addField(field.corners);
-      }
+    const field: FieldType = changes['data']?.currentValue['field'];
+    const path = changes['data']?.currentValue['path'];
+    const extracted = changes['data']?.currentValue['extractedPoints'];
 
-      if (path && path?.length) {
-        this.addRoute(path);
-      }
+    if (field && field.geometry?.coordinates?.length > 0) {
+      this.center = this.getCenterCoordinates(field);
+      this.map.setCenter(this.center);
+      this.addField(field);
+    }
 
-      if (extracted && extracted?.length) {
-        this.addExtracted(extracted);
-      }
+    if (path) {
+      this.addPath(path);
+    }
+
+    if (extracted) {
+      this.addExtracted(extracted);
     }
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken').set(
       environment.mapbox.accessToken
     );
-    this.map = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 17,
+      zoom: 19,
       center: this.center,
     });
+    this.map = map;
 
     this.map.addControl(new mapboxgl.NavigationControl());
   }
+
+  ngOnInit(): void {}
 
   toggleMap(type: string) {
     switch (type) {
       case 'field':
         this.isField = !this.isField;
+        if (!!this.map.getSource('field')) {
+          if (this.isField) {
+            // Add a new layer to visualize the polygon.
+            this.map.addLayer({
+              id: 'field',
+              type: 'fill',
+              source: 'field', // reference the data source
+              paint: {
+                'fill-color': '#0080ff', // blue color fill
+                'fill-opacity': 0.3,
+              },
+            });
+            // // Add a black outline around the polygon.
+            this.map.addLayer({
+              id: 'outline',
+              type: 'line',
+              source: 'field',
+              paint: {
+                'line-color': '#F37E12',
+                'line-width': 1,
+              },
+            });
+          } else {
+            this.map.removeLayer('outline');
+            this.map.removeLayer('field');
+          }
+        }
         break;
       case 'path':
         this.isPath = !this.isPath;
+        console.log(!!this.map.getSource('path'));
+        if (!!this.map.getSource('path')) {
+          if (this.isPath) {
+            this.map.addLayer({
+              id: 'path',
+              type: 'line',
+              source: 'path',
+              layout: {
+                'line-join': 'round',
+                'line-cap': 'round',
+              },
+              paint: {
+                'line-color': '#cc3737',
+                'line-width': 7,
+                'line-opacity': 1,
+              },
+            });
+          } else {
+            this.map.removeLayer('path');
+          }
+        }
         break;
       case 'extracted':
         this.isExtracted = !this.isExtracted;
+        if (!!this.map.getSource('extracted')) {
+          if (this.isExtracted) {
+            this.map.addLayer({
+              id: 'extracted',
+              type: 'circle',
+              source: 'extracted',
+              paint: {
+                'circle-color': '#F3A712',
+                'circle-radius': 5,
+              },
+            });
+          } else {
+            this.map.removeLayer('extracted');
+          }
+        }
         break;
     }
   }
 
-  private addField(gpsField: number[][]) {
-    if (this.map.getSource('field')) {
-      this.map.removeLayer('outline');
-      this.map.removeLayer('field');
-      this.map.removeSource('field');
+  private addField(field: FieldType) {
+    if (this.map?.getSource('field')) {
+      (this.map.getSource('field') as GeoJSONSource).setData(field);
+      return;
     }
-
     //For the polygon, the first and last value of coordinates must be the same
     this.map.addSource('field', {
       type: 'geojson',
-      data: {
-        properties: {
-          title: 'Field',
-        },
-        type: 'Feature',
-        geometry: {
-          type: 'Polygon',
-          // These coordinates outline Maine.
-          coordinates: [gpsField],
-        },
-      },
+      data: field,
     });
     // Add a new layer to visualize the polygon.
-    this.map.addLayer({
-      id: 'field',
-      type: 'fill',
-      source: 'field', // reference the data source
-      layout: {},
-      paint: {
-        'fill-color': '#0080ff', // blue color fill
-        'fill-opacity': 0.3,
-      },
-    });
-    // // Add a black outline around the polygon.
-    this.map.addLayer({
-      id: 'outline',
-      type: 'line',
-      source: 'field',
-      layout: {},
-      paint: {
-        'line-color': '#F37E12',
-        'line-width': 1,
-      },
-    });
-  }
-
-  addRoute(gpsPath: [number, number][]) {
-    if (this.map.getSource('route')) {
-      this.map.removeLayer('route');
-      this.map.removeSource('route');
-    }
-    this.map.addSource('route', {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: gpsPath,
+    if (this.isField) {
+      this.map.addLayer({
+        id: 'field',
+        type: 'fill',
+        source: 'field', // reference the data source
+        layout: {},
+        paint: {
+          'fill-color': '#0080ff', // blue color fill
+          'fill-opacity': 0.3,
         },
-      },
-    });
-    this.map.addLayer({
-      id: 'route',
-      type: 'line',
-      source: 'route',
-      layout: {
-        'line-join': 'round',
-        'line-cap': 'round',
-      },
-      paint: {
-        'line-color': '#F3A712',
-        'line-width': 7,
-        'line-opacity': 1,
-      },
-    });
+      });
+      // // Add a black outline around the polygon.
+      this.map.addLayer({
+        id: 'outline',
+        type: 'line',
+        source: 'field',
+        layout: {},
+        paint: {
+          'line-color': '#F37E12',
+          'line-width': 1,
+        },
+      });
+    }
   }
 
-  getCenterCoordinates(points: [number, number][]): LngLat {
+  addPath(path: PathType) {
+    if (this.map?.getSource('path')) {
+      (this.map.getSource('path') as GeoJSONSource).setData(path);
+      return;
+    }
+    this.map.addSource('path', {
+      type: 'geojson',
+      data: path,
+    });
+    if (this.isPath) {
+      this.map.addLayer({
+        id: 'path',
+        type: 'line',
+        source: 'path',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#cc3737',
+          'line-width': 7,
+          'line-opacity': 1,
+        },
+      });
+    }
+  }
+
+  getCenterCoordinates(field: FieldType): LngLat {
+    const points: [number, number][] = field.geometry.coordinates
+      .flat()
+      .map(([lng, lat]) => [lng, lat]);
     const north: LngLat = new LngLatBounds(
       points.at(0),
       points.at(1)
@@ -188,5 +241,25 @@ export class MapContainerComponent implements OnInit, OnChanges {
     return new LngLatBounds(north, south).getCenter();
   }
 
-  private addExtracted(extracted: any): void {}
+  private addExtracted(extracted: ExtractedType): void {
+    if (this.map?.getSource('extracted')) {
+      (this.map.getSource('extracted') as GeoJSONSource).setData(extracted);
+      return;
+    }
+    this.map.addSource('extracted', {
+      type: 'geojson',
+      data: extracted,
+    });
+    if (this.isExtracted) {
+      this.map.addLayer({
+        id: 'extracted',
+        type: 'circle',
+        source: 'extracted',
+        paint: {
+          'circle-color': '#F3A712',
+          'circle-radius': 5,
+        },
+      });
+    }
+  }
 }

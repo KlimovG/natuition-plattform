@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { setContext } from '@apollo/client/link/context';
 
 const uri = 'http://localhost:3000/graphql';
+const uriProd = 'http://172.16.3.5:3000/graphql';
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const token = localStorage.getItem('token');
   const auth = setContext((operation, context) => {

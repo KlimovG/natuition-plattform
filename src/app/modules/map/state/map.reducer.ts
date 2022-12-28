@@ -1,4 +1,3 @@
-import { PathModel } from '../models/path.model';
 import { ExtractedWeedModel } from '../models/extracted-weed.model';
 import { FieldModel } from '../models/field.model';
 import { MapActionTypes, MapActionUnion } from './map.actions';
@@ -9,7 +8,7 @@ import {
 } from '@ngrx/store';
 
 export interface MapState {
-  path: PathModel[];
+  path: [number, number][];
   extractedPoints: ExtractedWeedModel[];
   field: FieldModel;
 }
@@ -47,7 +46,7 @@ export const selectFeature = createFeatureSelector<MapState>('map');
 export const selectCorners = (): MemoizedSelector<any, FieldModel> =>
   createSelector(selectFeature, (state) => state.field);
 
-export const selectPath = (): MemoizedSelector<any, PathModel[]> =>
+export const selectPath = (): MemoizedSelector<any, [number, number][]> =>
   createSelector(selectFeature, (state) => state.path);
 
 export const selectExtracted = (): MemoizedSelector<

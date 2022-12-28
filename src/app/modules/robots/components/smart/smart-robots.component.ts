@@ -47,7 +47,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       select(selectRobots()),
       filter((robots) => !!robots),
       map((robots) => {
-        return robots.map((robot: RobotModel, index) => ({
+        return robots.map((robot: RobotModel) => ({
           label: robot.serial,
           id: robot.serial,
         }));
@@ -60,7 +60,6 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
       ])
         .pipe(takeWhile(([_, active]) => !active))
         .subscribe(([robots]) => {
-          console.log(robots);
           robots.forEach(({ serial }, i) => {
             if (i === 0) {
               this.store.dispatch(new SetActiveRobot(serial));

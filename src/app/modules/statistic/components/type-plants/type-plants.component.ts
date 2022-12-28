@@ -29,6 +29,7 @@ export class TypePlantsComponent implements OnChanges {
     responsive: true,
     maintainAspectRatio: false,
     cutout: 15,
+    animation: false,
     plugins: {
       legend: {
         position: 'bottom',

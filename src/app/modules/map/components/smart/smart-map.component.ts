@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { combineLatest, map, Observable, Subscription } from 'rxjs';
 import { FieldModel } from '../../models/field.model';
-import { PathModel } from '../../models/path.model';
 import { ExtractedWeedModel } from '../../models/extracted-weed.model';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
@@ -16,6 +15,7 @@ import {
   selectExtracted,
   selectPath,
 } from '../../state/map.reducer';
+import { MapDataFromServer } from '../../models/map.model';
 
 @Component({
   selector: 'app-smart-map',
@@ -24,16 +24,16 @@ import {
       [title]="translationPrefix + 'title'"
     ></app-title-section>
     <app-map-container
-      [field]="field$ | async"
-      [path]="path$ | async"
-      [extractedPoints]="extractedPoints$ | async"
+      class="relative"
+      [data]="map$ | async | mapData"
     ></app-map-container>
   `,
 })
 export class SmartMapComponent implements OnInit {
   translationPrefix = 'map.';
+  map$: Observable<MapDataFromServer>;
   field$: Observable<FieldModel>;
-  path$: Observable<PathModel[]>;
+  path$: Observable<[number, number][]>;
   extractedPoints$: Observable<ExtractedWeedModel[]>;
   sessionsSubscription: Subscription;
   subscriptionsList: Subscription[] = [];
@@ -48,6 +48,17 @@ export class SmartMapComponent implements OnInit {
     this.field$ = this.store.select(selectCorners());
     this.path$ = this.store.select(selectPath());
     this.extractedPoints$ = this.store.select(selectExtracted());
+    this.map$ = combineLatest([
+      this.store.select(selectCorners()),
+      this.store.select(selectPath()),
+      this.store.select(selectExtracted()),
+    ]).pipe(
+      map(([field, path, extractedPoints]) => ({
+        field,
+        path,
+        extractedPoints,
+      }))
+    );
   }
 
   getMapData(session: number) {
