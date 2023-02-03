@@ -16,14 +16,14 @@ export class AuthPageComponent {
 
   get translationText(): string {
     switch (true) {
-      case this.activeUrl('/home/login'):
+      case this.activeUrl('/login'):
         return 'login';
-      case this.activeUrl('/home/registration'):
-        return 'registration';
-      case this.activeUrl('/home'):
-        return 'home';
+      // case this.activeUrl('/home/registration'):
+      //   return 'registration';
+      // case this.activeUrl('/home'):
+      //   return 'home';
       default:
-        return '';
+        return 'home';
     }
   }
 }

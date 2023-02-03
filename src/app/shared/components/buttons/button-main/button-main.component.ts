@@ -6,9 +6,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./button-main.component.scss'],
 })
 export class ButtonMainComponent {
-  @Output() click = new EventEmitter<any>();
   @Input() routerLink!: any[] | string | null | undefined;
   @Input() text: string = 'btn';
   @Input() css!: string;
   @Input() formName!: string;
+  @Output() click = new EventEmitter<any>();
+
+  onClick(event: any): void {
+    console.log(event);
+  }
 }

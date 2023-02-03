@@ -1,7 +1,7 @@
 {
   "home": {
-    "btnPrimary": "Sign Up",
-    "btnSecondary": "Sign In"
+    "btnPrimary": "Sign In",
+    "btnSecondary": "Sign Up"
   },
   "login": {
     "email": "Email",

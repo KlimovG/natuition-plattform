@@ -1,23 +1,23 @@
+<!--<app-button-primary-->
+<!--  *ngIf="translationPrefix === 'home'; else primaryButton"-->
+<!--  [link]="['registration']"-->
+<!--  class="mr-3"-->
+<!--  [text]="translationPrefix + '.btnPrimary'"-->
+<!--&gt;</app-button-primary>-->
+
 <app-button-primary
   *ngIf="translationPrefix === 'home'; else primaryButton"
-  [link]="['registration']"
-  class="mr-3"
+  [link]="['/login']"
+  class="ml-3"
   [text]="translationPrefix + '.btnPrimary'"
 ></app-button-primary>
-
-<app-button-secondary
-  *ngIf="translationPrefix === 'home'; else secondaryButton"
-  [link]="['login']"
-  class="ml-3"
-  [text]="translationPrefix + '.btnSecondary'"
-></app-button-secondary>
 
 <ng-template #primaryButton>
   <app-button-primary
     type="submit"
     [formName]="formName"
     ngDefaultControl
-    [link]="null"
+    [link]="['/login']"
     class="mr-3"
     [text]="translationPrefix + '.btnPrimary'"
   ></app-button-primary>

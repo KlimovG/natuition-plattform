@@ -23,7 +23,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
       };
     return undefined;
   });
-  const link = ApolloLink.from([auth, httpLink.create({ uri })]);
+  const link = ApolloLink.from([auth, httpLink.create({ uri: uriProd })]);
   return {
     link: link,
     cache: new InMemoryCache(),
