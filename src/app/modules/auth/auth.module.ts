@@ -6,6 +6,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { AuthButtonsComponent } from './components/auth-buttons/auth-buttons.component';
 import { AuthService } from './service/auth.service';
 import { AuthRoutingModule } from './auth-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorInterceptor } from './service/auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,13 @@ import { AuthRoutingModule } from './auth-routing.module';
     AuthButtonsComponent,
   ],
   imports: [AuthRoutingModule, SharedModule],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class AuthModule {}
