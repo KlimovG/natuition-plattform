@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../state';
-import { merge, Observable, take, tap } from 'rxjs';
-import { AuthService } from './auth.service';
+import { Observable, take, tap } from 'rxjs';
 
 export interface IVerify {
   validate: boolean;
@@ -11,22 +10,14 @@ export interface IVerify {
 //TODO: Complete LoginGuard
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private store: Store<State>,
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  constructor(private store: Store<State>, private router: Router) {}
   canActivate(): Observable<boolean> {
-    const validFromApi$ = this.authService.isAuthenticated();
-    const validFromState$ = this.store.pipe(
+    return this.store.pipe(
       select((state) => state.auth.isLogged),
-      take(1)
-    );
-    console.log('here');
-    return merge(validFromApi$, validFromState$).pipe(
+      take(1),
       tap(async (authenticated) => {
-        console.log(authenticated);
-        if (!authenticated) await this.router.navigate(['home/login']);
+        if (!authenticated) await this.router.navigate(['login']);
+        return authenticated;
       })
     );
   }

@@ -1,12 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { getUserName } from '../../../../modules/auth/state/auth.reducer';
+import { State } from '../../../../state';
 
 @Component({
   selector: 'app-user-label',
   templateUrl: './user-label.component.html',
 })
 export class UserLabelComponent implements OnInit {
-  @Input() userName!: string;
-  constructor() {}
+  userName$: Observable<string>;
+  constructor(private store: Store<State>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userName$ = this.store.select(getUserName);
+  }
 }

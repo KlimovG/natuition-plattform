@@ -42,7 +42,8 @@
       "duration": "Duration:",
       "total": "Total number:",
       "surface": "Target surface:",
-      "cover": "Covered:"
+      "cover": "Covered:",
+      "report": "Download report"
     }
   },
   "common": {

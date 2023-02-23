@@ -45,4 +45,9 @@ export class TokenStorageService {
 
     return {};
   }
+
+  removeTokens() {
+    this.refreshToken = undefined;
+    this.accessToken = undefined;
+  }
 }

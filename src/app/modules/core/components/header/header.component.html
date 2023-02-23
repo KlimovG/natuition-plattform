@@ -3,7 +3,7 @@
     class="h-full h-12 w-auto flex"
   ></app-logo>
   <div class="flex items-center">
-    <app-user-label [userName]="userName"></app-user-label>
-    <app-button-primary text="header.signOut"></app-button-primary>
+    <app-user-label></app-user-label>
+    <app-button-secondary text="header.signOut" (click)="signOut()"></app-button-secondary>
   </div>
 </div>

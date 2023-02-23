@@ -7,7 +7,8 @@ import { AuthButtonsComponent } from './components/auth-buttons/auth-buttons.com
 import { AuthService } from './service/auth.service';
 import { AuthRoutingModule } from './auth-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorInterceptor } from './service/auth-interceptor.interceptor';
+import { AccessTokenInterceptor } from './interceptors/access-token.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { AuthInterceptorInterceptor } from './service/auth-interceptor.intercept
   imports: [AuthRoutingModule, SharedModule],
   providers: [
     AuthService,
+    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorInterceptor,
+      useClass: AccessTokenInterceptor,
       multi: true,
     },
   ],

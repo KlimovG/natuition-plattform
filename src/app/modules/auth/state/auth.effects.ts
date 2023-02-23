@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../service/auth.service';
-import { AuthActionTypes, LogIn, LogInSuccess } from './auth.actions';
-import { map, switchMap, tap } from 'rxjs';
+import {
+  AuthActionTypes,
+  Authenticate,
+  AuthenticateFailure,
+  LogIn,
+  LogInFailure,
+  LogInSuccess,
+  LogOut,
+} from './auth.actions';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -15,13 +23,16 @@ export class AuthEffects {
 
   auth$ = createEffect(() =>
     this.actions$.pipe(
-      ofType<LogIn>(AuthActionTypes.LOG_IN),
-      switchMap(({ payload }) =>
-        this.service.login(payload).pipe(
-          map(({ email }) => {
+      ofType<Authenticate>(AuthActionTypes.AUTHENTICATE),
+      switchMap(() =>
+        this.service.isAuthenticated().pipe(
+          map((data) => {
+            console.log(data);
+            if (!data?.id) return new AuthenticateFailure();
+
             return new LogInSuccess({
               isLogged: true,
-              user: { id: 1, email },
+              user: { id: data.id, name: data.name },
             });
           })
         )
@@ -29,13 +40,58 @@ export class AuthEffects {
     )
   );
 
-  login$ = createEffect(
+  redirectToLogin$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType<AuthenticateFailure>(AuthActionTypes.AUTHENTICATE_FAILURE),
+        tap(() => {
+          return this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType<LogIn>(AuthActionTypes.LOG_IN),
+      switchMap(({ payload }) =>
+        this.service.login(payload).pipe(
+          map((response) => {
+            console.log('response: ', response);
+            return new LogInSuccess({
+              isLogged: true,
+              user: { id: response.id, name: response.name },
+            });
+          }),
+          catchError((error) => of(new LogInFailure({ error })))
+        )
+      )
+    )
+  );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType<LogOut>(AuthActionTypes.LOG_OUT),
+        switchMap(() => {
+          console.log('logout');
+          return this.service.logout().pipe(
+            map((response) => {
+              console.log('reponse after logout', response);
+              this.router.navigate(['login']);
+            })
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType<LogInSuccess>(AuthActionTypes.LOG_IN_SUCCESS),
-        tap(() => {
-          console.log('fires');
-          this.router.navigate(['dashboard']);
+        tap(async () => {
+          await this.router.navigate(['dashboard']);
         })
       ),
     { dispatch: false }
