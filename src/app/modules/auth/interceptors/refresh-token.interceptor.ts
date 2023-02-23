@@ -17,7 +17,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const refreshToken = this.tokenService.refreshToken;
-    console.log('token from interceptor');
     if (refreshToken) {
       request = request.clone({
         setHeaders: {

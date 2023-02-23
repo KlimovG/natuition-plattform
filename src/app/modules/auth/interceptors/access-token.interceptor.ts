@@ -26,7 +26,6 @@ export class AccessTokenInterceptor implements HttpInterceptor {
         },
       });
     } else if (accessToken) {
-      console.log(accessToken);
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${accessToken}`,

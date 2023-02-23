@@ -27,7 +27,6 @@ export class AuthEffects {
       switchMap(() =>
         this.service.isAuthenticated().pipe(
           map((data) => {
-            console.log(data);
             if (!data?.id) return new AuthenticateFailure();
 
             return new LogInSuccess({
@@ -57,7 +56,6 @@ export class AuthEffects {
       switchMap(({ payload }) =>
         this.service.login(payload).pipe(
           map((response) => {
-            console.log('response: ', response);
             return new LogInSuccess({
               isLogged: true,
               user: { id: response.id, name: response.name },
@@ -74,10 +72,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType<LogOut>(AuthActionTypes.LOG_OUT),
         switchMap(() => {
-          console.log('logout');
           return this.service.logout().pipe(
-            map((response) => {
-              console.log('reponse after logout', response);
+            map(() => {
               this.router.navigate(['login']);
             })
           );

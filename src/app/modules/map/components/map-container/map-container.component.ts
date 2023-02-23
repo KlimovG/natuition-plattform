@@ -119,7 +119,6 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
         break;
       case 'path':
         this.isPath = !this.isPath;
-        console.log(!!this.map.getSource('path'));
         if (!!this.map.getSource('path')) {
           if (this.isPath) {
             this.map.addLayer({

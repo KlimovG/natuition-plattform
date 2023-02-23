@@ -11,8 +11,4 @@ export class ButtonMainComponent {
   @Input() css!: string;
   @Input() formName!: string;
   @Output() click = new EventEmitter<any>();
-
-  onClick(event: any): void {
-    console.log(event);
-  }
 }
