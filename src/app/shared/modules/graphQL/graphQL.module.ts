@@ -10,8 +10,8 @@ import { GraphQLService } from './graphQL.service';
 import { HttpClientModule } from '@angular/common/http';
 import { setContext } from '@apollo/client/link/context';
 
-const uri = 'http://localhost:3000/graphql';
-const uriProd = 'https://fleet.natuition.com/graphql';
+// const uri = 'http://localhost:3000/graphql';
+const uri = 'https://fleet.natuition.com/graphql';
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const token = localStorage.getItem('token');
   const auth = setContext((operation, context) => {
