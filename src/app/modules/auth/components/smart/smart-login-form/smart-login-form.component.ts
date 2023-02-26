@@ -4,14 +4,16 @@ import { InputListModel } from '../../../../../shared/components/form-components
 import { Store } from '@ngrx/store';
 import { State } from '../../../../../state';
 import { LogIn } from '../../../state/auth.actions';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-smart-login-form-form',
   templateUrl: './smart-login-form.component.html',
 })
 export class SmartLoginFormComponent implements OnInit {
-  form!: FormGroup;
-  textData!: InputListModel[];
+  form: FormGroup;
+  textData: InputListModel[];
+  isFormValid = new BehaviorSubject<boolean>(false);
   private prefix = 'login';
 
   constructor(private formBuilder: FormBuilder, private store: Store<State>) {}
@@ -19,12 +21,15 @@ export class SmartLoginFormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.initFormEmpty();
     this.textData = this.initText(this.form);
+    this.form.valueChanges.subscribe(() =>
+      this.isFormValid.next(this.form.valid)
+    );
   }
 
   initFormEmpty(): FormGroup {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.nullValidator]],
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 

@@ -1,17 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button-primary',
   templateUrl: './button-primary.component.html',
   styleUrls: ['./button-primary.component.scss'],
 })
-export class ButtonPrimaryComponent implements OnInit {
-  @Output() click = new EventEmitter<any>();
+export class ButtonPrimaryComponent {
   @Input() link!: any[] | string | null | undefined;
   @Input() text: string = 'btn';
-  @Input() formName!: string;
+  @Input() formName: string;
+  @Input() loading: boolean;
+  @Input() disabled: boolean;
+  @Output() click = new EventEmitter<any>();
   constructor() {}
-
-  ngOnInit(): void {}
-  onclick() {}
 }

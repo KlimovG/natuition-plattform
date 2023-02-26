@@ -9,6 +9,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
     SmartLoginFormComponent,
     AuthButtonsComponent,
   ],
-  imports: [AuthRoutingModule, SharedModule],
+  imports: [AuthRoutingModule, SharedModule, NgxSpinnerModule],
   providers: [
     AuthService,
     CookieService,

@@ -16,7 +16,7 @@ import { Size } from 'ngx-spinner/lib/ngx-spinner.enum';
 })
 export class SpinnerComponent {
   @Input() showSpinner: boolean;
-  @Input() fullScreen: boolean;
+  @Input() fullScreen: boolean = false;
   @Input() type = 'cog';
   @Input() color = '#256320';
   @Input() backDropColor = 'rgba(0,0,0,0)';

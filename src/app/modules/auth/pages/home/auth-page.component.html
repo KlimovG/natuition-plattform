@@ -2,11 +2,14 @@
     <div class="max-w-full w-64" >
       <app-logo></app-logo>
     </div>
-  <router-outlet></router-outlet>
+  <router-outlet  (activate)="onActivate($event)"></router-outlet>
   <div class="flex justify-center items-center mt-6">
     <app-auth-buttons
+      [buttonDisabled]="buttonDisabled"
+      [isLoading]="isUserLoading$ | async"
       [formName]="translationText"
       [translationPrefix]="translationText"
     ></app-auth-buttons>
+
   </div>
 </section>

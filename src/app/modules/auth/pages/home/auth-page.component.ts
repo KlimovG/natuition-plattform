@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Authenticate } from '../../state/auth.actions';
+import { isLoadingUserAuth } from '../../state/auth.reducer';
+import { State } from '../../../../state';
+import { Observable } from 'rxjs';
+import { SmartLoginFormComponent } from '../../components/smart/smart-login-form/smart-login-form.component';
 
 @Component({
   selector: 'app-home-page',
@@ -10,10 +19,14 @@ import { Authenticate } from '../../state/auth.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPageComponent implements OnInit {
-  constructor(private router: Router, private store: Store) {}
+  @ViewChild(SmartLoginFormComponent) loginForm: SmartLoginFormComponent;
+  isUserLoading$: Observable<boolean>;
+  buttonDisabled: boolean;
+  constructor(private router: Router, private store: Store<State>) {}
 
   ngOnInit() {
     this.store.dispatch(new Authenticate());
+    this.isUserLoading$ = this.store.select(isLoadingUserAuth);
   }
 
   activeUrl(path: string): boolean {
@@ -31,5 +44,11 @@ export class AuthPageComponent implements OnInit {
       default:
         return 'home';
     }
+  }
+
+  onActivate(component: any) {
+    component.isFormValid.subscribe(
+      (data: boolean) => (this.buttonDisabled = data)
+    );
   }
 }

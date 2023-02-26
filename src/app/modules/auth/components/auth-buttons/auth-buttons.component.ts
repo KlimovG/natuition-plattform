@@ -6,6 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./auth-buttons.component.scss'],
 })
 export class AuthButtonsComponent {
-  @Input() formName!: string;
-  @Input() translationPrefix!: string;
+  @Input() isLoading: boolean;
+  @Input() formName: string;
+  @Input() buttonDisabled: boolean;
+  @Input() translationPrefix: string;
 }

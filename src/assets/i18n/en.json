@@ -4,7 +4,7 @@
     "btnSecondary": "Sign Up"
   },
   "login": {
-    "email": "Email",
+    "login": "Login",
     "password": "Password",
     "btnPrimary": "Sign In",
     "btnSecondary": "Decline"

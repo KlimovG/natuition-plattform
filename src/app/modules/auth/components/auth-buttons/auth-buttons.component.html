@@ -14,12 +14,14 @@
 
 <ng-template #primaryButton>
   <app-button-primary
-    type="submit"
+    [disabled]="buttonDisabled"
     [formName]="formName"
-    ngDefaultControl
     [link]="['/login']"
-    class="mr-3"
+    [loading]="isLoading"
     [text]="translationPrefix + '.btnPrimary'"
+    class="mr-3 relative"
+    ngDefaultControl
+    type="submit"
   ></app-button-primary>
 </ng-template>
 

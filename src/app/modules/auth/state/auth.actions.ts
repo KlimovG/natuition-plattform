@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { LoginInput } from '../models/login-form.model';
-import { AuthState } from './auth.reducer';
+import { SignInOutputDto } from '../dto/sign-in-output.dto';
 
 export enum AuthActionTypes {
   AUTHENTICATE = '[Auth] Authentication',
@@ -44,7 +44,7 @@ export class LogOut implements Action {
 export class LogInSuccess implements Action {
   readonly type = AuthActionTypes.LOG_IN_SUCCESS;
 
-  constructor(public payload: AuthState) {}
+  constructor(public payload: SignInOutputDto) {}
 }
 
 export class LogInFailure implements Action {

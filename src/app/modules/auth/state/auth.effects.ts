@@ -30,8 +30,8 @@ export class AuthEffects {
             if (!data?.id) return new AuthenticateFailure();
 
             return new LogInSuccess({
-              isLogged: true,
-              user: { id: data.id, name: data.name },
+              id: data.id,
+              name: data.name,
             });
           })
         )
@@ -57,8 +57,8 @@ export class AuthEffects {
         this.service.login(payload).pipe(
           map((response) => {
             return new LogInSuccess({
-              isLogged: true,
-              user: { id: response.id, name: response.name },
+              id: response.id,
+              name: response.name,
             });
           }),
           catchError((error) => of(new LogInFailure({ error })))
