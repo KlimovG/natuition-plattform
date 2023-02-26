@@ -7,7 +7,7 @@ import { AuthButtonsComponent } from './components/auth-buttons/auth-buttons.com
 import { AuthService } from './service/auth.service';
 import { AuthRoutingModule } from './auth-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AccessTokenInterceptor } from './interceptors/access-token.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AccessTokenInterceptor,
+      useClass: AuthInterceptor,
       multi: true,
     },
   ],

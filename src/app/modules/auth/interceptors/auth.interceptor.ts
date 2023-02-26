@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { TokenStorageService } from '../service/token-storage.service';
 
 @Injectable()
-export class AccessTokenInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   constructor(private tokenService: TokenStorageService) {}
 
   intercept(
@@ -19,7 +19,10 @@ export class AccessTokenInterceptor implements HttpInterceptor {
     const accessToken = this.tokenService.accessToken;
     const refreshToken = this.tokenService.refreshToken;
 
-    if (request.url.includes('authenticate')) {
+    if (
+      request.url.includes('authenticate') ||
+      request.url.includes('refresh')
+    ) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${refreshToken}`,

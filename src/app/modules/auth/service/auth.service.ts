@@ -44,6 +44,35 @@ export class AuthService {
       );
   }
 
+  refresh() {
+    return this.httpClient
+      .get<SignInOutputDto>('/api/auth/refresh', {
+        withCredentials: true,
+        observe: 'response',
+        headers: this.headers,
+      })
+      .pipe(
+        map((response) => {
+          this.tokenService.accessToken = this.cookieService.get('accessToken');
+          this.tokenService.refreshToken =
+            this.cookieService.get('refreshToken');
+          console.log(
+            'accessToken after refresh',
+            this.tokenService.accessToken
+          );
+          console.log(
+            'refreshToken after refresh',
+            this.tokenService.refreshToken
+          );
+          return response.body;
+        }),
+        catchError((err) => {
+          this.router.navigate(['/login']);
+          return of(err);
+        })
+      );
+  }
+
   login(data: LoginInput): Observable<SignInOutputDto> {
     return this.httpClient
       .post<SignInOutputDto>('/api/auth/login', data, {
