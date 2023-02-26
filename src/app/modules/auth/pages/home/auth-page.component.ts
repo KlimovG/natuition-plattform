@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { Authenticate } from '../../state/auth.actions';
 import { isLoadingUserAuth } from '../../state/auth.reducer';
 import { State } from '../../../../state';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SmartLoginFormComponent } from '../../components/smart/smart-login-form/smart-login-form.component';
 
 @Component({
@@ -21,7 +21,7 @@ import { SmartLoginFormComponent } from '../../components/smart/smart-login-form
 export class AuthPageComponent implements OnInit {
   @ViewChild(SmartLoginFormComponent) loginForm: SmartLoginFormComponent;
   isUserLoading$: Observable<boolean>;
-  buttonDisabled: boolean;
+  buttonDisabled$ = new BehaviorSubject<boolean>(true);
   constructor(private router: Router, private store: Store<State>) {}
 
   ngOnInit() {
@@ -47,8 +47,8 @@ export class AuthPageComponent implements OnInit {
   }
 
   onActivate(component: any) {
-    component.isFormValid.subscribe(
-      (data: boolean) => (this.buttonDisabled = data)
-    );
+    component.isFormValid.subscribe((data: boolean) => {
+      this.buttonDisabled$.next(!data);
+    });
   }
 }
