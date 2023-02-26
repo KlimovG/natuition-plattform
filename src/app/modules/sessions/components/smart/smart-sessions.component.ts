@@ -4,6 +4,7 @@ import { State } from '../../../../state';
 import { map, Observable, Subscription } from 'rxjs';
 import { SessionModel } from '../../models/session.model';
 import {
+  isRobotSessionsLoading,
   selectActiveSession,
   selectSessions,
 } from '../../state/sessions.reducer';
@@ -17,22 +18,30 @@ import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-smart-sessions',
-  template: ` <app-sessions
-    class="p-6 block h-full flex flex-col"
-    [sessions]="sessions$ | async"
-    [activeSession]="activeSession$ | async"
-    (onSessionClick)="onSessionClick($event)"
-  >
-  </app-sessions>`,
+  template: `
+    <app-sessions
+      class="p-6 block h-full flex flex-col"
+      [isLoading]="isDataLoading$ | async"
+      [sessions]="sessions$ | async"
+      [activeSession]="activeSession$ | async"
+      (onSessionClick)="onSessionClick($event)"
+    >
+    </app-sessions>
+  `,
 })
 export class SmartSessionsComponent implements OnInit, OnDestroy {
   sessions$: Observable<IButtonsData[]>;
   activeSession$: Observable<number>;
+  isDataLoading$: Observable<boolean>;
   private subscriptionsList: Subscription[] = [];
 
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
+    this.isDataLoading$ = this.store.select(isRobotSessionsLoading());
+    this.isDataLoading$.subscribe((value) =>
+      console.log('isDataLoading$', value)
+    );
     this.store.select(selectActiveRobot()).subscribe((robot) => {
       if (robot) {
         this.store.dispatch(new GetSessionsForRobot(robot));

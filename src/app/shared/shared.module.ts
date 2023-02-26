@@ -18,6 +18,8 @@ import { GraphQLModule } from './modules/graphQL/graphQL.module';
 import { ButtonsListComponent } from './components/buttons-list/buttons-list.component';
 import { TitleSectionComponent } from './components/title-section/title-section.component';
 import { TitleColumnComponent } from './components/title-column/title-column.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -28,6 +30,7 @@ import { TitleColumnComponent } from './components/title-column/title-column.com
     RouterModule,
     GraphQLModule,
     CommonModule,
+    NgxSpinnerModule,
   ],
   declarations: [
     ButtonPrimaryComponent,
@@ -43,6 +46,7 @@ import { TitleColumnComponent } from './components/title-column/title-column.com
     ButtonsListComponent,
     TitleSectionComponent,
     TitleColumnComponent,
+    SpinnerComponent,
   ],
   exports: [
     CommonModule,
@@ -62,6 +66,7 @@ import { TitleColumnComponent } from './components/title-column/title-column.com
     ButtonsListComponent,
     TitleSectionComponent,
     TitleColumnComponent,
+    SpinnerComponent,
   ],
   providers: [TranslationService],
 })

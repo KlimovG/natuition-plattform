@@ -51,3 +51,6 @@ export const selectSessions = (): MemoizedSelector<any, SessionModel[]> =>
 
 export const selectActiveSession = (): MemoizedSelector<any, number> =>
   createSelector(selectFeature, (state) => state.activeSession);
+
+export const isRobotSessionsLoading = (): MemoizedSelector<any, boolean> =>
+  createSelector(selectFeature, (state) => state.isLoading);

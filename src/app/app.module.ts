@@ -17,6 +17,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { APOLLO_OPTIONS } from 'apollo-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+export const NgxSpinnerConfig = {
+  type: 'cog',
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +29,7 @@ import { APOLLO_OPTIONS } from 'apollo-angular';
     AppRoutingModule,
     BrowserModule,
     RouterModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

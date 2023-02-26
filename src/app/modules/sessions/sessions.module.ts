@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/sessions.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SessionsEffects } from './state/sessions.effects';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [SessionsComponent, SmartSessionsComponent],
@@ -17,6 +18,7 @@ import { SessionsEffects } from './state/sessions.effects';
     SessionsRoutingModule,
     StoreModule.forFeature('sessions', reducer),
     EffectsModule.forFeature([SessionsEffects]),
+    NgxSpinnerModule,
   ],
   exports: [SmartSessionsComponent],
 })
