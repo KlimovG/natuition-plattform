@@ -56,3 +56,6 @@ export const selectStatistic = (): MemoizedSelector<
 
 export const selectChartData = (): MemoizedSelector<any, ChartData> =>
   createSelector(selectFeature, (state) => state.statistic.chart);
+
+export const isStatisticLoading = (): MemoizedSelector<any, boolean> =>
+  createSelector(selectFeature, (state) => state.isLoading);

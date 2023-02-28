@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -9,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { Authenticate } from '../../state/auth.actions';
 import { isLoadingUserAuth } from '../../state/auth.reducer';
 import { State } from '../../../../state';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { SmartLoginFormComponent } from '../../components/smart/smart-login-form/smart-login-form.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -19,10 +20,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./auth-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthPageComponent implements OnInit {
+export class AuthPageComponent implements OnInit, OnDestroy {
   @ViewChild(SmartLoginFormComponent) loginForm: SmartLoginFormComponent;
   isUserLoading$: Observable<boolean>;
   buttonDisabled$ = new BehaviorSubject<boolean>(true);
+  spinnerSubscription: Subscription;
+
   constructor(
     private router: Router,
     private store: Store<State>,
@@ -32,9 +35,13 @@ export class AuthPageComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new Authenticate());
     this.isUserLoading$ = this.store.select(isLoadingUserAuth);
-    this.isUserLoading$.subscribe((value) => {
+    this.spinnerSubscription = this.isUserLoading$.subscribe((value) => {
       value ? this.spinner.show('mainBtn') : this.spinner.hide('mainBtn');
     });
+  }
+
+  ngOnDestroy() {
+    this.spinnerSubscription.unsubscribe();
   }
 
   activeUrl(path: string): boolean {

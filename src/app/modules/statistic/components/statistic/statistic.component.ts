@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartData } from '../../models/chart-data.model';
 import { StatisticModel } from '../../models/statistic.model';
 
@@ -8,7 +8,10 @@ import { StatisticModel } from '../../models/statistic.model';
     <app-title-section
       [title]="translationPrefix + 'title'"
     ></app-title-section>
-    <div class="flex lg:flex-nowrap items-stretch justify-between">
+    <div
+      class="flex lg:flex-nowrap items-stretch justify-between"
+      *ngIf="!isDataLoading"
+    >
       <div class="lg:w-1/3">
         <app-type-plants
           *ngIf="chartData"
@@ -27,11 +30,9 @@ import { StatisticModel } from '../../models/statistic.model';
     </div>
   `,
 })
-export class StatisticComponent implements OnInit {
+export class StatisticComponent {
   @Input() translationPrefix: string;
   @Input() chartData: ChartData;
   @Input() stats: StatisticModel;
-  constructor() {}
-
-  ngOnInit(): void {}
+  @Input() isDataLoading: boolean;
 }

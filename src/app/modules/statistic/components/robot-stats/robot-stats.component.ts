@@ -27,7 +27,7 @@ import { StatisticModel } from '../../models/statistic.model';
           [value]="stats?.totalNumber?.toString()"
         ></app-stat-item>
       </div>
-      <div class="mt-auto flex justify-center self-end">
+      <div class="mt-2 flex justify-center self-end">
         <app-button-secondary
           [text]="translationPrefix + 'report'"
         ></app-button-secondary>

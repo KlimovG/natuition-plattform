@@ -83,7 +83,6 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
         center: this.center,
       });
       this.map = map;
-      this.map.fitBounds(this.center);
       this.map.addControl(new mapboxgl.NavigationControl());
     }, 0);
   }
