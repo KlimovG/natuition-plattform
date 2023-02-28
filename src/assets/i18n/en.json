@@ -1,3 +1,54 @@
 {
-  "btn": "tranlation works!"
+  "home": {
+    "btnPrimary": "Sign In",
+    "btnSecondary": "Sign Up"
+  },
+  "login": {
+    "login": "Login",
+    "password": "Password",
+    "btnPrimary": "Sign In",
+    "btnSecondary": "Decline"
+  },
+  "registration": {
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "password": "Password",
+    "passwordRepeat": "Password",
+    "btnPrimary": "Create account",
+    "btnSecondary": "Decline"
+  },
+  "header": {
+    "signOut": "Sign out"
+  },
+  "robots": {
+    "title": "Robots"
+  },
+  "sessions": {
+    "title": "Sessions",
+    "btn": "Session {{index}}"
+  },
+  "map": {
+    "title": "Map view"
+  },
+  "statistic": {
+    "title": "Statistics of extractions",
+    "types": {
+      "title": "Type of plants:"
+    },
+    "stats": {
+      "title": "Stats of robot:",
+      "voltage": "Voltage:",
+      "duration": "Duration:",
+      "total": "Total number:",
+      "surface": "Target surface:",
+      "cover": "Covered:",
+      "report": "Download report"
+    }
+  },
+  "common": {
+    "duration": "Duration: <b>{{duration}}</b>",
+    "field": "Field: <b>{{field}}</b>",
+    "extracted": "Extracted: <b>{{total}}</b>"
+  }
 }

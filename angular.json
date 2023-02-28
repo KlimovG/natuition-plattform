@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/main.scss"
+              "src/styles/main.scss",
+              "node_modules/ngx-spinner/animations/cog.css"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {
@@ -73,12 +74,18 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "natuition-plattform:build:production"
+              "browserTarget": "natuition-plattform:build:production",
+              "proxyConfig": "src/proxy.conf.json"
+
             },
             "development": {
-              "browserTarget": "natuition-plattform:build:development"
+              "browserTarget": "natuition-plattform:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

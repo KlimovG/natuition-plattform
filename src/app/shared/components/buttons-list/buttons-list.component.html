@@ -1,0 +1,49 @@
+<div class="flex flex-col" *ngFor="let button of buttonsData; let i = index">
+  <button
+    *ngIf="!button?.date"
+    class="
+    mb-2
+    border-2
+    border-green
+    text-green-dark
+    w-full
+    bg-white
+    Montserrat-SemiBold
+    rounded-lg
+    py-4
+    px-4
+    text-base
+    transition
+    duration-300"
+    type="submit"
+    (click)="onClick.emit(button.id)"
+    [ngClass]="{'text-gray-white bg-green': active === button.id}"
+  >
+    {{ button.label | translate : {index: i + 1} }}
+    <span *ngIf="button.subtitle" class="text-xxs block mt-1">{{button.subtitle}}</span>
+  </button>
+  <div
+    *ngIf="!!button?.date"
+    class="
+    mb-2
+    border-2
+    border-green
+    text-green-dark
+    w-full
+    bg-white
+    rounded-lg
+    py-4
+    px-3
+    text-base
+    transition
+    duration-300"
+    role="button"
+    [ngClass]="{'text-gray-white bg-green': active.toString() === button.id.toString()}"
+    (click)="onClick.emit(button.id)"
+  >
+    <h3 class="Montserrat-SemiBold">{{button.date | date : 'MMM d, y H:mm'}}</h3>
+    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.duration'| translate: {duration: button.duration}"></p>
+    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.field'| translate: {field: button.field}"></p>
+    <p *ngIf="button.extracted" class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.extracted'| translate: {total: button.extracted}"></p>
+  </div>
+</div>

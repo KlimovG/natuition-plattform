@@ -1,0 +1,22 @@
+<app-button-main
+  css="border-primary-main
+  text-white
+  shadow-primary-btn
+  hover:bg-primary-light
+  hover:border-primary-light
+  hover:text-primary-dark
+  disabled:border-none
+  disabled:text-gray
+  disabled:bg-gray-white
+  disabled:shadow-none
+  bg-primary-main
+  relative"
+  [disabled]="disabled"
+  [routerLink]="link"
+  [text]="text | translate"
+  [formName]="formName"
+  (click)="this.click.emit($event)"
+>
+  <app-spinner name="mainBtn" size="small"></app-spinner>
+</app-button-main>
+

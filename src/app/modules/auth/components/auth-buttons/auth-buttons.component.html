@@ -1,0 +1,34 @@
+<!--<app-button-primary-->
+<!--  *ngIf="translationPrefix === 'home'; else primaryButton"-->
+<!--  [link]="['registration']"-->
+<!--  class="mr-3"-->
+<!--  [text]="translationPrefix + '.btnPrimary'"-->
+<!--&gt;</app-button-primary>-->
+
+<app-button-primary
+  *ngIf="translationPrefix === 'home'; else primaryButton"
+  [link]="['/login']"
+  class="ml-3"
+  [text]="translationPrefix + '.btnPrimary'"
+></app-button-primary>
+
+<ng-template #primaryButton>
+  <app-button-primary
+    [disabled]="buttonDisabled ?? isLoading"
+    [formName]="formName"
+    [link]="['/login']"
+    [loading]="isLoading"
+    [text]="translationPrefix + '.btnPrimary'"
+    class="mr-3 relative"
+    ngDefaultControl
+    type="submit"
+  ></app-button-primary>
+</ng-template>
+
+<ng-template #secondaryButton>
+  <app-button-secondary
+    [link]="['/'] "
+    class="ml-3"
+    [text]="translationPrefix + '.btnSecondary'"
+  ></app-button-secondary>
+</ng-template>

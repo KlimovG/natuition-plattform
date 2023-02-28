@@ -1,0 +1,10 @@
+<app-button-main
+  (click)="this.click.emit()"
+  css="border-primary-dark
+  text-primary-dark
+  shadow-secondary-btn
+  hover:bg-primary-dark
+  hover:text-white"
+  [routerLink]="link"
+  [text]="text | translate"
+></app-button-main>

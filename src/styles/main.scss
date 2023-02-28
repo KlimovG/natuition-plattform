@@ -7,4 +7,12 @@
 
 html{
   font-size: 16px;
+  background-color: var(--gray-light);
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
 }

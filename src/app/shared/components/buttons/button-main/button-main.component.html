@@ -1,0 +1,14 @@
+<button
+  [attr.form]="formName"
+  [class]="
+    'Montserrat-Medium px-5 py-3 leading-5 border transition rounded-md hover:shadow-none ' +
+    css
+  "
+  [disabled]="disabled"
+  [routerLink]="routerLink"
+  [type]="formName ? 'submit' : null "
+  role="button"
+>
+  {{ text | translate }}
+  <ng-content></ng-content>
+</button>
