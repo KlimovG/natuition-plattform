@@ -15,7 +15,11 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
     >
     </app-buttons-list>
 
-    <app-spinner [showSpinner]="isLoading" size="large"></app-spinner>
+    <app-spinner
+      name="sessionList"
+      [showSpinner]="isLoading"
+      size="large"
+    ></app-spinner>
 
     <ng-content></ng-content>
   `,

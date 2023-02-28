@@ -5,6 +5,7 @@ import { Size } from 'ngx-spinner/lib/ngx-spinner.enum';
   selector: 'app-spinner',
   template: `
     <ngx-spinner
+      [name]="name"
       [showSpinner]="showSpinner"
       [type]="type"
       [size]="size"
@@ -18,6 +19,7 @@ export class SpinnerComponent {
   @Input() showSpinner: boolean;
   @Input() fullScreen: boolean = false;
   @Input() type = 'cog';
+  @Input() name: string;
   @Input() color = '#256320';
   @Input() backDropColor = 'rgba(0,0,0,0)';
   @Input() size: Size = 'small';

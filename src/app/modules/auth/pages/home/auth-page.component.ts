@@ -11,6 +11,7 @@ import { isLoadingUserAuth } from '../../state/auth.reducer';
 import { State } from '../../../../state';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SmartLoginFormComponent } from '../../components/smart/smart-login-form/smart-login-form.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home-page',
@@ -22,11 +23,18 @@ export class AuthPageComponent implements OnInit {
   @ViewChild(SmartLoginFormComponent) loginForm: SmartLoginFormComponent;
   isUserLoading$: Observable<boolean>;
   buttonDisabled$ = new BehaviorSubject<boolean>(true);
-  constructor(private router: Router, private store: Store<State>) {}
+  constructor(
+    private router: Router,
+    private store: Store<State>,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(new Authenticate());
     this.isUserLoading$ = this.store.select(isLoadingUserAuth);
+    this.isUserLoading$.subscribe((value) => {
+      value ? this.spinner.show('mainBtn') : this.spinner.hide('mainBtn');
+    });
   }
 
   activeUrl(path: string): boolean {
@@ -47,6 +55,7 @@ export class AuthPageComponent implements OnInit {
   }
 
   onActivate(component: any) {
+    console.log('Component from route', component);
     component.isFormValid.subscribe((data: boolean) => {
       this.buttonDisabled$.next(!data);
     });

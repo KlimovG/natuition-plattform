@@ -1,12 +1,12 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 
 export class LoginInput {
   @IsNotEmpty()
-  @IsEmail()
-  email!: string;
+  login: string;
 
   @IsNotEmpty()
-  password!: string;
+  @MinLength(8)
+  password: string;
 }
 
 export class LoginOutput {

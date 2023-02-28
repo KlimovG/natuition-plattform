@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonPrimaryComponent } from './components/buttons/button-primary/button-primary.component';
 import { ButtonSecondaryComponent } from './components/buttons/button-secondary/button-secondary.component';
@@ -49,6 +49,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SpinnerComponent,
   ],
   exports: [
+    NgxSpinnerModule,
     CommonModule,
     TranslateModule,
     ReactiveFormsModule,
@@ -69,5 +70,6 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SpinnerComponent,
   ],
   providers: [TranslationService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}

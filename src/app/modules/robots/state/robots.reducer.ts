@@ -54,3 +54,6 @@ export const selectRobots = (): MemoizedSelector<any, RobotModel[]> =>
 
 export const selectActiveRobot = (): MemoizedSelector<any, string> =>
   createSelector(selectFeature, (state) => state.activeRobot);
+
+export const isRobotListLoading = (): MemoizedSelector<any, boolean> =>
+  createSelector(selectFeature, (state) => state.isLoading);

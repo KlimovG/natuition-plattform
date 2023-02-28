@@ -19,14 +19,16 @@ import {
 @Component({
   selector: 'app-map-container',
   template: `
-    <div id="map" class="w-full h-full"></div>
-    <app-map-buttons
-      class="flex flex-col absolute top-2.5 left-2.5 z-20 gap-1.5"
-      [isExtracted]="isExtracted"
-      [isPath]="isPath"
-      [isField]="isField"
-      (toggleMap)="toggleMap($event)"
-    ></app-map-buttons>
+    <div class="relative w-full h-90">
+      <div id="map" class="w-full h-full"></div>
+      <app-map-buttons
+        class="flex flex-col absolute top-2.5 left-2.5 z-20 gap-1.5"
+        [isExtracted]="isExtracted"
+        [isPath]="isPath"
+        [isField]="isField"
+        (toggleMap)="toggleMap($event)"
+      ></app-map-buttons>
+    </div>
   `,
 })
 export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
@@ -56,6 +58,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
     if (field && field.geometry?.coordinates?.length > 0) {
       this.center = this.getCenterCoordinates(field);
       this.map.setCenter(this.center);
+      // this.map.fitBounds(this.center);
       this.addField(field);
     }
 
@@ -72,15 +75,17 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken').set(
       environment.mapbox.accessToken
     );
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: 19,
-      center: this.center,
-    });
-    this.map = map;
-
-    this.map.addControl(new mapboxgl.NavigationControl());
+    setTimeout(() => {
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: this.style,
+        zoom: 19,
+        center: this.center,
+      });
+      this.map = map;
+      this.map.fitBounds(this.center);
+      this.map.addControl(new mapboxgl.NavigationControl());
+    }, 0);
   }
 
   ngOnInit(): void {}

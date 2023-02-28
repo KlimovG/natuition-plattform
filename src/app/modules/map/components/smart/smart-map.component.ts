@@ -21,12 +21,10 @@ import { MapDataFromServer } from '../../models/map.model';
   selector: 'app-smart-map',
   template: `
     <app-title-section
+      class="flex w-full self-start"
       [title]="translationPrefix + 'title'"
     ></app-title-section>
-    <app-map-container
-      class="relative"
-      [data]="map$ | async | mapData"
-    ></app-map-container>
+    <app-map-container [data]="map$ | async | mapData"></app-map-container>
   `,
 })
 export class SmartMapComponent implements OnInit {

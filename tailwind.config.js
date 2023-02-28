@@ -10,15 +10,19 @@ module.exports = {
         "layout-lg": "1176px",
         wrapper: "73.5rem",
       },
+      minWidth: {
+        wrapper: "46.5rem",
+      },
       maxHeight: {
-        wrapper: "51.5rem",
+        wrapper: "48.5rem",
       },
       minHeight: {
         wrapper: "51.5rem",
       },
       height: {
         wrapper: "51.5rem",
-        dashboard: "44.5rem",
+        dashboard: "38.5rem",
+        90: "90%",
       },
       boxShadow: {
         "primary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",

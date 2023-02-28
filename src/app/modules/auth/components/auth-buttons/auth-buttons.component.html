@@ -14,7 +14,7 @@
 
 <ng-template #primaryButton>
   <app-button-primary
-    [disabled]="buttonDisabled"
+    [disabled]="buttonDisabled ?? isLoading"
     [formName]="formName"
     [link]="['/login']"
     [loading]="isLoading"

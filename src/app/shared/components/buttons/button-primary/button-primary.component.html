@@ -1,5 +1,4 @@
 <app-button-main
-  *ngIf="!loading"
   css="border-primary-main
   text-white
   shadow-primary-btn
@@ -10,13 +9,14 @@
   disabled:text-gray
   disabled:bg-gray-white
   disabled:shadow-none
-  bg-primary-main"
+  bg-primary-main
+  relative"
   [disabled]="disabled"
   [routerLink]="link"
   [text]="text | translate"
   [formName]="formName"
   (click)="this.click.emit($event)"
 >
-  <app-spinner [showSpinner]="loading" size="small" ></app-spinner>
+  <app-spinner name="mainBtn" size="small"></app-spinner>
 </app-button-main>
 

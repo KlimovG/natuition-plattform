@@ -8,8 +8,8 @@ import { StatisticModel } from '../../models/statistic.model';
     <app-title-section
       [title]="translationPrefix + 'title'"
     ></app-title-section>
-    <div class="flex lg:flex-nowrap items-stretch">
-      <div class="lg:w-1/2">
+    <div class="flex lg:flex-nowrap items-stretch justify-between">
+      <div class="lg:w-1/3">
         <app-type-plants
           *ngIf="chartData"
           [labels]="chartData.labels"

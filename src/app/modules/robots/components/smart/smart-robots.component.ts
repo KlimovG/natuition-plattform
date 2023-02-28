@@ -6,7 +6,11 @@ import {
 } from '../../state/robots.actions';
 import { selectUserID } from '../../../auth/state/auth.reducer';
 import { State } from '../../../../state';
-import { selectActiveRobot, selectRobots } from '../../state/robots.reducer';
+import {
+  isRobotListLoading,
+  selectActiveRobot,
+  selectRobots,
+} from '../../state/robots.reducer';
 import {
   combineLatest,
   filter,
@@ -32,6 +36,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
   robots$: Observable<IButtonsData[]>;
+  isRobotListLoading$: Observable<boolean>;
   activeRobot$: Observable<string>;
   _activeRobot: string;
   private subscriptionsList: Subscription[] = [];
@@ -39,6 +44,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
+    this.isRobotListLoading$ = this.store.select(isRobotListLoading());
     this.store.select(selectUserID).subscribe((id) => {
       this.store.dispatch(new GetRobotsForCustomer(id));
     });

@@ -5,8 +5,8 @@
   <router-outlet  (activate)="onActivate($event)"></router-outlet>
   <div class="flex justify-center items-center mt-6">
     <app-auth-buttons
-      [buttonDisabled]="buttonDisabled$ | async"
-      [isLoading]="isUserLoading$ | async"
+      [buttonDisabled]="(buttonDisabled$ | async)"
+      [isLoading]="!(isUserLoading$ | async)"
       [formName]="translationText"
       [translationPrefix]="translationText"
     ></app-auth-buttons>
