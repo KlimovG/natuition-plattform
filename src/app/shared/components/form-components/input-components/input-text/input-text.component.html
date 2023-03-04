@@ -5,7 +5,7 @@
     [id]="inputID"
     [placeholder]="placeholder"
     [formControlName]="controlName"
-    type="text"
+    [type]="controlName === 'password' ? 'password' : 'text'"
     class="placeholder:Montserrat-Bold
     placeholder:text-sm
     py-2 px-4
