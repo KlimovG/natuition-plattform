@@ -1,14 +1,17 @@
-  <app-header class="w-full" ></app-header>
-  <div class="w-full h-dashboard mt-4 flex-grow flex justify-between " >
-    <app-smart-robots
-      class="
-      w-1/4
-      bg-gray-white
-      relative
-      rounded-2xl
-      overflow-hidden
-      xl:mr-6">
-    </app-smart-robots>
+  <div class="w-full h-dashboard flex-grow flex justify-between " >
+    <div class="w-1/4 flex flex-col">
+      <app-header class="w-full" ></app-header>
+
+      <app-smart-robots
+        class="
+        w-full
+        bg-gray-white
+        relative
+        rounded-2xl
+        overflow-hidden
+        xl:mr-6">
+      </app-smart-robots>
+    </div>
 
     <div class="flex flex-col p-6 w-1/2">
       <app-smart-map

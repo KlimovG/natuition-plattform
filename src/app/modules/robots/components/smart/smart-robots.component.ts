@@ -14,6 +14,7 @@ import {
 import {
   combineLatest,
   filter,
+  interval,
   map,
   Observable,
   Subscription,
@@ -21,6 +22,7 @@ import {
 } from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
+import { RobotsService } from '../../service/robots.service';
 
 @Component({
   selector: 'app-smart-robots',
@@ -40,8 +42,9 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   activeRobot$: Observable<string>;
   _activeRobot: string;
   private subscriptionsList: Subscription[] = [];
+  protected intervalForRefresh$ = interval(5 * 1000); // 1 minute
 
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<State>, private service: RobotsService) {}
 
   ngOnInit() {
     this.isRobotListLoading$ = this.store.select(isRobotListLoading());
@@ -72,6 +75,21 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
             }
           });
         })
+      // this.intervalForRefresh$
+      //   .pipe(
+      //     combineLatestWith(this.robots$),
+      //     combineLatestWith(this.store.select(isLogged))
+      //   )
+      //   .subscribe(async ([[_, robots], isLogged]) => {
+      //     if (isLogged && robots?.length > 0) {
+      //       for await (const robot of robots) {
+      //         const status = await firstValueFrom(
+      //           this.service.getRobotStatus(robot.label)
+      //         );
+      //         console.log('Response', status);
+      //       }
+      //     }
+      //   })
     );
   }
 
