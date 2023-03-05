@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export interface IButtonsData {
   label?: string;
@@ -16,6 +17,8 @@ export interface IButtonsData {
   styleUrls: ['./buttons-list.component.scss'],
 })
 export class ButtonsListComponent {
+  faHeart = faCoffee;
+
   @Input() buttonsData: IButtonsData[];
   @Input() active: string | number;
   @Output() onClick = new EventEmitter<any>();

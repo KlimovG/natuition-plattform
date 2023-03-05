@@ -22,13 +22,12 @@ import {
 } from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
-import { RobotsService } from '../../service/robots.service';
 
 @Component({
   selector: 'app-smart-robots',
   template: `
     <app-robots-list
-      class="p-6 block h-full flex flex-col"
+      class="p-6 pl-9 block h-full flex flex-col"
       *ngIf="robots$ | async"
       [robots]="robots$ | async"
       [activeRobot]="activeRobot$ | async"
@@ -44,7 +43,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   private subscriptionsList: Subscription[] = [];
   protected intervalForRefresh$ = interval(5 * 1000); // 1 minute
 
-  constructor(private store: Store<State>, private service: RobotsService) {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {
     this.isRobotListLoading$ = this.store.select(isRobotListLoading());

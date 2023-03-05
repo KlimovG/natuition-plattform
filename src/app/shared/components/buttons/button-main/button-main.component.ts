@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonMainComponent {
   @Input() routerLink: any[] | string | null | undefined;
-  @Input() text: string = 'btn';
+  @Input() text: string;
   @Input() css: string;
   @Input() formName: string;
   @Input() disabled: boolean;

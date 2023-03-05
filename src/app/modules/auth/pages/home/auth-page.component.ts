@@ -62,7 +62,6 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   }
 
   onActivate(component: any) {
-    console.log('Component from route', component);
     component.isFormValid.subscribe((data: boolean) => {
       this.buttonDisabled$.next(!data);
     });

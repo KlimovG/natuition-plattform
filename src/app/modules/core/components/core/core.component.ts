@@ -14,7 +14,7 @@ import { AuthService } from '../../../auth/service/auth.service';
   },
 })
 export class CoreComponent implements OnInit {
-  intervalForRefresh$ = interval(14 * 60 * 1000); // 15 minutes
+  intervalForRefresh$ = interval(14 * 60 * 1000); // 14 minutes
   constructor(
     private tokenService: TokenStorageService,
     private store: Store<State>,
