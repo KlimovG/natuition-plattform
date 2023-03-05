@@ -7,7 +7,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
     <app-title-section title="robots.title"></app-title-section>
     <app-buttons-list
       *ngIf="!isRobotListLoading"
-      class="overflow-y-scroll max-h-full block"
+      class="overflow-y-scroll max-h-full block mt-1"
       [buttonsData]="robots"
       [active]="activeRobot"
       (onClick)="onRobotClick.emit($event)"

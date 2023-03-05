@@ -27,7 +27,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
   selector: 'app-smart-robots',
   template: `
     <app-robots-list
-      class="p-6 pl-9 block h-full flex flex-col"
+      class="p-4 pl-6 block h-full flex flex-col"
       *ngIf="robots$ | async"
       [robots]="robots$ | async"
       [activeRobot]="activeRobot$ | async"

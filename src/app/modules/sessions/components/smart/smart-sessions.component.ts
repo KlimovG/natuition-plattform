@@ -21,7 +21,7 @@ import { DateTime } from 'luxon';
   selector: 'app-smart-sessions',
   template: `
     <app-sessions
-      class="p-6 block h-full flex flex-col"
+      class="p-4 block h-full flex flex-col"
       [isLoading]="isDataLoading$ | async"
       [sessions]="sessions$ | async"
       [activeSession]="activeSession$ | async"
