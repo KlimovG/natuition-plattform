@@ -43,6 +43,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isSmallScreen$.subscribe((value) => {
       if (value) {
+        console.log('isSmallScreen$: ', value);
         this.updateRootFontSize('12px');
       }
     });
@@ -51,6 +52,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isMediumScreen$.subscribe((value) => {
       if (value) {
+        console.log('isMediumScreen$: ', value);
         this.updateRootFontSize('14px');
       }
     });
@@ -59,6 +61,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isLargeScreen$.subscribe((value) => {
       if (value) {
+        console.log('isLargeScreen$: ', value);
         this.updateRootFontSize('16px');
       }
     });

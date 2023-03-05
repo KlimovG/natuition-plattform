@@ -27,14 +27,14 @@ export class TypePlantsComponent implements OnChanges {
   _dataset: ChartConfig = [];
   options: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
-    radius: '100%',
+    radius: '60',
     maintainAspectRatio: false,
     aspectRatio: 1,
-    cutout: 50,
+    cutout: 15,
     animation: false,
     plugins: {
       legend: {
-        position: 'bottom',
+        position: 'right',
         maxWidth: 200,
         labels: {
           boxWidth: 15,

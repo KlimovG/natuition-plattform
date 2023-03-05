@@ -17,11 +17,11 @@ module.exports = {
         wrapper: "48.5rem",
       },
       minHeight: {
-        wrapper: "51.5rem",
+        wrapper: "42rem",
       },
       height: {
         wrapper: "51.5rem",
-        dashboard: "38.5rem",
+        dashboard: "42rem",
         90: "90%",
       },
       boxShadow: {
