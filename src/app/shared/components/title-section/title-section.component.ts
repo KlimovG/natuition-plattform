@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-title-section',
-  template: ` <h2 class="Montserrat-Bold text-xl text-left mb-2.5">
+  template: ` <h2 class="Montserrat-Bold text-xl text-left">
     {{ title | translate }}
   </h2>`,
 })

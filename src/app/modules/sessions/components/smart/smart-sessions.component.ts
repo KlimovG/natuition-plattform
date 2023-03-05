@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../../state';
-import { map, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, map, Observable, Subscription } from 'rxjs';
 import { SessionModel } from '../../models/session.model';
 import {
   isRobotSessionsLoading,
@@ -9,6 +9,7 @@ import {
   selectSessions,
 } from '../../state/sessions.reducer';
 import {
+  GetMoreSessionsForRobot,
   GetSessionsForRobot,
   SetActiveSession,
 } from '../../state/sessions.actions';
@@ -25,6 +26,7 @@ import { DateTime } from 'luxon';
       [sessions]="sessions$ | async"
       [activeSession]="activeSession$ | async"
       (onSessionClick)="onSessionClick($event)"
+      (onMoreClick)="getMoreSessions()"
     >
     </app-sessions>
   `,
@@ -39,9 +41,6 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isDataLoading$ = this.store.select(isRobotSessionsLoading());
-    this.isDataLoading$.subscribe((value) =>
-      console.log('isDataLoading$', value)
-    );
     this.store.select(selectActiveRobot()).subscribe((robot) => {
       if (robot) {
         this.store.dispatch(new GetSessionsForRobot(robot));
@@ -88,5 +87,18 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
 
   onSessionClick(session: number) {
     this.store.dispatch(new SetActiveSession(session));
+  }
+
+  async getMoreSessions() {
+    const lastSession = await firstValueFrom(
+      this.store.select(selectSessions())
+    );
+    const robot = await firstValueFrom(this.store.select(selectActiveRobot()));
+    this.store.dispatch(
+      new GetMoreSessionsForRobot({
+        serial: robot,
+        serialId: lastSession.at(-1).id,
+      })
+    );
   }
 }

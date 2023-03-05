@@ -34,6 +34,18 @@ export function reducer(
         isLoading: false,
         sessions: action.payload,
       };
+    case SessionsActionTypes.GET_MORE_SESSIONS_FOR_ROBOT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case SessionsActionTypes.GET_MORE_SESSIONS_FOR_ROBOT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        // sessions: action.payload,
+        sessions: [...state.sessions, ...action.payload],
+      };
     case SessionsActionTypes.SET_ACTIVE_SESSION:
       return {
         ...state,
