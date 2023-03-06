@@ -42,7 +42,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isSmallScreen$.subscribe((value) => {
       if (value) {
-        this.updateRootFontSize('12px');
+        this.updateRootFontSize('14px');
       }
     });
     this.isMediumScreen$ = this.breakpointObserver

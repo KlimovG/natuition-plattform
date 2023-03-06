@@ -9,10 +9,10 @@ import { StatisticModel } from '../../models/statistic.model';
       [title]="translationPrefix + 'title'"
     ></app-title-section>
     <div
-      class="flex lg:flex-nowrap items-stretch justify-between"
+      class="flex flex-wrap items-stretch justify-between self-stretch"
       *ngIf="!isDataLoading"
     >
-      <div class="lg:w-1/2">
+      <div class="md:w-1/2 w-full mb-3 md:mb-0">
         <app-type-plants
           *ngIf="chartData"
           [labels]="chartData.labels"
@@ -20,7 +20,7 @@ import { StatisticModel } from '../../models/statistic.model';
           [translationPrefix]="translationPrefix + 'types.'"
         ></app-type-plants>
       </div>
-      <div class="lg:w-1/2">
+      <div class="md:w-1/2 w-full">
         <app-robot-stats
           *ngIf="stats"
           [stats]="stats"
