@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../../state';
-import { firstValueFrom, map, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { SessionModel } from '../../models/session.model';
 import {
   isRobotSessionsLoading,
@@ -10,7 +10,6 @@ import {
 } from '../../state/sessions.reducer';
 import {
   GetMoreSessionsForRobot,
-  GetSessionsForRobot,
   SetActiveSession,
 } from '../../state/sessions.actions';
 import { selectActiveRobot } from '../../../robots/state/robots.reducer';
@@ -31,21 +30,29 @@ import { DateTime } from 'luxon';
     </app-sessions>
   `,
 })
-export class SmartSessionsComponent implements OnInit, OnDestroy {
+export class SmartSessionsComponent implements OnInit {
   sessions$: Observable<IButtonsData[]>;
   activeSession$: Observable<number>;
   isDataLoading$: Observable<boolean>;
-  private subscriptionsList: Subscription[] = [];
+  isNewRobot: boolean = true;
+  private _currentRobot: string;
 
   constructor(private store: Store<State>) {}
 
-  ngOnInit() {
+  set currentRobot(robot: string) {
+    this._currentRobot = robot;
+  }
+
+  get currentRobot(): string {
+    return this._currentRobot;
+  }
+
+  async ngOnInit() {
     this.isDataLoading$ = this.store.select(isRobotSessionsLoading());
-    this.store.select(selectActiveRobot()).subscribe((robot) => {
-      if (robot) {
-        this.store.dispatch(new GetSessionsForRobot(robot));
-      }
-    });
+    this.loadSessions();
+  }
+
+  private loadSessions() {
     this.activeSession$ = this.store.select(selectActiveSession());
     this.sessions$ = this.store.pipe(
       select(selectSessions()),
@@ -68,21 +75,6 @@ export class SmartSessionsComponent implements OnInit, OnDestroy {
         }));
       })
     );
-    this.subscriptionsList.push(
-      this.sessions$.subscribe((sessions) =>
-        sessions
-          ? sessions.forEach((session, i) => {
-              if (i === 0) {
-                this.store.dispatch(new SetActiveSession(Number(session.id)));
-              }
-            })
-          : null
-      )
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
   onSessionClick(session: number) {

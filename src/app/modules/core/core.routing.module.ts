@@ -1,38 +1,38 @@
 import { RouterModule, Routes } from '@angular/router';
 import { CoreComponent } from './components/core/core.component';
 import { NgModule } from '@angular/core';
+import { SmartRobotsComponent } from '../robots/components/smart/smart-robots.component';
+import { SmartMapComponent } from '../map/components/smart/smart-map.component';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: CoreComponent,
     children: [
       {
         path: '',
-        loadChildren: () =>
-          import('../robots/robots.module').then((m) => m.RobotsModule),
-        outlet: 'robots',
+        redirectTo: 'robots',
+        pathMatch: 'full',
       },
       {
-        path: '',
-        loadChildren: () =>
-          import('../map/map.module').then((m) => m.MapModule),
-        outlet: 'map',
+        path: 'robots',
+        component: SmartRobotsComponent,
       },
       {
-        path: '',
+        path: 'map',
+        component: SmartMapComponent,
+      },
+      {
+        path: 'statistic',
         loadChildren: () =>
           import('../statistic/statistic.module').then(
             (m) => m.StatisticModule
           ),
-        outlet: 'statistic',
       },
       {
-        path: '',
+        path: 'sessions',
         loadChildren: () =>
           import('../sessions/sessions.module').then((m) => m.SessionsModule),
-        outlet: 'sessions',
       },
     ],
   },

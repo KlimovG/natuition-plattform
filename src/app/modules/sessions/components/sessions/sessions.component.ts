@@ -5,7 +5,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-sessions',
   template: `
-    <div class="flex justify-between items-center mb-2.5">
+    <div
+      class="flex justify-between items-center p-4 sticky top-0 bg-gray-white"
+    >
       <app-title-section title="sessions.title"> </app-title-section>
 
       <app-button-main
@@ -17,7 +19,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
     </div>
 
     <app-buttons-list
-      class="overflow-y-scroll max-h-full block mt-1"
+      class="overflow-y-scroll max-h-full block"
       *ngIf="!isLoading"
       [buttonsData]="sessions"
       [active]="activeSession"

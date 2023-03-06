@@ -20,7 +20,7 @@ import {
   selector: 'app-map-container',
   template: `
     <div class="relative w-full h-90">
-      <div id="map" class="w-full h-full"></div>
+      <div id="map" class="w-full h-full flex "></div>
       <app-map-buttons
         class="flex flex-col absolute top-2.5 left-2.5 z-20 gap-1.5"
         [isExtracted]="isExtracted"
@@ -86,6 +86,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
       this.map = map;
       this.map.addControl(new mapboxgl.NavigationControl());
       this.reorderLayers();
+      this.map.resize();
     }, 0);
   }
 
@@ -170,7 +171,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
 
   private reorderLayers(): void {
     const visibleLayers = this.layerOrder
-      .map((layerId, index) => {
+      .map((layerId) => {
         const isVisible = this.map.getLayer(layerId);
         return isVisible ? layerId : null;
       })

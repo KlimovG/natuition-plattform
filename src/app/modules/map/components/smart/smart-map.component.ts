@@ -24,8 +24,14 @@ import { MapDataFromServer } from '../../models/map.model';
       class="flex w-full self-start"
       [title]="translationPrefix + 'title'"
     ></app-title-section>
-    <app-map-container [data]="map$ | async | mapData"></app-map-container>
+    <app-map-container
+      class="h-90 w-full flex"
+      [data]="map$ | async | mapData"
+    ></app-map-container>
   `,
+  host: {
+    class: 'flex flex-wrap h-full',
+  },
 })
 export class SmartMapComponent implements OnInit {
   translationPrefix = 'map.';
