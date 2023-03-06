@@ -9,7 +9,7 @@ type ChartConfig = ChartConfiguration<'doughnut'>['data']['datasets'];
     <app-title-column [title]="translationPrefix + 'title'"></app-title-column>
     <div class="w-full relative">
       <canvas
-        style="height: 230px; width: 350px"
+        style="height: 230px; width: 150px"
         baseChart
         [labels]="labels"
         [datasets]="dataset"
@@ -27,14 +27,14 @@ export class TypePlantsComponent implements OnChanges {
   _dataset: ChartConfig = [];
   options: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
-    radius: '60',
+    radius: '50',
     maintainAspectRatio: false,
     aspectRatio: 1,
     cutout: 15,
     animation: false,
     plugins: {
       legend: {
-        position: 'right',
+        position: 'bottom',
         maxWidth: 200,
         labels: {
           boxWidth: 15,

@@ -32,7 +32,9 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
       [robots]="robots$ | async"
       [activeRobot]="activeRobot$ | async"
       (onRobotClick)="onRobotClick($event)"
-    ></app-robots-list>
+    >
+      <ng-content></ng-content>
+    </app-robots-list>
   `,
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {

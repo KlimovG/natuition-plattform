@@ -9,9 +9,13 @@ module.exports = {
       maxWidth: {
         "layout-lg": "1176px",
         wrapper: "73.5rem",
+        "dashboard-web": "60rem",
+      },
+      width: {
+        "dashboard-web": "49rem",
       },
       minWidth: {
-        wrapper: "46.5rem",
+        "dashboard-web": "52rem",
       },
       maxHeight: {
         wrapper: "48.5rem",

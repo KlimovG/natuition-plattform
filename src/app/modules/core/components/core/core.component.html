@@ -1,10 +1,8 @@
-  <div class="w-full h-dashboard flex-grow flex justify-between " >
+  <div class="w-full max-w-dashboard-web h-dashboard flex-grow flex min-w-dashboard-web justify-between "
+       [ngClass]="{'min-w': isLargeScreen$ | async}" >
     <div class="w-1/4 flex flex-col">
-      <app-header class="w-full" ></app-header>
-
       <app-smart-robots
         class="
-        mt-4
         w-full
         bg-gray-white
         relative

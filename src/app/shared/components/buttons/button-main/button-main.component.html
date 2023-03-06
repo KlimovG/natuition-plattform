@@ -1,12 +1,13 @@
 <button
   [attr.form]="formName"
   [class]="
-    'Montserrat-Medium px-5 py-3 leading-5 border transition rounded-md hover:shadow-none ' +
+    'Montserrat-Medium px-4 py-3 leading-5 border transition rounded-md hover:shadow-none ' +
     css
   "
   [disabled]="disabled"
   [routerLink]="routerLink"
   [type]="formName ? 'submit' : null "
+  [ngClass]="{'w-full': !!fullWidth}"
   role="button"
 >
   {{ text | translate }}

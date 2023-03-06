@@ -11,9 +11,9 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
-  host: {
-    class: 'w-full h-full flex flex-col justify-between',
-  },
+  // host: {
+  //   class: 'w-full h-full flex flex-col justify-between',
+  // },
 })
 export class CoreComponent implements OnInit {
   intervalForRefresh$ = interval(14 * 60 * 1000); // 14 minutes

@@ -11,5 +11,6 @@ export class ButtonMainComponent {
   @Input() css: string;
   @Input() formName: string;
   @Input() disabled: boolean;
+  @Input() fullWidth: boolean = false;
   @Output() click = new EventEmitter<any>();
 }
