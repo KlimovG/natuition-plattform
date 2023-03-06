@@ -1,13 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
-import { CoreComponent } from './components/core/core.component';
 import { NgModule } from '@angular/core';
 import { SmartRobotsComponent } from '../robots/components/smart/smart-robots.component';
 import { SmartMapComponent } from '../map/components/smart/smart-map.component';
+import { SmartCoreComponent } from './components/smart/smart-core.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CoreComponent,
+    component: SmartCoreComponent,
     children: [
       {
         path: '',

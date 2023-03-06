@@ -25,13 +25,10 @@ import { MapDataFromServer } from '../../models/map.model';
       [title]="translationPrefix + 'title'"
     ></app-title-section>
     <app-map-container
-      class="h-90 w-full flex"
+      class="w-full flex"
       [data]="map$ | async | mapData"
     ></app-map-container>
   `,
-  host: {
-    class: 'flex flex-wrap h-full',
-  },
 })
 export class SmartMapComponent implements OnInit {
   translationPrefix = 'map.';

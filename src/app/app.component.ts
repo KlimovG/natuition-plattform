@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { State } from './state';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from './shared/i18n/translation.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { TranslationService } from './shared/i18n/translation.service';
 })
 export class AppComponent implements OnInit {
   title = 'natuition-plattform';
+  availHeight = new BehaviorSubject<number>(null);
 
   constructor(
     private store: Store<State>,
@@ -19,5 +21,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.translationHandler.init();
+
+    this.availHeight.next(window.innerHeight);
+
+    window.addEventListener('resize', (event: UIEvent) => {
+      const availHeight = (event.target as Window).screen.availHeight;
+      this.availHeight.next(availHeight ?? window.innerHeight);
+    });
   }
 }

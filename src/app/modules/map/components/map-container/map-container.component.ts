@@ -19,7 +19,7 @@ import {
 @Component({
   selector: 'app-map-container',
   template: `
-    <div class="relative w-full h-90">
+    <div class="relative w-full h-full">
       <div id="map" class="w-full h-full flex "></div>
       <app-map-buttons
         class="flex flex-col absolute top-2.5 left-2.5 z-20 gap-1.5"

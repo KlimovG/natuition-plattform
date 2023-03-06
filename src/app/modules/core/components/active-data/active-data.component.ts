@@ -5,10 +5,10 @@ import { LogOut } from '../../../auth/state/auth.actions';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: 'app-active-data',
+  templateUrl: './active-data.component.html',
 })
-export class HeaderComponent {
+export class ActiveDataComponent {
   @Input() userName: string;
   icon = faHome;
   showHome = false;

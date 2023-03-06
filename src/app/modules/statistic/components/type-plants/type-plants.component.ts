@@ -39,7 +39,7 @@ export class TypePlantsComponent implements OnChanges {
         labels: {
           boxWidth: 15,
           font: {
-            family: 'Hind Madurai',
+            family: 'Arial',
             size: 11,
           },
         },

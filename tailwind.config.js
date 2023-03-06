@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       gridTemplateRows: {
         core: "1fr 500px",
+        map: "max-content",
+        "1fr": "1fr",
       },
       maxWidth: {
         "layout-lg": "1176px",
@@ -19,10 +21,12 @@ module.exports = {
       },
       maxHeight: {
         wrapper: "48.5rem",
+        dashboard: "42rem",
       },
       minHeight: {
         wrapper: "42rem",
         map: "20rem",
+        dashboard: "42rem",
       },
       height: {
         wrapper: "51.5rem",
