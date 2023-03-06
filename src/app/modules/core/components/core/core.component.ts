@@ -29,7 +29,7 @@ export class CoreComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log('Breakpoints', Breakpoints);
+    // console.log('Breakpoints', Breakpoints);
     const isLogged$ = this.store.select(isLogged);
     this.intervalForRefresh$
       .pipe(combineLatestWith(isLogged$))
@@ -43,7 +43,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isSmallScreen$.subscribe((value) => {
       if (value) {
-        console.log('isSmallScreen$: ', value);
+        // console.log('isSmallScreen$: ', value);
         this.updateRootFontSize('12px');
       }
     });
@@ -52,7 +52,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isMediumScreen$.subscribe((value) => {
       if (value) {
-        console.log('isMediumScreen$: ', value);
+        // console.log('isMediumScreen$: ', value);
         this.updateRootFontSize('14px');
       }
     });
@@ -61,7 +61,7 @@ export class CoreComponent implements OnInit {
       .pipe(map((result) => result.matches));
     this.isLargeScreen$.subscribe((value) => {
       if (value) {
-        console.log('isLargeScreen$: ', value);
+        // console.log('isLargeScreen$: ', value);
         this.updateRootFontSize('16px');
       }
     });

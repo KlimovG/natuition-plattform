@@ -9,7 +9,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  @Input() userName: string = 'George Klimov';
+  @Input() userName: string;
   icon = faHome;
   showHome = false;
   constructor(private store: Store<State>) {}

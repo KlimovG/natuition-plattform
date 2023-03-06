@@ -17,8 +17,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-home-page',
   templateUrl: './auth-page.component.html',
-  styleUrls: ['./auth-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'flex',
+  },
 })
 export class AuthPageComponent implements OnInit, OnDestroy {
   @ViewChild(SmartLoginFormComponent) loginForm: SmartLoginFormComponent;

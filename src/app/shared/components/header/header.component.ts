@@ -31,7 +31,7 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
       </button>
 
       <div
-        class="flex-col items-stretch p-6 absolute top-10 right-5 z-10 bg-gray-white shadow-2xl shadow-green-dark rounded-lg border-primary-main border-2"
+        class="flex-col items-stretch p-6 absolute top-14 right-1 z-10 bg-gray-white shadow-2xl shadow-green-dark rounded-lg border-primary-main border-2"
         *ngIf="showHome"
       >
         <app-user-label></app-user-label>

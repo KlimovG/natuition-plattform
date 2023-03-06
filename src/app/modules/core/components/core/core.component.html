@@ -1,4 +1,4 @@
-  <div class="w-full max-w-dashboard-web h-dashboard flex-grow flex min-w-dashboard-web justify-between "
+  <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 mx-auto w-full max-w-dashboard-web h-dashboard flex-grow flex min-w-dashboard-web justify-between "
        [ngClass]="{'min-w': isLargeScreen$ | async}" >
     <div class="w-1/4 flex flex-col">
       <app-smart-robots
@@ -7,7 +7,8 @@
         bg-gray-white
         relative
         rounded-2xl
-        overflow-hidden
+        overflow-y-scroll
+        overflow-x-auto
         xl:mr-6">
       </app-smart-robots>
     </div>
