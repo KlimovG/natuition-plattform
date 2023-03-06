@@ -22,6 +22,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './components/header/header.component';
+import { StatItemComponent } from './components/stat-item/stat-item.component';
+import { StatItemListComponent } from './components/stat-item-list/stat-item-list.component';
 
 @NgModule({
   imports: [
@@ -51,6 +53,8 @@ import { HeaderComponent } from './components/header/header.component';
     TitleColumnComponent,
     SpinnerComponent,
     HeaderComponent,
+    StatItemComponent,
+    StatItemListComponent,
   ],
   exports: [
     NgxSpinnerModule,
@@ -75,6 +79,8 @@ import { HeaderComponent } from './components/header/header.component';
     ButtonMainComponent,
     FontAwesomeModule,
     HeaderComponent,
+    StatItemComponent,
+    StatItemListComponent,
   ],
   providers: [TranslationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

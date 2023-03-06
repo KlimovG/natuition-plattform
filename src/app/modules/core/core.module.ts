@@ -1,27 +1,23 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CoreComponent } from './components/core/core.component';
 import { SharedModule } from '../../shared/shared.module';
-import { HeaderComponent } from './components/header/header.component';
+import { ActiveDataComponent } from './components/active-data/active-data.component';
 import { CoreRoutingModule } from './core.routing.module';
-import { SessionsComponent } from './components/sessions/sessions.component';
-import { MapComponent } from './components/map/map.component';
-import { StatisticComponent } from './components/statistic/statistic.component';
 import { MapModule } from '../map/map.module';
 import { SessionsModule } from '../sessions/sessions.module';
 import { RobotsModule } from '../robots/robots.module';
 import { StatisticModule } from '../statistic/statistic.module';
 import { NavbarBottomComponent } from './components/navbar-bottom/navbar-bottom.component';
+import { SmartCoreComponent } from './components/smart/smart-core.component';
 
 @NgModule({
   declarations: [
     CoreComponent,
-    HeaderComponent,
-    SessionsComponent,
-    MapComponent,
-    StatisticComponent,
+    ActiveDataComponent,
     NavbarBottomComponent,
+    SmartCoreComponent,
   ],
-  exports: [CoreComponent, HeaderComponent],
+  exports: [CoreComponent, ActiveDataComponent],
   imports: [
     SharedModule,
     CoreRoutingModule,
