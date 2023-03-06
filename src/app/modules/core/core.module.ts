@@ -10,6 +10,7 @@ import { MapModule } from '../map/map.module';
 import { SessionsModule } from '../sessions/sessions.module';
 import { RobotsModule } from '../robots/robots.module';
 import { StatisticModule } from '../statistic/statistic.module';
+import { NavbarBottomComponent } from './components/navbar-bottom/navbar-bottom.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { StatisticModule } from '../statistic/statistic.module';
     SessionsComponent,
     MapComponent,
     StatisticComponent,
+    NavbarBottomComponent,
   ],
   exports: [CoreComponent, HeaderComponent],
   imports: [

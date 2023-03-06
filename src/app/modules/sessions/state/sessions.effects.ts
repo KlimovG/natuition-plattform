@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SessionsService } from '../service/sessions.service';
 
-import { map, switchMap } from 'rxjs';
+import { map, mergeMap, switchMap } from 'rxjs';
 import {
   GetMoreSessionsForRobot,
   GetMoreSessionsForRobotSuccess,
   GetSessionsForRobot,
   GetSessionsForRobotSuccess,
   SessionsActionTypes,
+  SetActiveSession,
 } from './sessions.actions';
 
 @Injectable()
@@ -25,6 +26,18 @@ export class SessionsEffects {
           })
         )
       )
+    )
+  );
+
+  setInitialActiveSession$ = createEffect(() =>
+    this.action$.pipe(
+      ofType<GetSessionsForRobotSuccess>(
+        SessionsActionTypes.GET_SESSIONS_ROBOT_SUCCESS
+      ),
+      mergeMap(({ payload }) => {
+        const newSession = payload.at(0).id;
+        return [new SetActiveSession(newSession)];
+      })
     )
   );
 

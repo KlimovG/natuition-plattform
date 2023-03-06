@@ -22,6 +22,7 @@ module.exports = {
       },
       minHeight: {
         wrapper: "42rem",
+        map: "20rem",
       },
       height: {
         wrapper: "51.5rem",

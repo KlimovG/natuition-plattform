@@ -1,5 +1,5 @@
-  <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 mx-auto w-full max-w-dashboard-web h-dashboard flex-grow flex min-w-dashboard-web justify-between "
-       [ngClass]="{'min-w': isLargeScreen$ | async}" >
+  <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 mx-auto w-full max-w-dashboard-web h-dashboard flex-grow flex justify-between "
+       [ngClass]="{'min-w': isLargeScreen$ | async}" *ngIf="(isLargeScreen$ | async)" >
     <div class="w-1/4 flex flex-col">
       <app-smart-robots
         class="
@@ -23,4 +23,14 @@
 
     <app-smart-sessions class="w-1/4 bg-gray-white relative rounded-2xl overflow-hidden">
     </app-smart-sessions>
+  </div>
+  <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 mx-auto w-full max-w-dashboard-web h-dashboard flex-grow flex flex-col justify-between "
+       *ngIf="(isMediumScreen$ | async) || (isSmallScreen$ | async) ">
+    <div class="flex flex-wrap overflow-y-scroll overflow-x-auto relative h-full w-full ">
+      <div class="w-full h-full rounded-2xl bg-gray-white" [ngClass]="{'p-6': addStyles}">
+
+      <router-outlet></router-outlet>
+      </div>
+    </div>
+      <app-navbar-bottom class="mt-4 flex w-full justify-between"></app-navbar-bottom>
   </div>

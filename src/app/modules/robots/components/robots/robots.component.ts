@@ -8,7 +8,7 @@ import { State } from '../../../../state';
 @Component({
   selector: 'app-robots-list',
   template: `
-    <div class="flex justify-between items-end">
+    <div class="flex justify-between items-end sticky top-0 bg-gray-white pb-3">
       <app-title-section title="robots.title"></app-title-section>
 
       <app-header></app-header>
@@ -16,7 +16,7 @@ import { State } from '../../../../state';
 
     <app-buttons-list
       *ngIf="!isRobotListLoading"
-      class="overflow-y-scroll max-h-full block mt-3"
+      class="overflow-y-scroll max-h-full block"
       [buttonsData]="robots"
       [active]="activeRobot"
       (onClick)="onRobotClick.emit($event)"

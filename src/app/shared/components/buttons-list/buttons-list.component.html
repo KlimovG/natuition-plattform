@@ -39,7 +39,7 @@
     transition
     duration-300"
     role="button"
-    [ngClass]="{'text-gray-white bg-green': active.toString() === button.id.toString()}"
+    [ngClass]="{'text-gray-white bg-green': active?.toString() === button.id?.toString()}"
     (click)="onClick.emit(button.id)"
   >
     <h3 class="Montserrat-SemiBold">{{button.date | date : 'MMM d, y H:mm'}}</h3>
