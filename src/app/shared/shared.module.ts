@@ -20,6 +20,8 @@ import { TitleSectionComponent } from './components/title-section/title-section.
 import { TitleColumnComponent } from './components/title-column/title-column.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   imports: [
@@ -31,6 +33,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     GraphQLModule,
     CommonModule,
     NgxSpinnerModule,
+    FontAwesomeModule,
   ],
   declarations: [
     ButtonPrimaryComponent,
@@ -47,6 +50,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     TitleSectionComponent,
     TitleColumnComponent,
     SpinnerComponent,
+    HeaderComponent,
   ],
   exports: [
     NgxSpinnerModule,
@@ -68,6 +72,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     TitleSectionComponent,
     TitleColumnComponent,
     SpinnerComponent,
+    ButtonMainComponent,
+    FontAwesomeModule,
+    HeaderComponent,
   ],
   providers: [TranslationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { RobotModel } from '../models/robot.model';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
@@ -9,6 +9,11 @@ const GET_ROBOTS_FOR_CUSTOMER = `
     getAllRobotsWithCustomers{
       serial
     }
+  }
+`;
+const GET_ROBOT_STATUS = `
+  query($name: String!) {
+    getRobotStatus(name: $name)
   }
 `;
 
@@ -34,6 +39,27 @@ export class RobotsService {
             }>
           ) => {
             return result.data.getAllRobotsWithCustomers;
+          }
+        )
+      );
+  }
+
+  getRobotStatus(name: string): Observable<any> {
+    return this.apollo
+      .query<{ getRobotStatus: string }>({
+        query: gql(GET_ROBOT_STATUS),
+        variables: {
+          name: name,
+        },
+      })
+      .pipe(
+        map(
+          (
+            result: ApolloQueryResult<{
+              getRobotStatus: string;
+            }>
+          ) => {
+            return result.data.getRobotStatus;
           }
         )
       );

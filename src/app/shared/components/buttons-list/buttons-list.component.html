@@ -1,4 +1,4 @@
-<div class="flex flex-col" *ngFor="let button of buttonsData; let i = index">
+<div class="flex flex-col pr-2" *ngFor="let button of buttonsData; let i = index">
   <button
     *ngIf="!button?.date"
     class="
@@ -20,6 +20,7 @@
     [ngClass]="{'text-gray-white bg-green': active === button.id}"
   >
     {{ button.label | translate : {index: i + 1} }}
+<!--    <fa-icon [icon]="['fas','bank']"></fa-icon>-->
     <span *ngIf="button.subtitle" class="text-xxs block mt-1">{{button.subtitle}}</span>
   </button>
   <div

@@ -4,6 +4,8 @@ import { SessionsService } from '../service/sessions.service';
 
 import { map, switchMap } from 'rxjs';
 import {
+  GetMoreSessionsForRobot,
+  GetMoreSessionsForRobotSuccess,
   GetSessionsForRobot,
   GetSessionsForRobotSuccess,
   SessionsActionTypes,
@@ -22,6 +24,23 @@ export class SessionsEffects {
             return new GetSessionsForRobotSuccess(sessions);
           })
         )
+      )
+    )
+  );
+
+  getMoreRobotsForCustomer$ = createEffect(() =>
+    this.action$.pipe(
+      ofType<GetMoreSessionsForRobot>(
+        SessionsActionTypes.GET_MORE_SESSIONS_FOR_ROBOT
+      ),
+      switchMap(({ payload }) =>
+        this.service
+          .getMoreSessionsForRobot(payload.serial, payload.serialId)
+          .pipe(
+            map((sessions) => {
+              return new GetMoreSessionsForRobotSuccess(sessions);
+            })
+          )
       )
     )
   );

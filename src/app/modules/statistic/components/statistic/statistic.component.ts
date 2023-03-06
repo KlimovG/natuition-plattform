@@ -12,7 +12,7 @@ import { StatisticModel } from '../../models/statistic.model';
       class="flex lg:flex-nowrap items-stretch justify-between"
       *ngIf="!isDataLoading"
     >
-      <div class="lg:w-1/3">
+      <div class="lg:w-1/2">
         <app-type-plants
           *ngIf="chartData"
           [labels]="chartData.labels"

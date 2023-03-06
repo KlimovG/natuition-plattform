@@ -1,9 +1,14 @@
-<div class="flex justify-between items-center h-12">
-  <app-logo
-    class="h-full h-12 w-auto flex"
-  ></app-logo>
-  <div class="flex items-center">
-    <app-user-label></app-user-label>
-    <app-button-secondary text="header.signOut" (click)="signOut()"></app-button-secondary>
+  <div class="flex items-center justify-between relative">
+    <app-button-main
+      css=" hover:bg-green-dark hover:text-gray-white border border-green-dark"
+      (click)="toggleHome()"
+      [ngClass]="{'bg-green-dark text-gray-white rounded-md': showHome}"
+    >
+      <fa-icon [icon]="icon"></fa-icon>
+
+    </app-button-main>
+      <div class="flex-col items-stretch p-4 absolute top-0 right-0 z-10 bg-gray-white shadow-2xl rounded-lg" *ngIf="showHome">
+        <app-user-label></app-user-label>
+        <app-button-secondary class="flex mt-2" text="header.signOut" [fullWidth]="true" (click)="signOut()"></app-button-secondary>
+      </div>
   </div>
-</div>

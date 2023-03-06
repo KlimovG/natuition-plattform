@@ -56,14 +56,6 @@ export class AuthService {
           this.tokenService.accessToken = this.cookieService.get('accessToken');
           this.tokenService.refreshToken =
             this.cookieService.get('refreshToken');
-          console.log(
-            'accessToken after refresh',
-            this.tokenService.accessToken
-          );
-          console.log(
-            'refreshToken after refresh',
-            this.tokenService.refreshToken
-          );
           return response.body;
         }),
         catchError((err) => {

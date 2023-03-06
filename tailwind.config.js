@@ -9,19 +9,23 @@ module.exports = {
       maxWidth: {
         "layout-lg": "1176px",
         wrapper: "73.5rem",
+        "dashboard-web": "60rem",
+      },
+      width: {
+        "dashboard-web": "49rem",
       },
       minWidth: {
-        wrapper: "46.5rem",
+        "dashboard-web": "52rem",
       },
       maxHeight: {
         wrapper: "48.5rem",
       },
       minHeight: {
-        wrapper: "51.5rem",
+        wrapper: "42rem",
       },
       height: {
         wrapper: "51.5rem",
-        dashboard: "38.5rem",
+        dashboard: "42rem",
         90: "90%",
       },
       boxShadow: {

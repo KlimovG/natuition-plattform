@@ -4,7 +4,13 @@
   text-primary-dark
   shadow-secondary-btn
   hover:bg-primary-dark
-  hover:text-white"
+  hover:text-white
+  bg-gray-white
+"
+  [ngClass]="{'w-full': fullWidth}"
   [routerLink]="link"
   [text]="text | translate"
-></app-button-main>
+  [fullWidth]="fullWidth"
+>
+  <ng-content></ng-content>
+</app-button-main>

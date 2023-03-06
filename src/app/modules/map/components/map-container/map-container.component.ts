@@ -39,6 +39,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
   _center: LngLat;
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
+  layerOrder = ['outline', 'field', 'path', 'extracted']; // the order of your layers
 
   get center(): LngLat {
     return this._center;
@@ -84,6 +85,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
       });
       this.map = map;
       this.map.addControl(new mapboxgl.NavigationControl());
+      this.reorderLayers();
     }, 0);
   }
 
@@ -105,7 +107,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
                 'fill-opacity': 0.3,
               },
             });
-            // // Add a black outline around the polygon.
+            // Add a black outline around the polygon.
             this.map.addLayer({
               id: 'outline',
               type: 'line',
@@ -163,6 +165,22 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
         }
         break;
     }
+    this.reorderLayers();
+  }
+
+  private reorderLayers(): void {
+    const visibleLayers = this.layerOrder
+      .map((layerId, index) => {
+        const isVisible = this.map.getLayer(layerId);
+        return isVisible ? layerId : null;
+      })
+      .filter((l) => !!l);
+    visibleLayers.forEach((layer, i, arr) => {
+      const nextLayer = arr.at(i + 1);
+      if (!!nextLayer) {
+        this.map.moveLayer(layer, nextLayer);
+      }
+    });
   }
 
   private addField(field: FieldType) {

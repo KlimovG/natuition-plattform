@@ -9,6 +9,7 @@ import { reducer } from './state/sessions.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SessionsEffects } from './state/sessions.effects';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [SessionsComponent, SmartSessionsComponent],
@@ -19,6 +20,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     StoreModule.forFeature('sessions', reducer),
     EffectsModule.forFeature([SessionsEffects]),
     NgxSpinnerModule,
+    FontAwesomeModule,
   ],
   exports: [SmartSessionsComponent],
 })

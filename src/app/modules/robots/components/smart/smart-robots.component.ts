@@ -14,6 +14,7 @@ import {
 import {
   combineLatest,
   filter,
+  interval,
   map,
   Observable,
   Subscription,
@@ -26,12 +27,14 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
   selector: 'app-smart-robots',
   template: `
     <app-robots-list
-      class="p-6 block h-full flex flex-col"
+      class="p-4 pl-6 block h-full flex flex-col"
       *ngIf="robots$ | async"
       [robots]="robots$ | async"
       [activeRobot]="activeRobot$ | async"
       (onRobotClick)="onRobotClick($event)"
-    ></app-robots-list>
+    >
+      <ng-content></ng-content>
+    </app-robots-list>
   `,
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
@@ -40,6 +43,7 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
   activeRobot$: Observable<string>;
   _activeRobot: string;
   private subscriptionsList: Subscription[] = [];
+  protected intervalForRefresh$ = interval(5 * 1000); // 1 minute
 
   constructor(private store: Store<State>) {}
 
@@ -72,6 +76,21 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
             }
           });
         })
+      // this.intervalForRefresh$
+      //   .pipe(
+      //     combineLatestWith(this.robots$),
+      //     combineLatestWith(this.store.select(isLogged))
+      //   )
+      //   .subscribe(async ([[_, robots], isLogged]) => {
+      //     if (isLogged && robots?.length > 0) {
+      //       for await (const robot of robots) {
+      //         const status = await firstValueFrom(
+      //           this.service.getRobotStatus(robot.label)
+      //         );
+      //         console.log('Response', status);
+      //       }
+      //     }
+      //   })
     );
   }
 
