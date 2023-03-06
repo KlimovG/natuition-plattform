@@ -8,10 +8,10 @@ import {
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { GraphQLService } from './graphQL.service';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
-// const uri = 'http://localhost:3000/graphql';
-const uri = 'https://fleet.natuition.com/graphql';
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+  const uri = environment.graphQl;
   const link = ApolloLink.from([httpLink.create({ uri })]);
   return {
     link: link,
