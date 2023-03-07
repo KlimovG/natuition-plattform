@@ -11,7 +11,7 @@ import { State } from '../../../../state';
     <div class="flex justify-between items-end sticky top-0 bg-gray-white pb-3">
       <app-title-section title="robots.title"></app-title-section>
 
-      <app-header></app-header>
+      <app-header *ngIf="showHeader"></app-header>
     </div>
 
     <app-buttons-list
@@ -34,6 +34,7 @@ export class RobotsComponent {
   @Input() isRobotListLoading: boolean = false;
   @Input() robots: IButtonsData[];
   @Input() activeRobot: string;
+  @Input() showHeader: boolean;
   @Output() onRobotClick = new EventEmitter<string>();
   icon = faHome;
   showHome = false;

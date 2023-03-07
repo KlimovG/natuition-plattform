@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { faPowerOff, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircle,
+  faPowerOff,
+  faSignOut,
+} from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { State } from '../../../state';
 import { LogOut } from '../../../modules/auth/state/auth.actions';
@@ -11,14 +15,17 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
       <button
         class="
         Montserrat-Medium
-        px-4 py-3
-        leading-5
+        w-9
+        h-9
         border-2
         border-orange-400
         transition
         rounded-full
         hover:text-white
         hover:bg-orange-400
+        flex
+        items-center
+        justify-center
         "
         role="button"
         [ngClass]="{
@@ -27,7 +34,7 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
         }"
         (click)="toggleHome()"
       >
-        <fa-icon [transform]="{ size: 20 }" [icon]="iconHome"></fa-icon>
+        <fa-icon [fixedWidth]="true" size="1x" [icon]="iconHome"></fa-icon>
       </button>
 
       <div
@@ -51,6 +58,7 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
 export class HeaderComponent {
   @Input() userName: string = 'George Klimov';
   iconHome = faPowerOff;
+  mask = faCircle;
   iconOut = faSignOut;
   showHome = false;
   constructor(private store: Store<State>) {}

@@ -87,7 +87,7 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
       this.map.addControl(new mapboxgl.NavigationControl());
       this.reorderLayers();
       this.map.resize();
-    }, 0);
+    }, 1);
   }
 
   ngOnInit(): void {}

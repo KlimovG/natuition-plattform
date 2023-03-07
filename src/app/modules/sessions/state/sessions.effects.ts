@@ -35,7 +35,7 @@ export class SessionsEffects {
         SessionsActionTypes.GET_SESSIONS_ROBOT_SUCCESS
       ),
       mergeMap(({ payload }) => {
-        const newSession = payload.at(0).id;
+        const newSession = payload.at(0).id.toString();
         return [new SetActiveSession(newSession)];
       })
     )

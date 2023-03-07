@@ -1,14 +1,26 @@
-  <div class="flex items-center justify-between relative">
-    <app-button-main
-      css=" hover:bg-green-dark hover:text-gray-white border border-green-dark"
-      (click)="toggleHome()"
-      [ngClass]="{'bg-green-dark text-gray-white rounded-md': showHome}"
-    >
-      <fa-icon [icon]="icon"></fa-icon>
+<div class="flex flex-wrap justify-start items-stretch relative p-6">
+  <app-title-section
+    class="w-1/2 mb-2"
+    [title]="translationPrefix + 'title'"
+    [big]="true"
+  ></app-title-section>
+  <app-logo class="ml-auto w-14"></app-logo>
+  <div class="flex w-full justify-end gap-4 mt-4">
+    <div class="flex flex-col gap-3">
+      <app-stat-item
+        class="text-xl font-bold w-full"
+        [label]="translationPrefix + 'robot'"
+        [value]="robot"
+      ></app-stat-item>
 
-    </app-button-main>
-      <div class="flex-col items-stretch p-4 absolute top-0 right-0 z-10 bg-gray-white shadow-2xl rounded-lg" *ngIf="showHome">
-        <app-user-label></app-user-label>
-        <app-button-secondary class="flex mt-2" text="header.signOut" [fullWidth]="true" (click)="signOut()"></app-button-secondary>
-      </div>
+      <app-stat-item
+        *ngIf="session?.trim()"
+        class="text-xl font-bold w-full"
+        [label]="translationPrefix + 'session'"
+        [value]="session | date : 'MMM d, y H:mm'"
+      ></app-stat-item>
+    </div>
+
+    <app-header class="flex justify-center self-center w-1/5"></app-header>
   </div>
+</div>

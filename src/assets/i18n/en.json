@@ -26,7 +26,8 @@
   },
   "sessions": {
     "title": "Sessions",
-    "btn": "Session {{index}}"
+    "btn": "Session {{index}}",
+    "more": "Load more"
   },
   "map": {
     "title": "Map view"
@@ -50,5 +51,10 @@
     "duration": "Duration: <b>{{duration}}</b>",
     "field": "Field: <b>{{field}}</b>",
     "extracted": "Extracted: <b>{{total}}</b>"
+  },
+  "activeData": {
+    "title": "Active data",
+    "robot": "Robot:",
+    "session": "Session:"
   }
 }

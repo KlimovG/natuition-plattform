@@ -9,6 +9,9 @@ import { RobotsModule } from '../robots/robots.module';
 import { StatisticModule } from '../statistic/statistic.module';
 import { NavbarBottomComponent } from './components/navbar-bottom/navbar-bottom.component';
 import { SmartCoreComponent } from './components/smart/smart-core.component';
+import { SmartActiveDataComponent } from './components/smart/smart-active-data.component';
+import { SmartSessionReportComponent } from './components/smart/smart-session-report.component';
+import { SessionReportComponent } from './components/session-report/session-report.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,9 @@ import { SmartCoreComponent } from './components/smart/smart-core.component';
     ActiveDataComponent,
     NavbarBottomComponent,
     SmartCoreComponent,
+    SmartActiveDataComponent,
+    SmartSessionReportComponent,
+    SessionReportComponent,
   ],
   exports: [CoreComponent, ActiveDataComponent],
   imports: [

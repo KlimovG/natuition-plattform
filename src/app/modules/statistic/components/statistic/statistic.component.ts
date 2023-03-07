@@ -20,6 +20,7 @@ import { StatisticModel } from '../../models/statistic.model';
           [translationPrefix]="translationPrefix + 'types.'"
         ></app-type-plants>
       </div>
+
       <div class="md:w-1/2 w-full">
         <app-robot-stats
           *ngIf="stats"

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SmartRobotsComponent } from '../robots/components/smart/smart-robots.component';
 import { SmartMapComponent } from '../map/components/smart/smart-map.component';
 import { SmartCoreComponent } from './components/smart/smart-core.component';
+import { SessionReportComponent } from './components/session-report/session-report.component';
 
 const routes: Routes = [
   {
@@ -23,11 +24,8 @@ const routes: Routes = [
         component: SmartMapComponent,
       },
       {
-        path: 'statistic',
-        loadChildren: () =>
-          import('../statistic/statistic.module').then(
-            (m) => m.StatisticModule
-          ),
+        path: 'report',
+        component: SessionReportComponent,
       },
       {
         path: 'sessions',

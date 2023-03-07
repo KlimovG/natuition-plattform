@@ -9,7 +9,7 @@ export enum StatisticActionTypes {
 export class GetStatistic implements Action {
   readonly type = StatisticActionTypes.GET_STATISTIC;
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class GetStatisticSuccess implements Action {

@@ -36,7 +36,7 @@ export class GetMoreSessionsForRobotSuccess implements Action {
 export class SetActiveSession implements Action {
   readonly type = SessionsActionTypes.SET_ACTIVE_SESSION;
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export type SessionsActionUnion =

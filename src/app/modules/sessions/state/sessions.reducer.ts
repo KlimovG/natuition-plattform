@@ -9,7 +9,7 @@ import {
 export interface SesssionsState {
   sessions: SessionModel[];
   isLoading: boolean;
-  activeSession: number;
+  activeSession: string;
 }
 
 export const initialState: SesssionsState = {
@@ -43,7 +43,6 @@ export function reducer(
       return {
         ...state,
         isLoading: false,
-        // sessions: action.payload,
         sessions: [...state.sessions, ...action.payload],
       };
     case SessionsActionTypes.SET_ACTIVE_SESSION:
@@ -61,8 +60,19 @@ const selectFeature = createFeatureSelector<SesssionsState>('sessions');
 export const selectSessions = (): MemoizedSelector<any, SessionModel[]> =>
   createSelector(selectFeature, (state) => state.sessions);
 
-export const selectActiveSession = (): MemoizedSelector<any, number> =>
+export const selectActiveSession = (): MemoizedSelector<any, string> =>
   createSelector(selectFeature, (state) => state.activeSession);
+
+export const selectActiveSessionData = (): MemoizedSelector<
+  any,
+  SessionModel
+> =>
+  createSelector(selectFeature, (state) => {
+    const activeSession = state.activeSession;
+    return state.sessions.find(
+      (session) => session.id?.toString() === activeSession
+    );
+  });
 
 export const isRobotSessionsLoading = (): MemoizedSelector<any, boolean> =>
   createSelector(selectFeature, (state) => state.isLoading);

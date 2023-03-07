@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       gridTemplateRows: {
         core: "1fr 500px",
+        "core-mobile": "auto 1fr auto",
         map: "max-content",
         "1fr": "1fr",
       },
@@ -15,9 +16,11 @@ module.exports = {
       },
       width: {
         "dashboard-web": "49rem",
+        divider: "1px",
       },
       minWidth: {
         "dashboard-web": "52rem",
+        50: "50%",
       },
       maxHeight: {
         wrapper: "48.5rem",
@@ -32,6 +35,10 @@ module.exports = {
         wrapper: "51.5rem",
         dashboard: "42rem",
         90: "90%",
+        "map-mobile": "20rem",
+      },
+      spacing: {
+        "1-negative": "-1px",
       },
       boxShadow: {
         "primary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   GetRobotsForCustomer,
@@ -31,6 +31,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
       *ngIf="robots$ | async"
       [robots]="robots$ | async"
       [activeRobot]="activeRobot$ | async"
+      [showHeader]="showHeader"
       (onRobotClick)="onRobotClick($event)"
     >
       <ng-content></ng-content>
@@ -38,6 +39,7 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
   `,
 })
 export class SmartRobotsComponent implements OnInit, OnDestroy {
+  @Input() showHeader: boolean;
   robots$: Observable<IButtonsData[]>;
   isRobotListLoading$: Observable<boolean>;
   activeRobot$: Observable<string>;

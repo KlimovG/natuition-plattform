@@ -1,21 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sessions',
   template: `
     <div
-      class="flex justify-between items-center p-4 sticky top-0 bg-gray-white"
+      class="flex justify-between items-center pb-3 sticky top-0 bg-gray-white"
     >
       <app-title-section title="sessions.title"> </app-title-section>
-
-      <app-button-main
-        css="bg-white hover:bg-green-dark hover:text-gray-white border border-green-dark"
-        (click)="onMoreClick.emit()"
-      >
-        <fa-icon [icon]="icon"></fa-icon>
-      </app-button-main>
     </div>
 
     <app-buttons-list
@@ -26,7 +19,16 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
       (onClick)="onSessionClick.emit($event)"
     >
     </app-buttons-list>
-
+    <div class="w-full pt-5 ">
+      <app-button-main
+        css="bg-primary-main text-white lg:hover:bg-white lg:hover:text-primary-main border border-primary-main"
+        [fullWidth]="true"
+        (click)="onMoreClick.emit()"
+      >
+        {{ 'sessions.more' | translate }}
+        <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>
+      </app-button-main>
+    </div>
     <app-spinner
       name="sessionList"
       [showSpinner]="isLoading"
@@ -38,12 +40,12 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class SessionsComponent implements OnInit {
   @Input() sessions: IButtonsData[];
-  @Input() activeSession: number;
+  @Input() activeSession: string;
   @Input() isLoading: boolean;
-  @Output() onSessionClick = new EventEmitter<number>();
+  @Output() onSessionClick = new EventEmitter<string>();
   @Output() onMoreClick = new EventEmitter<any>();
   constructor() {}
-  icon = faPlus;
+  icon = faDownload;
 
   ngOnInit(): void {}
 }

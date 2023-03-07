@@ -10,14 +10,18 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 })
 export class ActiveDataComponent {
   @Input() userName: string;
+  @Input() robot: string;
+  @Input() session: string;
   icon = faHome;
   showHome = false;
+  translationPrefix = 'activeData.';
   constructor(private store: Store<State>) {}
 
-  signOut() {
+  signOut(): void {
     this.store.dispatch(new LogOut());
   }
-  toggleHome() {
+
+  toggleHome(): void {
     this.showHome = !this.showHome;
   }
 }

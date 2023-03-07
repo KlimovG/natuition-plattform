@@ -21,11 +21,11 @@ import { MapDataFromServer } from '../../models/map.model';
   selector: 'app-smart-map',
   template: `
     <app-title-section
-      class="flex w-full self-start"
+      class="flex w-full self-start mb-2"
       [title]="translationPrefix + 'title'"
     ></app-title-section>
     <app-map-container
-      class="w-full flex"
+      class="w-full flex rounded-xl overflow-hidden"
       [data]="map$ | async | mapData"
     ></app-map-container>
   `,

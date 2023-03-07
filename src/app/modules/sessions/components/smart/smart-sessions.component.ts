@@ -20,7 +20,7 @@ import { DateTime } from 'luxon';
   selector: 'app-smart-sessions',
   template: `
     <app-sessions
-      class="p-4 block h-full flex flex-col"
+      class="p-4 pl-6 block h-full flex flex-col"
       [isLoading]="isDataLoading$ | async"
       [sessions]="sessions$ | async"
       [activeSession]="activeSession$ | async"
@@ -32,7 +32,7 @@ import { DateTime } from 'luxon';
 })
 export class SmartSessionsComponent implements OnInit {
   sessions$: Observable<IButtonsData[]>;
-  activeSession$: Observable<number>;
+  activeSession$: Observable<string>;
   isDataLoading$: Observable<boolean>;
   isNewRobot: boolean = true;
   private _currentRobot: string;
@@ -77,7 +77,7 @@ export class SmartSessionsComponent implements OnInit {
     );
   }
 
-  onSessionClick(session: number) {
+  onSessionClick(session: string) {
     this.store.dispatch(new SetActiveSession(session));
   }
 

@@ -1,22 +1,29 @@
 import { Component } from '@angular/core';
 import {
-  faCarSide,
-  faChartPie,
-  faList,
-  faMap,
+  faChartColumn,
+  faListNumeric,
+  faListSquares,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar-bottom',
   template: `
     <a
-      *ngFor="let link of links; let i = index"
-      class="w-1/4 flex items-center justify-center p-3 text-xl hover:bg-primary-light hover:text-primary-dark bg-white "
+      *ngFor="let link of links; let first = first; let last = last"
+      class="w-1/3 flex items-center justify-center p-3 text-xl  bg-white relative"
       routerLinkActive="bg-green text-white"
-      [ngClass]="{ 'rounded-l-2xl': i === 0, 'rounded-r-2xl': i === 3 }"
+      [ngClass]="{ 'rounded-l-2xl': first, 'rounded-r-2xl': last }"
       [routerLink]="link.link"
     >
+      <span
+        *ngIf="!first"
+        class="bg-green absolute top-1/4 h-1/2 w-divider left-0 z-10"
+      ></span>
       <fa-icon [icon]="link.icon" size="1x"></fa-icon>
+      <span
+        *ngIf="!last"
+        class="bg-green absolute top-1/4 h-1/2 w-divider right-0 z-10"
+      ></span>
     </a>
   `,
   host: {
@@ -24,22 +31,16 @@ import {
   },
 })
 export class NavbarBottomComponent {
-  robotIcon = faCarSide;
-  mapIcon = faMap;
-  chartIcon = faChartPie;
-  sessionsIcon = faList;
-  icons = [this.robotIcon, this.mapIcon, this.chartIcon, this.sessionsIcon];
+  robotIcon = faListNumeric;
+  chartIcon = faChartColumn;
+  sessionsIcon = faListSquares;
   links = [
     {
       link: 'robots',
       icon: this.robotIcon,
     },
     {
-      link: 'map',
-      icon: this.mapIcon,
-    },
-    {
-      link: 'statistic',
+      link: 'report',
       icon: this.chartIcon,
     },
 
