@@ -1,25 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import {
-  GetRobotsForCustomer,
-  SetActiveRobot,
-} from '../../state/robots.actions';
-import { selectUserID } from '../../../auth/state/auth.reducer';
+import { SetActiveRobot } from '../../state/robots.actions';
 import { State } from '../../../../state';
 import {
   isRobotListLoading,
   selectActiveRobot,
   selectRobots,
 } from '../../state/robots.reducer';
-import {
-  combineLatest,
-  filter,
-  interval,
-  map,
-  Observable,
-  Subscription,
-  takeWhile,
-} from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
@@ -38,22 +26,17 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
     </app-robots-list>
   `,
 })
-export class SmartRobotsComponent implements OnInit, OnDestroy {
+export class SmartRobotsComponent implements OnInit {
   @Input() showHeader: boolean;
   robots$: Observable<IButtonsData[]>;
   isRobotListLoading$: Observable<boolean>;
   activeRobot$: Observable<string>;
   _activeRobot: string;
-  private subscriptionsList: Subscription[] = [];
-  protected intervalForRefresh$ = interval(5 * 1000); // 1 minute
 
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
     this.isRobotListLoading$ = this.store.select(isRobotListLoading());
-    this.store.select(selectUserID).subscribe((id) => {
-      this.store.dispatch(new GetRobotsForCustomer(id));
-    });
     this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
     this.robots$ = this.store.pipe(
       select(selectRobots()),
@@ -65,39 +48,6 @@ export class SmartRobotsComponent implements OnInit, OnDestroy {
         }));
       })
     );
-    this.subscriptionsList.push(
-      combineLatest([
-        this.store.pipe(select(selectRobots())),
-        this.activeRobot$,
-      ])
-        .pipe(takeWhile(([_, active]) => !active))
-        .subscribe(([robots]) => {
-          robots.forEach(({ serial }, i) => {
-            if (i === 0) {
-              this.store.dispatch(new SetActiveRobot(serial));
-            }
-          });
-        })
-      // this.intervalForRefresh$
-      //   .pipe(
-      //     combineLatestWith(this.robots$),
-      //     combineLatestWith(this.store.select(isLogged))
-      //   )
-      //   .subscribe(async ([[_, robots], isLogged]) => {
-      //     if (isLogged && robots?.length > 0) {
-      //       for await (const robot of robots) {
-      //         const status = await firstValueFrom(
-      //           this.service.getRobotStatus(robot.label)
-      //         );
-      //         console.log('Response', status);
-      //       }
-      //     }
-      //   })
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
   onRobotClick(robot: string) {

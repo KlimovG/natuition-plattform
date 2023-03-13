@@ -4,9 +4,9 @@ import { Component, Input } from '@angular/core';
   selector: 'app-stat-item',
   template: `
     <div class="flex justify-end gap-4 w-full HindMadurai-Light items-center">
-      {{ label | translate }}
+      <h4 class="w-2/5 text-right">{{ label | translate }}</h4>
       <div
-        class="border-green-dark border-2 rounded mr-0 py-2 px-2 min-w-50 text-center"
+        class="border-green-dark border-2 rounded mr-0 py-2 px-2 w-3/5 max-w-stat text-center"
       >
         {{ value }}
       </div>

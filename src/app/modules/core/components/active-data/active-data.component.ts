@@ -12,6 +12,8 @@ export class ActiveDataComponent {
   @Input() userName: string;
   @Input() robot: string;
   @Input() session: string;
+  @Input() isMobile: boolean;
+  @Input() isTablet: boolean;
   icon = faHome;
   showHome = false;
   translationPrefix = 'activeData.';

@@ -24,6 +24,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './components/header/header.component';
 import { StatItemComponent } from './components/stat-item/stat-item.component';
 import { StatItemListComponent } from './components/stat-item-list/stat-item-list.component';
+import { ModalModule } from './modules/modal/modal.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { StatItemListComponent } from './components/stat-item-list/stat-item-lis
     CommonModule,
     NgxSpinnerModule,
     FontAwesomeModule,
+    ModalModule,
+    NotificationModule,
   ],
   declarations: [
     ButtonPrimaryComponent,

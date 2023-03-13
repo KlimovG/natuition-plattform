@@ -13,6 +13,7 @@ module.exports = {
         "layout-lg": "1176px",
         wrapper: "73.5rem",
         "dashboard-web": "60rem",
+        stat: "200px",
       },
       width: {
         "dashboard-web": "49rem",
@@ -21,6 +22,7 @@ module.exports = {
       minWidth: {
         "dashboard-web": "52rem",
         50: "50%",
+        stat: "200px",
       },
       maxHeight: {
         wrapper: "48.5rem",
@@ -35,7 +37,7 @@ module.exports = {
         wrapper: "51.5rem",
         dashboard: "42rem",
         90: "90%",
-        "map-mobile": "20rem",
+        "map-mobile": "40vh",
       },
       spacing: {
         "1-negative": "-1px",

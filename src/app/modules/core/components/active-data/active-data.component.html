@@ -5,8 +5,8 @@
     [big]="true"
   ></app-title-section>
   <app-logo class="ml-auto w-14"></app-logo>
-  <div class="flex w-full justify-end gap-4 mt-4">
-    <div class="flex flex-col gap-3">
+  <div class="flex w-full justify-end gap-4 mt-4 ">
+    <div class="flex mx-auto basis-full" [ngClass]="{'flex-col gap-4 ': isMobile, 'gap-9': !isMobile}">
       <app-stat-item
         class="text-xl font-bold w-full"
         [label]="translationPrefix + 'robot'"

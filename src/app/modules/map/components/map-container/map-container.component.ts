@@ -33,7 +33,7 @@ import {
 })
 export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() data: MapData;
-  isPath: boolean = false;
+  isPath: boolean = true;
   isField: boolean = true;
   isExtracted: boolean = true;
   _center: LngLat;
@@ -57,9 +57,11 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
     const extracted = changes['data']?.currentValue['extractedPoints'];
 
     if (field && field.geometry?.coordinates?.length > 0) {
-      this.center = this.getCenterCoordinates(field);
-      this.map.setCenter(this.center);
-      // this.map.fitBounds(this.center);
+      const points: [number, number][] = field.geometry.coordinates
+        .flat()
+        .map(([lng, lat]) => [lng, lat]);
+      const bounds = new LngLatBounds(points.at(0), points.at(2));
+      this.map.fitBounds(bounds, { padding: 40, animate: false });
       this.addField(field);
     }
 
@@ -245,22 +247,6 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
         },
       });
     }
-  }
-
-  getCenterCoordinates(field: FieldType): LngLat {
-    const points: [number, number][] = field.geometry.coordinates
-      .flat()
-      .map(([lng, lat]) => [lng, lat]);
-    const north: LngLat = new LngLatBounds(
-      points.at(0),
-      points.at(1)
-    ).getCenter();
-    const south: LngLat = new LngLatBounds(
-      points.at(2),
-      points.at(3)
-    ).getCenter();
-
-    return new LngLatBounds(north, south).getCenter();
   }
 
   private addExtracted(extracted: ExtractedType): void {

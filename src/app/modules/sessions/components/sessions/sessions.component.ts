@@ -12,7 +12,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
     </div>
 
     <app-buttons-list
-      class="overflow-y-scroll max-h-full block"
+      class="overflow-y-scroll overflow-x-hidden max-h-full block"
       *ngIf="!isLoading"
       [buttonsData]="sessions"
       [active]="activeSession"
