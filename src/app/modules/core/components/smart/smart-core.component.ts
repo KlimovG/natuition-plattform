@@ -102,7 +102,6 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
       .observe([Breakpoints.Web])
       .pipe(map((result) => result.matches));
     this.isLargeScreen$.subscribe((value) => {
-      console.log(Breakpoints);
       if (value) {
         this.updateRootFontSize('16px');
       }

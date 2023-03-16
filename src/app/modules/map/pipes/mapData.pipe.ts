@@ -12,7 +12,6 @@ export class MapDataPipe implements PipeTransform {
       path: null,
       extractedPoints: null,
     };
-    console.log('mapData pipe', data);
     if (data?.field) {
       result.field = {
         properties: {
@@ -43,7 +42,6 @@ export class MapDataPipe implements PipeTransform {
 
     if (data?.extracted?.length > 0) {
       const coordinates = data.extracted.map((point) => point.pointPath);
-
       Object.defineProperty(result, 'extractedPoints', {
         value: {
           type: 'MultiPoint',
@@ -51,7 +49,6 @@ export class MapDataPipe implements PipeTransform {
         },
       });
     }
-    console.log('result', result);
     return result;
   }
 }

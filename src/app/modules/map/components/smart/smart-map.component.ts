@@ -47,9 +47,6 @@ export class SmartMapComponent implements OnInit, OnDestroy {
           value ? this.spinner.show('map') : this.spinner.hide('map')
         )
     );
-    // this.sessionsSubscription = this.store
-    //   .select(selectActiveSession())
-    //   .subscribe((session) => this.getMapData(Number(session)));
     this.map$ = this.store.select(selectMapData());
   }
 
