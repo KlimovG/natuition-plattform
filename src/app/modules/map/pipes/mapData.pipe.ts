@@ -12,6 +12,7 @@ export class MapDataPipe implements PipeTransform {
       path: null,
       extractedPoints: null,
     };
+    console.log('mapData pipe', data);
     if (data?.field) {
       result.field = {
         properties: {
@@ -25,7 +26,7 @@ export class MapDataPipe implements PipeTransform {
       };
     }
 
-    if (data?.path?.pathGPS?.length > 0) {
+    if (data?.path?.path?.length > 0) {
       Object.defineProperty(result, 'path', {
         value: {
           type: 'Feature',
@@ -34,7 +35,7 @@ export class MapDataPipe implements PipeTransform {
           },
           geometry: {
             type: 'LineString',
-            coordinates: data.path.pathGPS,
+            coordinates: data.path.path,
           },
         },
       });
@@ -50,7 +51,7 @@ export class MapDataPipe implements PipeTransform {
         },
       });
     }
-
+    console.log('result', result);
     return result;
   }
 }
