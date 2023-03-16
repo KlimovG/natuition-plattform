@@ -4,13 +4,6 @@ import { RobotModel } from '../models/robot.model';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 
-const GET_ROBOTS_FOR_CUSTOMER = `
-  query {
-    getAllRobotsWithCustomers{
-      serial
-    }
-  }
-`;
 const GET_ROBOT_STATUS = `
   query($name: String!) {
     getRobotStatus(name: $name)
@@ -23,22 +16,25 @@ const GET_ROBOT_STATUS = `
 export class RobotsService {
   constructor(private apollo: Apollo) {}
 
-  getRobotsForCustomer(id: number) {
+  getRobotForUser(id: number) {
     return this.apollo
-      .query<{ getAllRobotsWithCustomers: RobotModel[] }>({
-        query: gql(GET_ROBOTS_FOR_CUSTOMER),
-        variables: {
-          id: id,
-        },
+      .query<{ getRobotForUser: RobotModel[] }>({
+        query: gql`
+          query {
+            getRobotForUser {
+              serial
+            }
+          }
+        `,
       })
       .pipe(
         map(
           (
             result: ApolloQueryResult<{
-              getAllRobotsWithCustomers: RobotModel[];
+              getRobotForUser: RobotModel[];
             }>
           ) => {
-            return result.data.getAllRobotsWithCustomers;
+            return result.data.getRobotForUser;
           }
         )
       );

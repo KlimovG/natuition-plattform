@@ -3,6 +3,15 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      keyframes: {
+        notification: {
+          "0%": { transform: "translateY(-40px)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        notification: "notification 0.3s ease-in-out 1",
+      },
       gridTemplateRows: {
         core: "1fr 500px",
         "core-mobile": "auto 1fr auto",
@@ -44,6 +53,7 @@ module.exports = {
       },
       boxShadow: {
         "primary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",
+        "robot-btn": "inset 0 0 0 3px rgba(59, 171, 54, 1)",
         "secondary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",
       },
       fontSize: {

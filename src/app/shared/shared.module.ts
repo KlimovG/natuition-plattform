@@ -85,6 +85,7 @@ import { NotificationModule } from './modules/notification/notification.module';
     HeaderComponent,
     StatItemComponent,
     StatItemListComponent,
+    NotificationModule,
   ],
   providers: [TranslationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

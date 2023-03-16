@@ -4,7 +4,6 @@
     class="
     mb-2
     border
-    border-green
     text-green-dark
     w-full
     bg-white
@@ -14,13 +13,16 @@
     px-4
     text-base
     transition
+
     duration-300"
     type="submit"
     (click)="onClick.emit(button.id)"
-    [ngClass]="{'text-gray-white bg-green': active === button.id}"
+    [ngClass]="{'shadow-robot-btn ': active === button.id}"
   >
     {{ button.label | translate : {index: i + 1} }}
-    <span *ngIf="button.subtitle" class="text-xxs block mt-1">{{button.subtitle}}</span>
+    <span *ngIf="button.subtitle" class="text-xxs block mt-1 ">{{button.subtitle}}</span>
+    <fa-icon class="ml-1" [icon]="faActive" [fixedWidth]="true" [ngClass]="{  'text-primary-main':( i % 2) || (0 === i ) || (i === 6), 'text-gray-200 ': i % 3} " ></fa-icon>
+    <fa-icon class="ml-1" [icon]="faOnline" [fixedWidth]="true" [ngClass]="{'text-primary-main': button.active$ | async, 'text-gray-200': !(button.active$ | async)}"></fa-icon>
   </button>
   <div
     *ngIf="!!button?.date"
@@ -48,3 +50,4 @@
   </div>
 </div>
 <ng-content></ng-content>
+

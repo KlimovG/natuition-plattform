@@ -37,7 +37,7 @@ import {
   `,
 })
 export class SmartCoreComponent implements OnInit, OnDestroy {
-  intervalForRefresh$ = interval(7 * 59 * 60 * 1000); // 7 hours
+  intervalForRefresh$ = interval(6 * 59 * 60 * 1000); // 6 hours 59 minutes
   isSmallScreen$: Observable<any>;
   isMediumScreen$: Observable<any>;
   isLargeScreen$: Observable<any>;

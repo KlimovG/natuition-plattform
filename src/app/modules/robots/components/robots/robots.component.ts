@@ -4,6 +4,7 @@ import { LogOut } from '../../../auth/state/auth.actions';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-robots-list',
@@ -20,26 +21,31 @@ import { State } from '../../../../state';
       [buttonsData]="robots"
       [active]="activeRobot"
       (onClick)="onRobotClick.emit($event)"
-    ></app-buttons-list>
-
-    <app-spinner
-      name="robotList"
-      [showSpinner]="isRobotListLoading"
-      size="large"
-    ></app-spinner>
+    >
+    </app-buttons-list>
+    <app-spinner name="robotList" size="large"></app-spinner>
   `,
   styleUrls: ['./robots.component.scss'],
 })
 export class RobotsComponent {
-  @Input() isRobotListLoading: boolean = false;
+  @Input() set isRobotListLoading(value: boolean) {
+    value ? this.spinner.show('robotList') : this.spinner.hide('robotList');
+    this._isRobotListLoading = value;
+  }
   @Input() robots: IButtonsData[];
   @Input() activeRobot: string;
   @Input() showHeader: boolean;
   @Output() onRobotClick = new EventEmitter<string>();
   icon = faHome;
   showHome = false;
-  constructor(private store: Store<State>) {}
-
+  constructor(
+    private store: Store<State>,
+    private spinner: NgxSpinnerService
+  ) {}
+  _isRobotListLoading: boolean;
+  get isRobotListLoading() {
+    return this._isRobotListLoading;
+  }
   signOut() {
     this.store.dispatch(new LogOut());
   }

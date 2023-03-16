@@ -1,40 +1,37 @@
-import { ExtractedWeedModel } from '../models/extracted-weed.model';
-import { FieldModel } from '../models/field.model';
 import { MapActionTypes, MapActionUnion } from './map.actions';
 import {
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
+import { MapDataFromServer } from '../models/map-data-from-server.model';
 
 export interface MapState {
-  path: [number, number][];
-  extractedPoints: ExtractedWeedModel[];
-  field: FieldModel;
+  isLoading: boolean;
+  map: MapDataFromServer;
 }
 
 export const initialState: MapState = {
-  path: null,
-  extractedPoints: null,
-  field: null,
+  isLoading: false,
+  map: null,
 };
 
 export function reducer(state = initialState, action: MapActionUnion) {
   switch (action.type) {
-    case MapActionTypes.GET_FIELD_SUCCESS:
+    case MapActionTypes.GET_MAP_DATA:
       return {
         ...state,
-        field: action.payload,
+        isLoading: true,
       };
-    case MapActionTypes.GET_PATH_SUCCESS:
+    case MapActionTypes.GET_MAP_DATA_SUCCESS:
       return {
-        ...state,
-        path: action.payload,
+        isLoading: false,
+        map: action.payload,
       };
-    case MapActionTypes.GET_EXTRACTED_SUCCESS:
+    case MapActionTypes.GET_MAP_DATA_FAILURE:
       return {
-        ...state,
-        extractedPoints: action.payload,
+        isLoading: false,
+        map: null,
       };
     default:
       return state;
@@ -43,13 +40,12 @@ export function reducer(state = initialState, action: MapActionUnion) {
 
 export const selectFeature = createFeatureSelector<MapState>('map');
 
-export const selectCorners = (): MemoizedSelector<any, FieldModel> =>
-  createSelector(selectFeature, (state) => state.field);
+export const selectMapData = (): MemoizedSelector<any, MapDataFromServer> =>
+  createSelector(selectFeature, (state) => {
+    return state.map;
+  });
 
-export const selectPath = (): MemoizedSelector<any, [number, number][]> =>
-  createSelector(selectFeature, (state) => state.path);
-
-export const selectExtracted = (): MemoizedSelector<
-  any,
-  ExtractedWeedModel[]
-> => createSelector(selectFeature, (state) => state.extractedPoints);
+export const selectMapLoading = (): MemoizedSelector<any, boolean> =>
+  createSelector(selectFeature, (state) => {
+    return state.isLoading;
+  });

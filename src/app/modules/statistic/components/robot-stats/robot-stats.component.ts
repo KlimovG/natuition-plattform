@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StatisticModel } from '../../models/statistic.model';
 
 @Component({
@@ -34,15 +34,14 @@ import { StatisticModel } from '../../models/statistic.model';
           class="min-w-stat"
           [fullWidth]="true"
           [text]="translationPrefix + 'report'"
+          (click)="onReportClick.emit($event)"
         ></app-button-secondary>
       </div>
     </div>
   `,
 })
-export class RobotStatsComponent implements OnInit {
+export class RobotStatsComponent {
   @Input() translationPrefix: string;
   @Input() stats: StatisticModel;
-  constructor() {}
-
-  ngOnInit(): void {}
+  @Output() onReportClick = new EventEmitter<any>();
 }

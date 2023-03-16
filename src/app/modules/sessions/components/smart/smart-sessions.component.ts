@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../../state';
-import { firstValueFrom, map, Observable } from 'rxjs';
+import { firstValueFrom, map, Observable, Subscription } from 'rxjs';
 import { SessionModel } from '../../models/session.model';
 import {
   isRobotSessionsLoading,
@@ -21,7 +21,7 @@ import { DateTime } from 'luxon';
   template: `
     <app-sessions
       class="p-4 pl-6 block h-full flex flex-col"
-      [isLoading]="isDataLoading$ | async"
+      [isDataLoading]="isDataLoading$ | async"
       [sessions]="sessions$ | async"
       [activeSession]="activeSession$ | async"
       (onSessionClick)="onSessionClick($event)"
@@ -36,7 +36,7 @@ export class SmartSessionsComponent implements OnInit {
   isDataLoading$: Observable<boolean>;
   isNewRobot: boolean = true;
   private _currentRobot: string;
-
+  spinnerSubscription: Subscription;
   constructor(private store: Store<State>) {}
 
   set currentRobot(robot: string) {

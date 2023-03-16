@@ -22,7 +22,6 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
       [showHeader]="showHeader"
       (onRobotClick)="onRobotClick($event)"
     >
-      <ng-content></ng-content>
     </app-robots-list>
   `,
 })

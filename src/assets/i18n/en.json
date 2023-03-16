@@ -55,6 +55,9 @@
   "activeData": {
     "title": "Active data",
     "robot": "Robot:",
-    "session": "Session:"
+    "session": "Session:",
+    "status": "Status",
+    "active": "Active:",
+    "online": "Online"
   }
 }

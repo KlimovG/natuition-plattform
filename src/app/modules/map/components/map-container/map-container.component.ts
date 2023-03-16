@@ -20,7 +20,11 @@ import {
   selector: 'app-map-container',
   template: `
     <div class="relative w-full h-full">
-      <div id="map" class="w-full h-full flex "></div>
+      <div
+        id="map"
+        class="w-full h-full flex transition-opacity"
+        [ngClass]="{ 'opacity-0': isLoading }"
+      ></div>
       <app-map-buttons
         class="flex flex-col absolute top-2.5 left-2.5 z-20 gap-1.5"
         [isExtracted]="isExtracted"
@@ -28,11 +32,13 @@ import {
         [isField]="isField"
         (toggleMap)="toggleMap($event)"
       ></app-map-buttons>
+      <app-spinner name="map" size="medium"></app-spinner>
     </div>
   `,
 })
 export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() data: MapData;
+  @Input() isLoading: boolean;
   isPath: boolean = true;
   isField: boolean = true;
   isExtracted: boolean = true;

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-sessions',
@@ -13,18 +14,14 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
     <app-buttons-list
       class="overflow-y-scroll overflow-x-hidden max-h-full block"
-      *ngIf="!isLoading"
+      *ngIf="!isDataLoading"
       [buttonsData]="sessions"
       [active]="activeSession"
       (onClick)="onSessionClick.emit($event)"
     >
     </app-buttons-list>
 
-    <app-spinner
-      name="sessionList"
-      [showSpinner]="isLoading"
-      size="large"
-    ></app-spinner>
+    <app-spinner name="sessionList" size="large"></app-spinner>
 
     <div class="w-full pt-5 mt-auto">
       <app-button-main
@@ -43,8 +40,18 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 export class SessionsComponent {
   @Input() sessions: IButtonsData[];
   @Input() activeSession: string;
-  @Input() isLoading: boolean;
+  @Input() set isDataLoading(value: boolean) {
+    value ? this.spinner.show('sessionList') : this.spinner.hide('sessionList');
+    this._isDataLoading = value;
+  }
   @Output() onSessionClick = new EventEmitter<string>();
   @Output() onMoreClick = new EventEmitter<any>();
   icon = faDownload;
+  _isDataLoading: boolean;
+
+  get isDataLoading(): boolean {
+    return this._isDataLoading;
+  }
+
+  constructor(private spinner: NgxSpinnerService) {}
 }

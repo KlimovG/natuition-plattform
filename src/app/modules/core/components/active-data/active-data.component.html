@@ -1,10 +1,11 @@
-<div class="flex flex-wrap justify-start items-stretch relative p-6">
+<div class="flex flex-wrap justify-start items-stretch relative p-3">
   <app-title-section
     class="w-1/2 mb-2"
     [title]="translationPrefix + 'title'"
     [big]="true"
   ></app-title-section>
-  <app-logo class="ml-auto w-14"></app-logo>
+  <app-header class="flex justify-center self-center ml-auto w-1/5"></app-header>
+  <app-logo class="ml-3  w-14"></app-logo>
   <div class="flex w-full justify-end gap-4 mt-4 ">
     <div class="flex mx-auto basis-full" [ngClass]="{'flex-col gap-4 ': isMobile, 'gap-9': !isMobile}">
       <app-stat-item
@@ -20,7 +21,23 @@
         [value]="session | date : 'MMM d, y H:mm'"
       ></app-stat-item>
     </div>
+    <div class="ml-auto w-1/5 ">
 
-    <app-header class="flex justify-center self-center w-1/5"></app-header>
+      <app-title-section
+        class="flex flex-col items-center"
+        [title]="translationPrefix + 'active'"
+      >
+      <fa-icon class="ml-1" [icon]="faActive" [fixedWidth]="true" [ngClass]="{  'text-primary-main': true, 'text-gray-300': false} " ></fa-icon>
+      </app-title-section>
+      <app-title-section
+        class="flex flex-col items-center"
+
+        [title]="translationPrefix + 'online'"
+      >
+      <fa-icon class="ml-1" [icon]="faOnline" [fixedWidth]="true" [ngClass]="{'text-primary-main': false, 'text-gray-300': true}"></fa-icon>
+      </app-title-section>
+
+    </div>
+
   </div>
 </div>

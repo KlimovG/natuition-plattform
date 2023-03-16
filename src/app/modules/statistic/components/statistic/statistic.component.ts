@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ChartData } from '../../models/chart-data.model';
 import { StatisticModel } from '../../models/statistic.model';
 
@@ -26,6 +26,7 @@ import { StatisticModel } from '../../models/statistic.model';
           *ngIf="stats"
           [stats]="stats"
           [translationPrefix]="translationPrefix + 'stats.'"
+          (onReportClick)="onReportClick.emit($event)"
         ></app-robot-stats>
       </div>
     </div>
@@ -36,4 +37,5 @@ export class StatisticComponent {
   @Input() chartData: ChartData;
   @Input() stats: StatisticModel;
   @Input() isDataLoading: boolean;
+  @Output() onReportClick = new EventEmitter<any>();
 }

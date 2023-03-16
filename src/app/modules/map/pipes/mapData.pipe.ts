@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MapData, MapDataFromServer } from '../models/map.model';
+import { MapData } from '../models/map.model';
+import { MapDataFromServer } from '../models/map-data-from-server.model';
 
 @Pipe({
   name: 'mapData',
@@ -24,7 +25,7 @@ export class MapDataPipe implements PipeTransform {
       };
     }
 
-    if (data?.path?.length > 0) {
+    if (data?.path?.pathGPS?.length > 0) {
       Object.defineProperty(result, 'path', {
         value: {
           type: 'Feature',
@@ -33,14 +34,14 @@ export class MapDataPipe implements PipeTransform {
           },
           geometry: {
             type: 'LineString',
-            coordinates: data.path,
+            coordinates: data.path.pathGPS,
           },
         },
       });
     }
 
-    if (data?.extractedPoints?.length > 0) {
-      const coordinates = data.extractedPoints.map((point) => point.pointPath);
+    if (data?.extracted?.length > 0) {
+      const coordinates = data.extracted.map((point) => point.pointPath);
 
       Object.defineProperty(result, 'extractedPoints', {
         value: {

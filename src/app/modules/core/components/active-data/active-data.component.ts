@@ -2,7 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
 import { LogOut } from '../../../auth/state/auth.actions';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faSeedling,
+  faSignal,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-active-data',
@@ -14,6 +18,8 @@ export class ActiveDataComponent {
   @Input() session: string;
   @Input() isMobile: boolean;
   @Input() isTablet: boolean;
+  faActive = faSignal;
+  faOnline = faSeedling;
   icon = faHome;
   showHome = false;
   translationPrefix = 'activeData.';

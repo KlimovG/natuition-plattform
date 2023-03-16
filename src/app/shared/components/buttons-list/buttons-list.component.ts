@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCross,
+  faSeedling,
+  faSignal,
+} from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 
 export interface IButtonsData {
   label?: string;
@@ -9,6 +14,8 @@ export interface IButtonsData {
   duration?: string;
   field?: string;
   extracted?: number;
+  online$?: Observable<boolean>;
+  active$?: Observable<boolean>;
 }
 
 @Component({
@@ -17,7 +24,9 @@ export interface IButtonsData {
   styleUrls: ['./buttons-list.component.scss'],
 })
 export class ButtonsListComponent {
-  faHeart = faCoffee;
+  faHeart = faCross;
+  faActive = faSignal;
+  faOnline = faSeedling;
 
   @Input() buttonsData: IButtonsData[];
   @Input() active: string | number;

@@ -1,21 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest, map, Observable, Subscription } from 'rxjs';
-import { FieldModel } from '../../models/field.model';
-import { ExtractedWeedModel } from '../../models/extracted-weed.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
 import { selectActiveSession } from '../../../sessions/state/sessions.reducer';
-import {
-  GetExtractedForSession,
-  GetFieldForSession,
-  GetPathForSession,
-} from '../../state/map.actions';
-import {
-  selectCorners,
-  selectExtracted,
-  selectPath,
-} from '../../state/map.reducer';
-import { MapDataFromServer } from '../../models/map.model';
+import { GetMapForSession } from '../../state/map.actions';
+import { MapDataFromServer } from '../../models/map-data-from-server.model';
+import { selectMapData, selectMapLoading } from '../../state/map.reducer';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-smart-map',
@@ -24,49 +15,51 @@ import { MapDataFromServer } from '../../models/map.model';
       class="flex w-full self-start mb-2"
       [title]="translationPrefix + 'title'"
     ></app-title-section>
+
     <app-map-container
       class="w-full flex rounded-xl overflow-hidden"
+      [isLoading]="isLoading$ | async"
       [data]="map$ | async | mapData"
     ></app-map-container>
   `,
 })
-export class SmartMapComponent implements OnInit {
+export class SmartMapComponent implements OnInit, OnDestroy {
   translationPrefix = 'map.';
   map$: Observable<MapDataFromServer>;
-  field$: Observable<FieldModel>;
-  path$: Observable<[number, number][]>;
-  extractedPoints$: Observable<ExtractedWeedModel[]>;
+  isLoading$: Observable<boolean>;
   sessionsSubscription: Subscription;
   subscriptionsList: Subscription[] = [];
 
-  constructor(private store: Store<State>) {}
+  constructor(
+    private store: Store<State>,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
-    this.sessionsSubscription = this.store
-      .select(selectActiveSession())
-      .subscribe((session) => this.getMapData(Number(session)));
-
-    this.field$ = this.store.select(selectCorners());
-    this.path$ = this.store.select(selectPath());
-    this.extractedPoints$ = this.store.select(selectExtracted());
-    this.map$ = combineLatest([
-      this.store.select(selectCorners()),
-      this.store.select(selectPath()),
-      this.store.select(selectExtracted()),
-    ]).pipe(
-      map(([field, path, extractedPoints]) => ({
-        field,
-        path,
-        extractedPoints,
-      }))
+    this.isLoading$ = this.store.select(selectMapLoading());
+    this.subscriptionsList.push(
+      this.store
+        .select(selectActiveSession())
+        .subscribe((session) => this.getMapData(Number(session))),
+      this.store
+        .select(selectMapLoading())
+        .subscribe((value) =>
+          value ? this.spinner.show('map') : this.spinner.hide('map')
+        )
     );
+    // this.sessionsSubscription = this.store
+    //   .select(selectActiveSession())
+    //   .subscribe((session) => this.getMapData(Number(session)));
+    this.map$ = this.store.select(selectMapData());
+  }
+
+  ngOnDestroy() {
+    this.subscriptionsList.forEach((s) => s.unsubscribe());
   }
 
   getMapData(session: number) {
     if (session) {
-      this.store.dispatch(new GetFieldForSession(session));
-      this.store.dispatch(new GetExtractedForSession(session));
-      this.store.dispatch(new GetPathForSession(session));
+      this.store.dispatch(new GetMapForSession(session));
     }
   }
 }

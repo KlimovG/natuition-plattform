@@ -12,6 +12,7 @@ import {
 } from '../../state/statistic.reducer';
 import { StatisticModel } from '../../models/statistic.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { OpenNotification } from '../../../../shared/modules/notification/state/notification.actions';
 
 @Component({
   selector: 'app-smart-statistic',
@@ -21,6 +22,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     [chartData]="chartData$ | async"
     [stats]="robotStats$ | async"
     [translationPrefix]="translationPrefix"
+    (onReportClick)="openNotification()"
   ></app-statistic>`,
 })
 export class SmartStatisticComponent implements OnInit, OnDestroy {
@@ -29,6 +31,8 @@ export class SmartStatisticComponent implements OnInit, OnDestroy {
   robotStats$: Observable<StatisticModel>;
   chartData$: Observable<ChartData>;
   isDataLoading$: Observable<boolean>;
+  counter = 0;
+
   private subscriptionsList: Subscription[] = [];
 
   constructor(
@@ -59,5 +63,10 @@ export class SmartStatisticComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscriptionsList.forEach((s) => s.unsubscribe());
+  }
+
+  openNotification() {
+    ++this.counter;
+    this.store.dispatch(new OpenNotification(`test ${this.counter}`));
   }
 }

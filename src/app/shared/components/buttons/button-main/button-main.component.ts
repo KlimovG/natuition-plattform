@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button-main',
@@ -12,5 +12,4 @@ export class ButtonMainComponent {
   @Input() formName: string;
   @Input() disabled: boolean;
   @Input() fullWidth: boolean = false;
-  @Output() click = new EventEmitter<any>();
 }

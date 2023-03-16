@@ -6,7 +6,7 @@ import { Size } from 'ngx-spinner/lib/ngx-spinner.enum';
   template: `
     <ngx-spinner
       [name]="name"
-      [showSpinner]="showSpinner"
+      [showSpinner]="true"
       [type]="type"
       [size]="size"
       [fullScreen]="fullScreen"
