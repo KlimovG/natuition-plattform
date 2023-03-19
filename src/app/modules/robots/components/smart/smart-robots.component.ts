@@ -7,9 +7,8 @@ import {
   selectActiveRobot,
   selectRobots,
 } from '../../state/robots.reducer';
-import { filter, map, Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { RobotModel } from '../../models/robot.model';
-import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 
 @Component({
   selector: 'app-smart-robots',
@@ -27,7 +26,8 @@ import { IButtonsData } from '../../../../shared/components/buttons-list/buttons
 })
 export class SmartRobotsComponent implements OnInit {
   @Input() showHeader: boolean;
-  robots$: Observable<IButtonsData[]>;
+
+  robots$: Observable<RobotModel[]>;
   isRobotListLoading$: Observable<boolean>;
   activeRobot$: Observable<string>;
   _activeRobot: string;
@@ -39,13 +39,7 @@ export class SmartRobotsComponent implements OnInit {
     this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
     this.robots$ = this.store.pipe(
       select(selectRobots()),
-      filter((robots) => !!robots),
-      map((robots) => {
-        return robots.map((robot: RobotModel) => ({
-          label: robot.serial,
-          id: robot.serial,
-        }));
-      })
+      filter((robots) => !!robots)
     );
   }
 

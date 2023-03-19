@@ -15,7 +15,7 @@ import { AuthService } from '../../../auth/service/auth.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
-import { isLogged, selectUserID } from '../../../auth/state/auth.reducer';
+import { isLogged } from '../../../auth/state/auth.reducer';
 import {
   GetRobotsForCustomer,
   SetActiveRobot,
@@ -38,6 +38,8 @@ import {
 })
 export class SmartCoreComponent implements OnInit, OnDestroy {
   intervalForRefresh$ = interval(6 * 59 * 60 * 1000); // 6 hours 59 minutes
+  intervalForStatusRefresh$ = interval(10 * 1000); // 1 minute
+
   isSmallScreen$: Observable<any>;
   isMediumScreen$: Observable<any>;
   isLargeScreen$: Observable<any>;
@@ -57,9 +59,8 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const isLogged$ = this.store.select(isLogged);
-    this.store.select(selectUserID).subscribe((id) => {
-      this.store.dispatch(new GetRobotsForCustomer(id));
-    });
+
+    this.store.dispatch(new GetRobotsForCustomer());
     this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
     this.subscriptionsList.push(
       combineLatest([
@@ -73,15 +74,23 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
               this.store.dispatch(new SetActiveRobot(serial));
             }
           });
+        }),
+      this.intervalForRefresh$
+        .pipe(combineLatestWith(isLogged$))
+        .subscribe(([_, isLogged]) => {
+          if (isLogged) {
+            this.authService.refresh();
+          }
+        }),
+      this.intervalForStatusRefresh$
+        .pipe(combineLatestWith(isLogged$))
+        .subscribe(([_, isLogged]) => {
+          if (isLogged) {
+            this.store.dispatch(new GetRobotsForCustomer());
+            console.log('GetRobotsForCustomer');
+          }
         })
     );
-    this.intervalForRefresh$
-      .pipe(combineLatestWith(isLogged$))
-      .subscribe(([_, isLogged]) => {
-        if (isLogged) {
-          this.authService.refresh();
-        }
-      });
     this.isSmallScreen$ = this.breakpointObserver
       .observe([Breakpoints.Handset])
       .pipe(map((result) => result.matches));

@@ -1,10 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  faCross,
-  faSeedling,
-  faSignal,
-} from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
+import { faCross } from '@fortawesome/free-solid-svg-icons';
+import { RobotStatus } from '../../../modules/robots/models/robot.model';
 
 export interface IButtonsData {
   label?: string;
@@ -14,8 +10,7 @@ export interface IButtonsData {
   duration?: string;
   field?: string;
   extracted?: number;
-  online$?: Observable<boolean>;
-  active$?: Observable<boolean>;
+  status?: RobotStatus;
 }
 
 @Component({
@@ -25,8 +20,6 @@ export interface IButtonsData {
 })
 export class ButtonsListComponent {
   faHeart = faCross;
-  faActive = faSignal;
-  faOnline = faSeedling;
 
   @Input() buttonsData: IButtonsData[];
   @Input() active: string | number;

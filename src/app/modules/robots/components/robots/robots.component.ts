@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 import { LogOut } from '../../../auth/state/auth.actions';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faSeedling,
+  faSignal,
+} from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { RobotModel, RobotStatus } from '../../models/robot.model';
 
 @Component({
   selector: 'app-robots-list',
@@ -15,14 +19,48 @@ import { NgxSpinnerService } from 'ngx-spinner';
       <app-header *ngIf="showHeader"></app-header>
     </div>
 
-    <app-buttons-list
-      *ngIf="!isRobotListLoading"
-      class="overflow-y-scroll max-h-full block"
-      [buttonsData]="robots"
-      [active]="activeRobot"
-      (onClick)="onRobotClick.emit($event)"
-    >
-    </app-buttons-list>
+    <div class="flex-col pr-2 overflow-scroll flex-1">
+      <button
+        *ngFor="let robot of robots; let i = index"
+        class="
+          mb-2
+          border
+          shadow-robot-btn
+          text-green-dark
+          w-full
+          bg-white
+          Montserrat-SemiBold
+          rounded-lg
+          py-4
+          px-4
+          text-base
+          transition
+          duration-300"
+        (click)="onRobotClick.emit(robot.serial)"
+        [ngClass]="{ 'shadow-robot-btn-active ': activeRobot === robot.serial }"
+      >
+        {{ robot.serial }}
+        <fa-icon
+          class="ml-2"
+          [icon]="faOnline"
+          [fixedWidth]="true"
+          [ngClass]="{
+            'text-primary-main': robot.status === status.ON,
+            'text-gray-200 ': robot.status === status.OFF,
+            'text-red-500': robot.status === status.PROBLEM
+          }"
+        ></fa-icon>
+        <fa-icon
+          class="ml-2"
+          [icon]="faActive"
+          [fixedWidth]="true"
+          [ngClass]="{
+            'text-primary-main': robot.status === status.ACTIVE,
+            'text-gray-200': robot.status !== status.ACTIVE
+          }"
+        ></fa-icon>
+      </button>
+    </div>
     <app-spinner name="robotList" size="large"></app-spinner>
   `,
   styleUrls: ['./robots.component.scss'],
@@ -32,12 +70,16 @@ export class RobotsComponent {
     value ? this.spinner.show('robotList') : this.spinner.hide('robotList');
     this._isRobotListLoading = value;
   }
-  @Input() robots: IButtonsData[];
+  @Input() robots: RobotModel[];
   @Input() activeRobot: string;
   @Input() showHeader: boolean;
   @Output() onRobotClick = new EventEmitter<string>();
+
+  status = RobotStatus;
   icon = faHome;
   showHome = false;
+  faOnline = faSignal;
+  faActive = faSeedling;
   constructor(
     private store: Store<State>,
     private spinner: NgxSpinnerService

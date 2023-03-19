@@ -14,24 +14,24 @@ module.exports = {
       },
       gridTemplateRows: {
         core: "1fr 500px",
-        "core-mobile": "auto 1fr auto",
         map: "max-content",
+        "core-mobile": "auto 1fr auto",
         "1fr": "1fr",
       },
       maxWidth: {
-        "layout-lg": "1176px",
+        stat: "200px",
         wrapper: "73.5rem",
         "dashboard-web": "60rem",
-        stat: "200px",
+        "layout-lg": "1176px",
       },
       width: {
-        "dashboard-web": "49rem",
         divider: "1px",
+        "dashboard-web": "49rem",
       },
       minWidth: {
-        "dashboard-web": "52rem",
         50: "50%",
         stat: "200px",
+        "dashboard-web": "52rem",
       },
       maxHeight: {
         wrapper: "48.5rem",
@@ -43,9 +43,9 @@ module.exports = {
         dashboard: "42rem",
       },
       height: {
+        90: "90%",
         wrapper: "51.5rem",
         dashboard: "42rem",
-        90: "90%",
         "map-mobile": "40vh",
       },
       spacing: {
@@ -53,7 +53,8 @@ module.exports = {
       },
       boxShadow: {
         "primary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",
-        "robot-btn": "inset 0 0 0 3px rgba(59, 171, 54, 1)",
+        "robot-btn": "inset 0 0 0 1px rgba(235, 255, 217, 1)",
+        "robot-btn-active": "inset 0 0 0 3px rgba(59, 171, 54, 1)",
         "secondary-btn": "0 2px 20px rgba(59, 171, 54, 0.54)",
       },
       fontSize: {
