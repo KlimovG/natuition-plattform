@@ -15,7 +15,7 @@ import { OpenNotification } from '../../../../shared/modules/notification/state/
 @Component({
   selector: 'app-smart-statistic',
   template: `<app-statistic
-    class="relative"
+    class="relative h-full grid grid-rows-column"
     [isDataLoading]="isDataLoading$ | async"
     [chartData]="chartData$ | async"
     [stats]="robotStats$ | async"

@@ -14,7 +14,7 @@ module.exports = {
       },
       gridTemplateRows: {
         core: "1fr 500px",
-        map: "max-content",
+        column: "auto 1fr",
         "core-mobile": "auto 1fr auto",
         "1fr": "1fr",
       },

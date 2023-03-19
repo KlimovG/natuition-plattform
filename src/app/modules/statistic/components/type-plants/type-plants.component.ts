@@ -7,7 +7,7 @@ type ChartConfig = ChartConfiguration<'doughnut'>['data']['datasets'];
   selector: 'app-type-plants',
   template: `
     <app-title-column [title]="translationPrefix + 'title'"></app-title-column>
-    <div class="w-full relative">
+    <div class="w-full relative" *ngIf="data?.length > 0">
       <canvas
         style="height: 230px; width: 150px"
         baseChart

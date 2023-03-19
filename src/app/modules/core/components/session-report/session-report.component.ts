@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-session-report',
   template: `
     <app-smart-map
-      class="h-map-mobile grid grid-cols-1 grid-rows-map"
+      class="h-map-mobile grid grid-cols-1 grid-rows-column"
     ></app-smart-map>
 
     <app-smart-statistic class="h-auto mt-4 block "></app-smart-statistic>

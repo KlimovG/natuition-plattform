@@ -16,6 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     ></app-title-section>
 
     <app-map-container
+      *ngIf="map$ | async"
       class="w-full flex rounded-xl overflow-hidden"
       [isLoading]="isLoading$ | async"
       [data]="map$ | async | mapData"

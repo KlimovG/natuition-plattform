@@ -8,20 +8,20 @@ import { StatisticModel } from '../../models/statistic.model';
       <app-title-column [title]="translationPrefix + 'title'">
       </app-title-column>
       <div class="flex-col mb-4">
-        <div class="mt-2" *ngIf="!!stats?.voltage">
+        <div class="mt-2" *ngIf="stats?.voltage">
           <app-stat-item
             [label]="translationPrefix + 'voltage'"
             [value]="stats?.voltage?.toString() + 'V'"
           ></app-stat-item>
         </div>
-        <div class="mt-2" *ngIf="!!stats?.duration">
+        <div class="mt-2" *ngIf="stats?.duration">
           <app-stat-item
             class="mt-2"
             [label]="translationPrefix + 'duration'"
             [value]="stats?.duration"
           ></app-stat-item>
         </div>
-        <div class="mt-2" *ngIf="!!stats?.totalNumber">
+        <div class="mt-2" *ngIf="stats?.totalNumber">
           <app-stat-item
             class="mt-2"
             [label]="translationPrefix + 'total'"
