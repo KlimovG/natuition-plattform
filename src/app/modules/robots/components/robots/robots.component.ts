@@ -36,7 +36,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
           text-base
           transition
           duration-300"
-        (click)="onRobotClick.emit(robot.serial)"
+        (click)="onRobotClick.emit(robot)"
         [ngClass]="{ 'shadow-robot-btn-active ': activeRobot === robot.serial }"
       >
         {{ robot.serial }}
@@ -73,7 +73,7 @@ export class RobotsComponent {
   @Input() robots: RobotModel[];
   @Input() activeRobot: string;
   @Input() showHeader: boolean;
-  @Output() onRobotClick = new EventEmitter<string>();
+  @Output() onRobotClick = new EventEmitter<RobotModel>();
 
   status = RobotStatus;
   icon = faHome;

@@ -34,8 +34,8 @@ export class RobotsEffects {
     this.action$.pipe(
       ofType<SetActiveRobot>(RobotsActionTypes.SET_ACTIVE_ROBOT),
       mergeMap(({ payload }) => [
-        new GetLastSessionForRobot(payload),
-        new GetSessionsForRobot(payload),
+        new GetLastSessionForRobot(payload.serial),
+        new GetSessionsForRobot(payload.serial),
       ])
     )
   );
@@ -45,7 +45,7 @@ export class RobotsEffects {
       ofType<GetRobotsForCustomerSuccess>(
         RobotsActionTypes.GET_ROBOTS_CUSTOMER_SUCCESS
       ),
-      mergeMap(({ payload }) => [new SetActiveRobot(payload.at(0).serial)])
+      mergeMap(({ payload }) => [new SetActiveRobot(payload.at(0))])
     )
   );
 }

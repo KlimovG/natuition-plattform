@@ -22,19 +22,26 @@
       ></app-stat-item>
     </div>
     <div class="ml-auto w-1/5 ">
-
-      <app-title-section
-        class="flex flex-col items-center"
-        [title]="translationPrefix + 'active'"
-      >
-      <fa-icon class="ml-1" [icon]="faActive" [fixedWidth]="true" [ngClass]="{  'text-primary-main': true, 'text-gray-300': false} " ></fa-icon>
-      </app-title-section>
       <app-title-section
         class="flex flex-col items-center"
 
         [title]="translationPrefix + 'online'"
       >
-      <fa-icon class="ml-1" [icon]="faOnline" [fixedWidth]="true" [ngClass]="{'text-primary-main': false, 'text-gray-300': true}"></fa-icon>
+      <fa-icon [icon]="faOnline" [fixedWidth]="true" [ngClass]="{
+                  'text-primary-main': status === predefinedStatus.ON,
+            'text-gray-200 ': status === predefinedStatus.OFF || status !== predefinedStatus.ON,
+            'text-red-500': status === predefinedStatus.PROBLEM
+      }"></fa-icon>
+      </app-title-section>
+
+      <app-title-section
+        class="flex flex-col items-center"
+        [title]="translationPrefix + 'active'"
+      >
+      <fa-icon [icon]="faActive" [fixedWidth]="true" [ngClass]="{
+                  'text-primary-main': status === predefinedStatus.ACTIVE,
+            'text-gray-200': status !== predefinedStatus.ACTIVE
+      } " ></fa-icon>
       </app-title-section>
 
     </div>

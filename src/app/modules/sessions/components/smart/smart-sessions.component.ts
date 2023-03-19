@@ -12,7 +12,7 @@ import {
   GetMoreSessionsForRobot,
   SetActiveSession,
 } from '../../state/sessions.actions';
-import { selectActiveRobot } from '../../../robots/state/robots.reducer';
+import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 import { DateTime } from 'luxon';
 
@@ -85,7 +85,9 @@ export class SmartSessionsComponent implements OnInit {
     const lastSession = await firstValueFrom(
       this.store.select(selectSessions())
     );
-    const robot = await firstValueFrom(this.store.select(selectActiveRobot()));
+    const robot = await firstValueFrom(
+      this.store.select(selectActiveRobotSerial())
+    );
     this.store.dispatch(
       new GetMoreSessionsForRobot({
         serial: robot,

@@ -15,7 +15,7 @@ import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { isLogged } from '../../../auth/state/auth.reducer';
 import { GetRobotsForCustomer } from '../../../robots/state/robots.actions';
-import { selectActiveRobot } from '../../../robots/state/robots.reducer';
+import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 
 @Component({
   selector: 'app-smart-core',
@@ -53,7 +53,7 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
     const isLogged$ = this.store.select(isLogged);
 
     this.store.dispatch(new GetRobotsForCustomer());
-    this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
+    this.activeRobot$ = this.store.pipe(select(selectActiveRobotSerial()));
     this.subscriptionsList.push(
       this.intervalForRefresh$
         .pipe(combineLatestWith(isLogged$))

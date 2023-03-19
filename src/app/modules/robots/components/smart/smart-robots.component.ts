@@ -4,7 +4,7 @@ import { SetActiveRobot } from '../../state/robots.actions';
 import { State } from '../../../../state';
 import {
   isRobotListLoading,
-  selectActiveRobot,
+  selectActiveRobotSerial,
   selectRobots,
 } from '../../state/robots.reducer';
 import { filter, Observable } from 'rxjs';
@@ -36,15 +36,15 @@ export class SmartRobotsComponent implements OnInit {
 
   ngOnInit() {
     this.isRobotListLoading$ = this.store.select(isRobotListLoading());
-    this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
+    this.activeRobot$ = this.store.pipe(select(selectActiveRobotSerial()));
     this.robots$ = this.store.pipe(
       select(selectRobots()),
       filter((robots) => !!robots)
     );
   }
 
-  onRobotClick(robot: string) {
-    this.activeRobot = robot;
+  onRobotClick(robot: RobotModel) {
+    this.activeRobot = robot.serial;
     this.store.dispatch(new SetActiveRobot(robot));
   }
 

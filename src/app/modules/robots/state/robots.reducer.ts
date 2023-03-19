@@ -1,4 +1,4 @@
-import { RobotModel } from '../models/robot.model';
+import { RobotModel, RobotStatus } from '../models/robot.model';
 import { RobotsActionTypes, RobotsActionUnion } from './robots.actions';
 import {
   createFeatureSelector,
@@ -9,7 +9,7 @@ import {
 export interface RobotsState {
   robotsForCustomer: RobotModel[];
   isLoading: boolean;
-  activeRobot: string;
+  activeRobot: RobotModel;
 }
 
 export const initialState: RobotsState = {
@@ -28,7 +28,14 @@ export function reducer(
         ...state,
         activeRobot: action.payload,
       };
-
+    case RobotsActionTypes.UPDATE_ACTIVE_ROBOT_STATUS_SUCCESS:
+      return {
+        ...state,
+        activeRobot: {
+          ...state.activeRobot,
+          status: action.payload.status,
+        },
+      };
     case RobotsActionTypes.GET_ROBOTS_CUSTOMER_SUCCESS:
       return {
         ...state,
@@ -52,8 +59,11 @@ const selectFeature = createFeatureSelector<RobotsState>('robots');
 export const selectRobots = (): MemoizedSelector<any, RobotModel[]> =>
   createSelector(selectFeature, (state) => state.robotsForCustomer);
 
-export const selectActiveRobot = (): MemoizedSelector<any, string> =>
-  createSelector(selectFeature, (state) => state.activeRobot);
+export const selectActiveRobotStatus = (): MemoizedSelector<any, RobotStatus> =>
+  createSelector(selectFeature, (state) => state.activeRobot?.status);
+
+export const selectActiveRobotSerial = (): MemoizedSelector<any, string> =>
+  createSelector(selectFeature, (state) => state.activeRobot?.serial);
 
 export const isRobotListLoading = (): MemoizedSelector<any, boolean> =>
   createSelector(selectFeature, (state) => state.isLoading);

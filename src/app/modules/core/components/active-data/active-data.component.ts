@@ -7,6 +7,7 @@ import {
   faSeedling,
   faSignal,
 } from '@fortawesome/free-solid-svg-icons';
+import { RobotStatus } from '../../../robots/models/robot.model';
 
 @Component({
   selector: 'app-active-data',
@@ -18,6 +19,8 @@ export class ActiveDataComponent {
   @Input() session: string;
   @Input() isMobile: boolean;
   @Input() isTablet: boolean;
+  @Input() status: RobotStatus = RobotStatus.OFF;
+  predefinedStatus = RobotStatus;
   faActive = faSignal;
   faOnline = faSeedling;
   icon = faHome;

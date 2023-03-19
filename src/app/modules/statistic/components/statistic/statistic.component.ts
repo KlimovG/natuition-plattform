@@ -15,8 +15,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
     >
       <div class="md:w-1/2 w-full mb-3 md:mb-0">
         <app-type-plants
-          [labels]="chartData.labels"
-          [data]="chartData.data"
+          [labels]="chartData?.labels"
+          [data]="chartData?.data"
           [translationPrefix]="translationPrefix + 'types.'"
         ></app-type-plants>
       </div>

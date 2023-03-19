@@ -5,6 +5,8 @@ export enum RobotsActionTypes {
   GET_ROBOTS_CUSTOMER = '[Robots] Get robots for customer',
   GET_ROBOTS_CUSTOMER_SUCCESS = '[Robots] Get robots for customer success',
   SET_ACTIVE_ROBOT = '[Robots] Set active robot',
+  UPDATE_ACTIVE_ROBOT_STATUS = '[Robots] Update status for active robot',
+  UPDATE_ACTIVE_ROBOT_STATUS_SUCCESS = '[Robots] Update status for active robot success',
 }
 
 export class GetRobotsForCustomer implements Action {
@@ -20,10 +22,24 @@ export class GetRobotsForCustomerSuccess implements Action {
 export class SetActiveRobot implements Action {
   readonly type = RobotsActionTypes.SET_ACTIVE_ROBOT;
 
-  constructor(public payload: string) {}
+  constructor(public payload: RobotModel) {}
+}
+
+export class UpdateStatusForActiveRobot implements Action {
+  readonly type = RobotsActionTypes.UPDATE_ACTIVE_ROBOT_STATUS;
+
+  constructor(public payload: RobotModel) {}
+}
+
+export class UpdateStatusForActiveRobotSuccess implements Action {
+  readonly type = RobotsActionTypes.UPDATE_ACTIVE_ROBOT_STATUS_SUCCESS;
+
+  constructor(public payload: RobotModel) {}
 }
 
 export type RobotsActionUnion =
+  | UpdateStatusForActiveRobotSuccess
+  | UpdateStatusForActiveRobot
   | SetActiveRobot
   | GetRobotsForCustomer
   | GetRobotsForCustomerSuccess;
