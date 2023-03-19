@@ -6,6 +6,8 @@ import {
   GetRobotsForCustomerSuccess,
   RobotsActionTypes,
   SetActiveRobot,
+  UpdateStatusForAllRobots,
+  UpdateStatusForAllRobotsSuccess,
 } from './robots.actions';
 import { map, mergeMap, switchMap } from 'rxjs';
 import {
@@ -24,6 +26,19 @@ export class RobotsEffects {
         this.service.getRobotForUser().pipe(
           map((robots) => {
             return new GetRobotsForCustomerSuccess(robots);
+          })
+        )
+      )
+    )
+  );
+
+  updateAllStatuses$ = createEffect(() =>
+    this.action$.pipe(
+      ofType<UpdateStatusForAllRobots>(RobotsActionTypes.GET_ROBOTS_CUSTOMER),
+      switchMap(() =>
+        this.service.getRobotForUser().pipe(
+          map((robots) => {
+            return new UpdateStatusForAllRobotsSuccess(robots);
           })
         )
       )

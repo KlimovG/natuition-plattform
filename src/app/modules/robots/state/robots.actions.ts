@@ -7,6 +7,8 @@ export enum RobotsActionTypes {
   SET_ACTIVE_ROBOT = '[Robots] Set active robot',
   UPDATE_ACTIVE_ROBOT_STATUS = '[Robots] Update status for active robot',
   UPDATE_ACTIVE_ROBOT_STATUS_SUCCESS = '[Robots] Update status for active robot success',
+  UPDATE_STATUSES_FOR_ALL_ROBOTS = '[Robots] Update status for all robots',
+  UPDATE_STATUSES_FOR_ALL_ROBOTS_SUCCESS = '[Robots] Update status for all robots success',
 }
 
 export class GetRobotsForCustomer implements Action {
@@ -36,8 +38,19 @@ export class UpdateStatusForActiveRobotSuccess implements Action {
 
   constructor(public payload: RobotModel) {}
 }
+export class UpdateStatusForAllRobots implements Action {
+  readonly type = RobotsActionTypes.UPDATE_STATUSES_FOR_ALL_ROBOTS;
+}
+
+export class UpdateStatusForAllRobotsSuccess implements Action {
+  readonly type = RobotsActionTypes.UPDATE_STATUSES_FOR_ALL_ROBOTS_SUCCESS;
+
+  constructor(public payload: RobotModel[]) {}
+}
 
 export type RobotsActionUnion =
+  | UpdateStatusForAllRobots
+  | UpdateStatusForAllRobotsSuccess
   | UpdateStatusForActiveRobotSuccess
   | UpdateStatusForActiveRobot
   | SetActiveRobot

@@ -14,7 +14,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { isLogged } from '../../../auth/state/auth.reducer';
-import { GetRobotsForCustomer } from '../../../robots/state/robots.actions';
+import {
+  GetRobotsForCustomer,
+  UpdateStatusForAllRobots,
+} from '../../../robots/state/robots.actions';
 import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 
 @Component({
@@ -66,7 +69,7 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
         .pipe(combineLatestWith(isLogged$))
         .subscribe(([_, isLogged]) => {
           if (isLogged) {
-            this.store.dispatch(new GetRobotsForCustomer());
+            this.store.dispatch(new UpdateStatusForAllRobots());
           }
         })
     );

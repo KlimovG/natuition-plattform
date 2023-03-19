@@ -28,6 +28,11 @@ export function reducer(
         ...state,
         activeRobot: action.payload,
       };
+    case RobotsActionTypes.UPDATE_STATUSES_FOR_ALL_ROBOTS_SUCCESS:
+      return {
+        ...state,
+        robotsForCustomer: action.payload,
+      };
     case RobotsActionTypes.UPDATE_ACTIVE_ROBOT_STATUS_SUCCESS:
       return {
         ...state,
