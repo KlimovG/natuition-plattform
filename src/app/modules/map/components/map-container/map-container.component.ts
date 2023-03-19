@@ -3,7 +3,7 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
+  OnDestroy,
   SimpleChanges,
 } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
@@ -36,7 +36,9 @@ import {
     </div>
   `,
 })
-export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
+export class MapContainerComponent
+  implements OnChanges, AfterViewInit, OnDestroy
+{
   @Input() data: MapData;
   @Input() isLoading: boolean;
   isPath: boolean = true;
@@ -98,7 +100,9 @@ export class MapContainerComponent implements OnInit, OnChanges, AfterViewInit {
     }, 1);
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy() {
+    this.map.remove();
+  }
 
   toggleMap(type: string) {
     switch (type) {

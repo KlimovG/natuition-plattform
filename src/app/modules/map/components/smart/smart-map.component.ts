@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
-import { selectActiveSession } from '../../../sessions/state/sessions.reducer';
 import { GetMapForSession } from '../../state/map.actions';
 import { MapDataFromServer } from '../../models/map-data-from-server.model';
 import { selectMapData, selectMapLoading } from '../../state/map.reducer';
@@ -38,9 +37,9 @@ export class SmartMapComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isLoading$ = this.store.select(selectMapLoading());
     this.subscriptionsList.push(
-      this.store
-        .select(selectActiveSession())
-        .subscribe((session) => this.getMapData(Number(session))),
+      // this.store
+      //   .select(selectActiveSession())
+      //   .subscribe((session) => this.getMapData(Number(session))),
       this.store
         .select(selectMapLoading())
         .subscribe((value) =>

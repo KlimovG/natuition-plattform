@@ -38,6 +38,31 @@ const GET_MORE_SESSIONS_FOR_ROBOT = `
 export class SessionsService {
   constructor(private apollo: Apollo) {}
 
+  getLastSession(serial: string) {
+    return this.apollo
+      .query<{ getLastSessionForRobot: string }>({
+        query: gql`
+          query ($serial: String!) {
+            getLastSessionForRobot(serial: $serial)
+          }
+        `,
+        variables: {
+          serial,
+        },
+      })
+      .pipe(
+        map(
+          (
+            result: ApolloQueryResult<{
+              getLastSessionForRobot: string;
+            }>
+          ) => {
+            return result.data.getLastSessionForRobot;
+          }
+        )
+      );
+  }
+
   getSessionsForRobot(serial: string) {
     return this.apollo
       .query<{ getSessionsForRobot: SessionModelFromServer[] }>({

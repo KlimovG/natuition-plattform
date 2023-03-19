@@ -4,6 +4,7 @@ import { SessionsService } from '../service/sessions.service';
 
 import { map, mergeMap, switchMap } from 'rxjs';
 import {
+  GetLastSessionForRobot,
   GetMoreSessionsForRobot,
   GetMoreSessionsForRobotSuccess,
   GetSessionsForRobot,
@@ -11,6 +12,8 @@ import {
   SessionsActionTypes,
   SetActiveSession,
 } from './sessions.actions';
+import { GetMapForSession } from '../../map/state/map.actions';
+import { GetStatistic } from '../../statistic/state/statistic.actions';
 
 @Injectable()
 export class SessionsEffects {
@@ -29,14 +32,27 @@ export class SessionsEffects {
     )
   );
 
-  setInitialActiveSession$ = createEffect(() =>
+  getLastSession$ = createEffect(() =>
     this.action$.pipe(
-      ofType<GetSessionsForRobotSuccess>(
-        SessionsActionTypes.GET_SESSIONS_ROBOT_SUCCESS
-      ),
+      ofType<GetLastSessionForRobot>(SessionsActionTypes.GET_LAST_SESSION),
+      switchMap(({ payload }) =>
+        this.service.getLastSession(payload).pipe(
+          map((sessions) => {
+            return new SetActiveSession(sessions);
+          })
+        )
+      )
+    )
+  );
+
+  setActiveSessionStatistik$ = createEffect(() =>
+    this.action$.pipe(
+      ofType<SetActiveSession>(SessionsActionTypes.SET_ACTIVE_SESSION),
       mergeMap(({ payload }) => {
-        const newSession = payload.at(0).id.toString();
-        return [new SetActiveSession(newSession)];
+        return [
+          new GetMapForSession(Number(payload)),
+          new GetStatistic(payload),
+        ];
       })
     )
   );

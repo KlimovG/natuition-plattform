@@ -8,7 +8,10 @@ import {
   SetActiveRobot,
 } from './robots.actions';
 import { map, mergeMap, switchMap } from 'rxjs';
-import { GetSessionsForRobot } from '../../sessions/state/sessions.actions';
+import {
+  GetLastSessionForRobot,
+  GetSessionsForRobot,
+} from '../../sessions/state/sessions.actions';
 
 @Injectable()
 export class RobotsEffects {
@@ -30,7 +33,19 @@ export class RobotsEffects {
   setActiveSession$ = createEffect(() =>
     this.action$.pipe(
       ofType<SetActiveRobot>(RobotsActionTypes.SET_ACTIVE_ROBOT),
-      mergeMap(({ payload }) => [new GetSessionsForRobot(payload)])
+      mergeMap(({ payload }) => [
+        new GetLastSessionForRobot(payload),
+        new GetSessionsForRobot(payload),
+      ])
+    )
+  );
+
+  setInitialActiveRobot$ = createEffect(() =>
+    this.action$.pipe(
+      ofType<GetRobotsForCustomerSuccess>(
+        RobotsActionTypes.GET_ROBOTS_CUSTOMER_SUCCESS
+      ),
+      mergeMap(({ payload }) => [new SetActiveRobot(payload.at(0).serial)])
     )
   );
 }

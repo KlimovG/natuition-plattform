@@ -9,12 +9,14 @@ import {
 export interface SesssionsState {
   sessions: SessionModel[];
   isLoading: boolean;
+  isLastSessionLoading: boolean;
   activeSession: string;
 }
 
 export const initialState: SesssionsState = {
   sessions: [],
   isLoading: false,
+  isLastSessionLoading: false,
   activeSession: null,
 };
 
@@ -23,6 +25,11 @@ export function reducer(
   action: SessionsActionUnion
 ): SesssionsState {
   switch (action.type) {
+    case SessionsActionTypes.GET_LAST_SESSION:
+      return {
+        ...state,
+        isLastSessionLoading: true,
+      };
     case SessionsActionTypes.GET_SESSIONS_ROBOT:
       return {
         ...state,
@@ -48,6 +55,7 @@ export function reducer(
     case SessionsActionTypes.SET_ACTIVE_SESSION:
       return {
         ...state,
+        isLastSessionLoading: false,
         activeSession: action.payload,
       };
     default:

@@ -1,12 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
-  combineLatest,
   combineLatestWith,
   interval,
   map,
   Observable,
   Subscription,
-  takeWhile,
 } from 'rxjs';
 import { TokenStorageService } from '../../../auth/service/token-storage.service';
 import { select, Store } from '@ngrx/store';
@@ -16,14 +14,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { isLogged } from '../../../auth/state/auth.reducer';
-import {
-  GetRobotsForCustomer,
-  SetActiveRobot,
-} from '../../../robots/state/robots.actions';
-import {
-  selectActiveRobot,
-  selectRobots,
-} from '../../../robots/state/robots.reducer';
+import { GetRobotsForCustomer } from '../../../robots/state/robots.actions';
+import { selectActiveRobot } from '../../../robots/state/robots.reducer';
 
 @Component({
   selector: 'app-smart-core',
@@ -38,7 +30,7 @@ import {
 })
 export class SmartCoreComponent implements OnInit, OnDestroy {
   intervalForRefresh$ = interval(6 * 59 * 60 * 1000); // 6 hours 59 minutes
-  intervalForStatusRefresh$ = interval(10 * 1000); // 1 minute
+  intervalForStatusRefresh$ = interval(60 * 1000); // 1 minute
 
   isSmallScreen$: Observable<any>;
   isMediumScreen$: Observable<any>;
@@ -63,18 +55,6 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
     this.store.dispatch(new GetRobotsForCustomer());
     this.activeRobot$ = this.store.pipe(select(selectActiveRobot()));
     this.subscriptionsList.push(
-      combineLatest([
-        this.store.pipe(select(selectRobots())),
-        this.activeRobot$,
-      ])
-        .pipe(takeWhile(([_, active]) => !active))
-        .subscribe(([robots]) => {
-          robots.forEach(({ serial }, i) => {
-            if (i === 0) {
-              this.store.dispatch(new SetActiveRobot(serial));
-            }
-          });
-        }),
       this.intervalForRefresh$
         .pipe(combineLatestWith(isLogged$))
         .subscribe(([_, isLogged]) => {
@@ -87,7 +67,6 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
         .subscribe(([_, isLogged]) => {
           if (isLogged) {
             this.store.dispatch(new GetRobotsForCustomer());
-            console.log('GetRobotsForCustomer');
           }
         })
     );
