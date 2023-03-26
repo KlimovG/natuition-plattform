@@ -22,7 +22,8 @@
     "signOut": "Sign out"
   },
   "robots": {
-    "title": "Robots"
+    "title": "Robots",
+    "status": "Status:"
   },
   "sessions": {
     "title": "Sessions",
@@ -48,16 +49,15 @@
     }
   },
   "common": {
-    "duration": "Duration: <b>{{duration}}</b>",
+    "duration": " in <b>{{duration}}</b>",
     "field": "Field: <b>{{field}}</b>",
-    "extracted": "Extracted: <b>{{total}}</b>"
+    "extracted": "Extr.: <b>{{total}}</b>"
   },
   "activeData": {
     "title": "Active data",
     "robot": "Robot:",
     "session": "Session:",
-    "status": "Status",
-    "active": "Active:",
-    "online": "Online"
+    "status": "Status:",
+    "online": "Online:"
   }
 }

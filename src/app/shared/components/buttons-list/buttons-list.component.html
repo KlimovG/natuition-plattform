@@ -18,10 +18,13 @@
     [ngClass]="{'text-gray-white bg-green': active?.toString() === button.id?.toString()}"
     (click)="onClick.emit(button.id)"
   >
-    <h3 class="Montserrat-SemiBold">{{button.date | date : 'MMM d, y H:mm'}}</h3>
-    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.duration'| translate: {duration: button.duration}"></p>
-    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.field'| translate: {field: button.field}"></p>
-    <p *ngIf="button.extracted" class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.extracted'| translate: {total: button.extracted}"></p>
+    <h3 class="Montserrat-SemiBold">{{button.date | date : 'M/d/yy, H:mm'}}</h3>
+<!--    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.duration'| translate: {duration: button.duration}"></p>-->
+<!--    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.field'| translate: {field: button.field}"></p>-->
+    <p *ngIf="button.extracted" class="Montserrat-Regular text-xs mt-0.5" >
+      <span [innerHTML]="'common.extracted'| translate: {total: button.extracted} "></span>
+      <span [innerHTML]="'common.duration'| translate: {duration: button.duration} "></span>
+    </p>
   </div>
 </div>
 <ng-content></ng-content>
