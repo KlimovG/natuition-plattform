@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   Input,
   OnChanges,
@@ -36,9 +35,7 @@ import {
     </div>
   `,
 })
-export class MapContainerComponent
-  implements OnChanges, AfterViewInit, OnDestroy
-{
+export class MapContainerComponent implements OnChanges, OnDestroy {
   @Input() data: MapData;
   @Input() isLoading: boolean;
   isPath: boolean = true;
@@ -58,46 +55,46 @@ export class MapContainerComponent
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.map) return;
+    if (!this.map) this.initMap();
+    this.map.on('load', () => {
+      const field: FieldType = changes['data']?.currentValue['field'];
+      const path = changes['data']?.currentValue['path'];
+      const extracted = changes['data']?.currentValue['extractedPoints'];
 
-    const field: FieldType = changes['data']?.currentValue['field'];
-    const path = changes['data']?.currentValue['path'];
-    const extracted = changes['data']?.currentValue['extractedPoints'];
+      if (field && field.geometry?.coordinates?.length > 0) {
+        const points: [number, number][] = field.geometry.coordinates
+          .flat()
+          .map(([lng, lat]) => [lng, lat]);
+        const bounds = new LngLatBounds(points.at(0), points.at(2));
+        this.map.fitBounds(bounds, { padding: 40, animate: false });
+        this.addField(field);
+      }
 
-    if (field && field.geometry?.coordinates?.length > 0) {
-      const points: [number, number][] = field.geometry.coordinates
-        .flat()
-        .map(([lng, lat]) => [lng, lat]);
-      const bounds = new LngLatBounds(points.at(0), points.at(2));
-      this.map.fitBounds(bounds, { padding: 40, animate: false });
-      this.addField(field);
-    }
+      if (path) {
+        this.addPath(path);
+      }
 
-    if (path) {
-      this.addPath(path);
-    }
-
-    if (extracted) {
-      this.addExtracted(extracted);
-    }
+      if (extracted) {
+        this.addExtracted(extracted);
+      }
+    });
   }
 
-  ngAfterViewInit() {
+  initMap() {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken').set(
       environment.mapbox.accessToken
     );
-    setTimeout(() => {
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: this.style,
-        zoom: 19,
-        center: this.center,
-      });
-      this.map = map;
-      this.map.addControl(new mapboxgl.NavigationControl());
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: 19,
+      center: this.center,
+    });
+    this.map.addControl(new mapboxgl.NavigationControl());
+    this.map.on('load', () => {
       this.reorderLayers();
       this.map.resize();
-    }, 1);
+    });
   }
 
   ngOnDestroy() {
