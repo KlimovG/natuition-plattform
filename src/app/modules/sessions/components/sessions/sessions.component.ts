@@ -14,7 +14,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
     <app-buttons-list
       class="overflow-y-scroll overflow-x-hidden max-h-full block"
-      *ngIf="!isDataLoading"
       [buttonsData]="sessions"
       [active]="activeSession"
       (onClick)="onSessionClick.emit($event)"
@@ -41,7 +40,7 @@ export class SessionsComponent {
   @Input() sessions: IButtonsData[];
   @Input() activeSession: string;
   @Input() set isDataLoading(value: boolean) {
-    value ? this.spinner.show('sessionList') : this.spinner.hide('sessionList');
+    // value ? this.spinner.show('sessionList') : this.spinner.hide('sessionList');
     this._isDataLoading = value;
   }
   @Output() onSessionClick = new EventEmitter<string>();
