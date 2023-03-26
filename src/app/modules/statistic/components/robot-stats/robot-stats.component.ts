@@ -32,6 +32,7 @@ import { StatisticModel } from '../../models/statistic.model';
       <div class="mt-auto flex justify-center">
         <app-button-secondary
           class="min-w-stat"
+          [disabled]="true"
           [fullWidth]="true"
           [text]="translationPrefix + 'report'"
           (click)="onReportClick.emit($event)"

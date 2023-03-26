@@ -7,9 +7,9 @@ type ChartConfig = ChartConfiguration<'doughnut'>['data']['datasets'];
   selector: 'app-type-plants',
   template: `
     <app-title-column [title]="translationPrefix + 'title'"></app-title-column>
-    <div class="w-full relative" *ngIf="data?.length > 0">
+    <div class="w-full relative flex justify-center" *ngIf="data?.length > 0">
       <canvas
-        style="height: 230px; width: 150px"
+        style="max-height: 230px; max-width: 100%;"
         baseChart
         [labels]="labels"
         [datasets]="dataset"
