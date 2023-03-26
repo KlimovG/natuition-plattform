@@ -28,5 +28,8 @@ import { MapDataPipe } from './pipes/mapData.pipe';
     StoreModule.forFeature('map', reducer),
     SharedModule,
   ],
+  providers: [
+    MapDataPipe
+  ]
 })
-export class MapModule {}
+export class MapModule { }
