@@ -4,24 +4,22 @@
     class="
     mb-2
     border
-    border-green
+    shadow-robot-btn
     text-green-dark
     w-full
     bg-white
     rounded-lg
-    py-4
-    px-3
+    py-5
+    px-4
     text-base
     transition
     duration-300"
     role="button"
-    [ngClass]="{'text-gray-white bg-green': active?.toString() === button.id?.toString()}"
+    [ngClass]="{' shadow-robot-btn-active': active?.toString() === button.id?.toString()}"
     (click)="onClick.emit(button.id)"
   >
     <h3 class="Montserrat-SemiBold">{{button.date | date : 'd/M/yy, H:mm'}}</h3>
-<!--    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.duration'| translate: {duration: button.duration}"></p>-->
-<!--    <p class="Montserrat-Regular text-xs mt-0.5" [innerHTML]="'common.field'| translate: {field: button.field}"></p>-->
-    <p *ngIf="button.extracted" class="Montserrat-Regular text-xs mt-0.5" >
+    <p  class="Montserrat-Regular text-xs mt-0.5" >
       <span [innerHTML]="'common.extracted'| translate: {total: button.extracted} "></span>
       <span [innerHTML]="'common.duration'| translate: {duration: button.duration} "></span>
     </p>
