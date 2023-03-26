@@ -84,6 +84,7 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
     Object.getOwnPropertyDescriptor(mapboxgl, 'accessToken').set(
       environment.mapbox.accessToken
     );
+    console.log(this.center);
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
