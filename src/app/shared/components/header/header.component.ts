@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {
   faCircle,
-  faPowerOff,
+  faHomeUser,
   faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
@@ -57,7 +57,7 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
 })
 export class HeaderComponent {
   @Input() userName: string = 'George Klimov';
-  iconHome = faPowerOff;
+  iconHome = faHomeUser;
   mask = faCircle;
   iconOut = faSignOut;
   showHome = false;

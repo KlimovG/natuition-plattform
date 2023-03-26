@@ -21,8 +21,8 @@ export class ActiveDataComponent {
   @Input() isTablet: boolean;
   @Input() status: RobotStatus = RobotStatus.OFF;
   predefinedStatus = RobotStatus;
-  faActive = faSignal;
-  faOnline = faSeedling;
+  faOnline = faSignal;
+  faActive = faSeedling;
   icon = faHome;
   showHome = false;
   translationPrefix = 'activeData.';
