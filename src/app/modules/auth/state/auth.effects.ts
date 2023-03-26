@@ -75,6 +75,7 @@ export class AuthEffects {
           return this.service.logout().pipe(
             map(() => {
               this.router.navigate(['login']);
+              // this.tokenService.removeTokens();
             })
           );
         })

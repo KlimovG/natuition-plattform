@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginInput } from '../models/login-form.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenStorageService } from './token-storage.service';
 import { SignInOutputDto } from '../dto/sign-in-output.dto';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-};
 
 @Injectable({
   providedIn: 'root',
@@ -32,9 +28,7 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.accessToken = this.cookieService.get('accessToken');
-          this.tokenService.refreshToken =
-            this.cookieService.get('refreshToken');
+          this.tokenService.accessToken = response.body.token;
           return response.body;
         }),
         catchError((err) => {
@@ -53,9 +47,7 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.accessToken = this.cookieService.get('accessToken');
-          this.tokenService.refreshToken =
-            this.cookieService.get('refreshToken');
+          this.tokenService.accessToken = response.body.token;
           return response.body;
         }),
         catchError((err) => {
@@ -74,9 +66,7 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.tokenService.accessToken = this.cookieService.get('accessToken');
-          this.tokenService.refreshToken =
-            this.cookieService.get('refreshToken');
+          this.tokenService.accessToken = response.body.token;
 
           return response.body;
         })
@@ -90,19 +80,12 @@ export class AuthService {
         observe: 'response',
         headers: this.headers,
       })
-      .pipe((response) => {
-        // this.tokenService.removeTokens();
-        return response;
-      });
-  }
-
-  refreshToken(token: string) {
-    return this.httpClient.post(
-      '/api/auth/refresh-token',
-      {
-        refreshToken: token,
-      },
-      httpOptions
-    );
+      .pipe(
+        tap((response) => {
+          this.tokenService.removeTokens();
+          this.cookieService.deleteAll();
+          return response;
+        })
+      );
   }
 }

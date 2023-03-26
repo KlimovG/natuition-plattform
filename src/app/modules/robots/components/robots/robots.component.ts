@@ -46,8 +46,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
           [fixedWidth]="true"
           [ngClass]="{
             'text-primary-main': robot.status === status.ON,
-            'text-gray-200 ': robot.status === status.OFF,
-            'text-red-500': robot.status === status.PROBLEM
+            'text-gray-200 ': robot.status === status.OFF
           }"
         ></fa-icon>
         <fa-icon
@@ -56,7 +55,10 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
           [fixedWidth]="true"
           [ngClass]="{
             'text-primary-main': robot.status === status.ACTIVE,
-            'text-gray-200': robot.status !== status.ACTIVE
+            'text-gray-200': robot.status !== status.ACTIVE,
+            'text-red-500':
+              robot.status === status.PROBLEM ||
+              robot.status === status.LEFT_AREA
           }"
         ></fa-icon>
       </button>
