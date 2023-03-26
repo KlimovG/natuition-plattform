@@ -4,13 +4,16 @@ import { Component, Input } from '@angular/core';
   selector: 'app-title-section',
   template: `
     <h2
-      class="Montserrat-Bold text-xl text-left"
+      class="Montserrat-Bold text-xl text-center w-full"
       [ngClass]="{ 'text-2xl': big }"
     >
       {{ title | translate }}
     </h2>
     <ng-content></ng-content>
   `,
+  host: {
+    class: 'w-full',
+  },
 })
 export class TitleSectionComponent {
   @Input() title: string;

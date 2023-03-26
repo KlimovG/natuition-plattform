@@ -20,7 +20,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
     </div>
 
     <div class="flex-col pr-2 overflow-scroll flex-1">
-      <button
+      <div
         *ngFor="let robot of robots; let i = index"
         class="
           mb-2
@@ -36,6 +36,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
           text-base
           transition
           duration-300"
+        role="button"
         (click)="onRobotClick.emit(robot)"
         [ngClass]="{ 'shadow-robot-btn-active ': activeRobot === robot.serial }"
       >
@@ -61,7 +62,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
               robot.status === status.LEFT_AREA
           }"
         ></fa-icon>
-      </button>
+      </div>
     </div>
     <app-spinner name="robotList" size="large"></app-spinner>
   `,
