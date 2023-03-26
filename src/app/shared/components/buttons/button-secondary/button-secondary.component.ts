@@ -9,4 +9,5 @@ export class ButtonSecondaryComponent {
   @Input() text: string = 'Default Button';
   @Input() link!: any[] | string | null | undefined;
   @Input() fullWidth: boolean;
+  @Input() disabled: boolean = false;
 }

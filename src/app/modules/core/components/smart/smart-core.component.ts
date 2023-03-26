@@ -5,6 +5,7 @@ import {
   map,
   Observable,
   Subscription,
+  tap,
 } from 'rxjs';
 import { TokenStorageService } from '../../../auth/service/token-storage.service';
 import { select, Store } from '@ngrx/store';
@@ -74,7 +75,7 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
         })
     );
     this.isSmallScreen$ = this.breakpointObserver
-      .observe([Breakpoints.Handset])
+      .observe([Breakpoints.XSmall])
       .pipe(map((result) => result.matches));
     this.isSmallScreen$.subscribe((value) => {
       if (value) {
@@ -82,19 +83,25 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
       }
     });
     this.isMediumScreen$ = this.breakpointObserver
-      .observe([Breakpoints.Tablet])
+      .observe([, Breakpoints.Small])
       .pipe(map((result) => result.matches));
     this.isMediumScreen$.subscribe((value) => {
       if (value) {
-        this.updateRootFontSize('14px');
+        this.updateRootFontSize('16px');
       }
     });
+    console.log(Breakpoints);
     this.isLargeScreen$ = this.breakpointObserver
-      .observe([Breakpoints.Web])
-      .pipe(map((result) => result.matches));
+      .observe([Breakpoints.XLarge, Breakpoints.Medium, Breakpoints.Large])
+      .pipe(
+        tap((result) => {
+          console.log('web size:', result);
+        }),
+        map((result) => result.matches)
+      );
     this.isLargeScreen$.subscribe((value) => {
       if (value) {
-        this.updateRootFontSize('16px');
+        this.updateRootFontSize('18px');
       }
     });
     this.router.url.includes('statistic');
