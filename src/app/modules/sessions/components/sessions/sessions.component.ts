@@ -29,7 +29,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
         (click)="onMoreClick.emit($event)"
       >
         {{ 'sessions.more' | translate }}
-        <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>
+        <!--        <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>-->
       </app-button-main>
     </div>
 

@@ -28,7 +28,7 @@
   "sessions": {
     "title": "Sessions",
     "btn": "Session {{index}}",
-    "more": "Load more"
+    "more": "Get 10 sessions"
   },
   "map": {
     "title": "Map view"

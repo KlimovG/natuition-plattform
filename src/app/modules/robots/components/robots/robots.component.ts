@@ -23,6 +23,9 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
       <div
         *ngFor="let robot of robots; let i = index"
         class="
+          flex
+          flex-col
+          items-center
           mb-2
           border
           shadow-robot-btn
@@ -40,28 +43,30 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
         (click)="onRobotClick.emit(robot)"
         [ngClass]="{ 'shadow-robot-btn-active ': activeRobot === robot.serial }"
       >
-        {{ robot.serial }}
-        <fa-icon
-          class="ml-2"
-          [icon]="faOnline"
-          [fixedWidth]="true"
-          [ngClass]="{
-            'text-primary-main': robot.status === status.ON,
-            'text-gray-200 ': robot.status === status.OFF
-          }"
-        ></fa-icon>
-        <fa-icon
-          class="ml-2"
-          [icon]="faActive"
-          [fixedWidth]="true"
-          [ngClass]="{
-            'text-primary-main': robot.status === status.ACTIVE,
-            'text-gray-200': robot.status !== status.ACTIVE,
-            'text-red-500':
-              robot.status === status.PROBLEM ||
-              robot.status === status.LEFT_AREA
-          }"
-        ></fa-icon>
+        <h3>{{ robot.serial }}</h3>
+        <div class="flex justify-center">
+          <fa-icon
+            class="ml-2"
+            [icon]="faOnline"
+            [fixedWidth]="true"
+            [ngClass]="{
+              'text-primary-main': robot.status === status.ON,
+              'text-gray-200 ': robot.status === status.OFF
+            }"
+          ></fa-icon>
+          <fa-icon
+            class="ml-2"
+            [icon]="faActive"
+            [fixedWidth]="true"
+            [ngClass]="{
+              'text-primary-main': robot.status === status.ACTIVE,
+              'text-gray-200': robot.status !== status.ACTIVE,
+              'text-red-500':
+                robot.status === status.PROBLEM ||
+                robot.status === status.LEFT_AREA
+            }"
+          ></fa-icon>
+        </div>
       </div>
     </div>
     <app-spinner name="robotList" size="large"></app-spinner>
