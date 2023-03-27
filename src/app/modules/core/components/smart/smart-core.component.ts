@@ -58,6 +58,18 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new GetRobotsForCustomer());
     this.activeRobot$ = this.store.pipe(select(selectActiveRobotSerial()));
+    this.isSmallScreen$ = this.breakpointObserver
+      .observe([Breakpoints.XSmall])
+      .pipe(map((result) => result.matches));
+
+    this.isMediumScreen$ = this.breakpointObserver
+      .observe([Breakpoints.Small])
+      .pipe(map((result) => result.matches));
+
+    this.isLargeScreen$ = this.breakpointObserver
+      .observe([Breakpoints.Medium, Breakpoints.Large])
+      .pipe(map((result) => result.matches));
+
     this.subscriptionsList.push(
       this.intervalForRefresh$
         .pipe(combineLatestWith(isLogged$))
@@ -72,39 +84,34 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
           if (isLogged) {
             this.store.dispatch(new UpdateStatusForAllRobots());
           }
+        }),
+      this.isSmallScreen$.subscribe((value) => {
+        if (value) {
+          this.updateRootFontSize('14px');
+        }
+      }),
+      this.isMediumScreen$.subscribe((value) => {
+        if (value) {
+          this.updateRootFontSize('16px');
+        }
+      }),
+      this.isLargeScreen$.subscribe((value) => {
+        if (value) {
+          this.updateRootFontSize('16px');
+        }
+      }),
+      this.breakpointObserver
+        .observe([Breakpoints.XLarge])
+        .pipe(map((result) => result.matches))
+        .subscribe((value) => {
+          if (value) {
+            this.updateRootFontSize('18px');
+          }
         })
     );
-    this.isSmallScreen$ = this.breakpointObserver
-      .observe([Breakpoints.XSmall])
-      .pipe(map((result) => result.matches));
-    this.isSmallScreen$.subscribe((value) => {
-      if (value) {
-        this.updateRootFontSize('14px');
-      }
-    });
-    this.isMediumScreen$ = this.breakpointObserver
-      .observe([, Breakpoints.Small])
-      .pipe(map((result) => result.matches));
-    this.isMediumScreen$.subscribe((value) => {
-      if (value) {
-        this.updateRootFontSize('16px');
-      }
-    });
-    console.log(Breakpoints);
-    this.isLargeScreen$ = this.breakpointObserver
-      .observe([Breakpoints.XLarge, Breakpoints.Medium, Breakpoints.Large])
-      .pipe(
-        tap((result) => {
-          console.log('web size:', result);
-        }),
-        map((result) => result.matches)
-      );
-    this.isLargeScreen$.subscribe((value) => {
-      if (value) {
-        this.updateRootFontSize('18px');
-      }
-    });
+
     this.router.url.includes('statistic');
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const isStat = event.url.includes('statistic');

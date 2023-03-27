@@ -15,7 +15,6 @@
       ></app-stat-item>
 
       <app-stat-item
-        *ngIf="session?.trim()"
         class="text-xl font-bold w-full"
         [label]="translationPrefix + 'session'"
         [value]="session | date : 'MMM d, y H:mm'"

@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
+import { Observable } from 'rxjs';
 
 type ChartConfig = ChartConfiguration<'doughnut'>['data']['datasets'];
 
@@ -9,7 +10,8 @@ type ChartConfig = ChartConfiguration<'doughnut'>['data']['datasets'];
     <app-title-column [title]="translationPrefix + 'title'"></app-title-column>
     <div class="w-full relative flex justify-center" *ngIf="data?.length > 0">
       <canvas
-        style="max-height: 230px; max-width: 100%;"
+        style="width: 100%; height: 230px;"
+        class="max-w-stat-item w-full"
         baseChart
         [labels]="labels"
         [datasets]="dataset"
@@ -24,6 +26,10 @@ export class TypePlantsComponent implements OnChanges {
   @Input() translationPrefix: string;
   @Input() labels: string[];
   @Input() data: number[];
+  @Input() set isSmallScreen(value: boolean) {
+    this.options.plugins.legend.position = value ? 'right' : 'bottom';
+  }
+
   _dataset: ChartConfig = [];
   options: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
@@ -34,7 +40,6 @@ export class TypePlantsComponent implements OnChanges {
     animation: false,
     plugins: {
       legend: {
-        position: 'bottom',
         maxWidth: 200,
         labels: {
           boxWidth: 15,

@@ -38,12 +38,12 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
       </button>
 
       <div
-        class="flex-col items-stretch p-6 absolute top-14 right-1 z-10 bg-gray-white shadow-2xl shadow-green-dark rounded-lg border-primary-main border-2"
+        class="flex-col items-stretch p-6 absolute top-14 right-1 z-10 bg-gray-white shadow-2xl shadow-green-dark rounded-lg border-primary-main border-2 min-w-stat"
         *ngIf="showHome"
       >
         <app-user-label></app-user-label>
         <app-button-secondary
-          class="flex mt-3 "
+          class="flex mt-3 w-full"
           text="header.signOut"
           [fullWidth]="true"
           (click)="signOut()"

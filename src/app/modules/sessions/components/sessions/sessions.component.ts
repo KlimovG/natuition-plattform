@@ -18,20 +18,19 @@ import { NgxSpinnerService } from 'ngx-spinner';
       [active]="activeSession"
       (onClick)="onSessionClick.emit($event)"
     >
+      <div *ngIf="sessions" class="w-full pt-5 mt-auto pr-2">
+        <app-button-main
+          css="bg-primary-main text-white lg:hover:bg-white lg:hover:text-primary-main border border-primary-main"
+          [fullWidth]="true"
+          (click)="onMoreClick.emit($event)"
+        >
+          {{ 'sessions.more' | translate }}
+          <!--        <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>-->
+        </app-button-main>
+      </div>
     </app-buttons-list>
 
     <app-spinner name="sessionList" size="large"></app-spinner>
-
-    <div class="w-full pt-5 mt-auto">
-      <app-button-main
-        css="bg-primary-main text-white lg:hover:bg-white lg:hover:text-primary-main border border-primary-main"
-        [fullWidth]="true"
-        (click)="onMoreClick.emit($event)"
-      >
-        {{ 'sessions.more' | translate }}
-        <!--        <fa-icon [icon]="icon" [fixedWidth]="true"></fa-icon>-->
-      </app-button-main>
-    </div>
 
     <ng-content></ng-content>
   `,

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ChartData } from '../../models/chart-data.model';
 import { StatisticModel } from '../../models/statistic.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-statistic',
@@ -15,6 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     >
       <div class="md:w-1/2 w-full mb-3 md:mb-0">
         <app-type-plants
+          [isSmallScreen]="isSmallScreen$ | async"
           [labels]="chartData?.labels"
           [data]="chartData?.data"
           [translationPrefix]="translationPrefix + 'types.'"
@@ -34,6 +36,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   `,
 })
 export class StatisticComponent {
+  @Input() isSmallScreen$: Observable<boolean>;
   @Input() translationPrefix: string;
   @Input() chartData: ChartData;
   @Input() stats: StatisticModel;

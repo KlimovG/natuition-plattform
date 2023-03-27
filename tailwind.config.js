@@ -19,7 +19,8 @@ module.exports = {
         "1fr": "1fr",
       },
       maxWidth: {
-        stat: "200px",
+        "stat-box": "200px",
+        "stat-item": "350px",
         wrapper: "73.5rem",
         "dashboard-web": "60rem",
         "layout-lg": "1176px",
@@ -41,6 +42,7 @@ module.exports = {
         wrapper: "42rem",
         map: "20rem",
         dashboard: "42rem",
+        statistic: "300px",
       },
       height: {
         90: "90%",
