@@ -118,29 +118,34 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
   // }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.map) this.initMap();
-    this.map.on('load', () => {
-      const field: FieldType = changes['data']?.currentValue['field'];
-      const path = changes['data']?.currentValue['path'];
-      const extracted = changes['data']?.currentValue['extractedPoints'];
+    const field: FieldType = changes['data']?.currentValue['field'];
+    const path = changes['data']?.currentValue['path'];
+    const extracted = changes['data']?.currentValue['extractedPoints'];
+    if (!this.map) {
+      this.initMap();
+      this.map.on('load', () => this.initMapData(field, path, extracted));
+      return;
+    }
+    this.initMapData(field, path, extracted);
+  }
 
-      if (field && field.geometry?.coordinates?.length > 0) {
-        const points: [number, number][] = field.geometry.coordinates
-          .flat()
-          .map(([lng, lat]) => [lng, lat]);
-        const bounds = new LngLatBounds(points.at(0), points.at(2));
-        this.map.fitBounds(bounds, { padding: 40, animate: false });
-        this.addField(field);
-      }
+  initMapData(field: FieldType, path: PathType, extracted: ExtractedType) {
+    if (field && field.geometry?.coordinates?.length > 0) {
+      const points: [number, number][] = field.geometry.coordinates
+        .flat()
+        .map(([lng, lat]) => [lng, lat]);
+      const bounds = new LngLatBounds(points.at(0), points.at(2));
+      this.map.fitBounds(bounds, { padding: 40, animate: false });
+      this.addField(field);
+    }
 
-      if (path) {
-        this.addPath(path);
-      }
+    if (path) {
+      this.addPath(path);
+    }
 
-      if (extracted) {
-        this.addExtracted(extracted);
-      }
-    });
+    if (extracted) {
+      this.addExtracted(extracted);
+    }
   }
 
   initMap() {
