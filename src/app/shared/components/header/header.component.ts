@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-  faCircle,
-  faHomeUser,
-  faSignOut,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHomeUser, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { State } from '../../../state';
 import { LogOut } from '../../../modules/auth/state/auth.actions';
@@ -58,7 +54,6 @@ import { LogOut } from '../../../modules/auth/state/auth.actions';
 export class HeaderComponent {
   @Input() userName: string = 'George Klimov';
   iconHome = faHomeUser;
-  mask = faCircle;
   iconOut = faSignOut;
   showHome = false;
   constructor(private store: Store<State>) {}
