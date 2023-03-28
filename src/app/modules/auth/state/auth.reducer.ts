@@ -24,9 +24,19 @@ export function reducer(
   switch (action.type) {
     case AuthActionTypes.LOG_OUT:
       return {
+        ...state,
+        isLoading: true,
+      };
+    case AuthActionTypes.LOG_OUT_SUCCESS:
+      return {
         isLogged: false,
         user: null,
-        isLoading: true,
+        isLoading: false,
+      };
+    case AuthActionTypes.LOG_OUT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
       };
     case AuthActionTypes.AUTHENTICATE_FAILURE:
       return {

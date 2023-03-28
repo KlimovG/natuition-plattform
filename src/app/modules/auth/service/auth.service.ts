@@ -85,6 +85,9 @@ export class AuthService {
           this.tokenService.removeTokens();
           this.cookieService.deleteAll();
           return response;
+        }),
+        catchError((err) => {
+          return of(err);
         })
       );
   }

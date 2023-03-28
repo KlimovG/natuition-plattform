@@ -11,6 +11,8 @@ export enum AuthActionTypes {
   LOG_IN_SUCCESS = '[Auth] Login is successful',
   LOG_IN_FAILURE = '[Auth] Login is failed',
   LOG_OUT = '[Auth] Logout',
+  LOG_OUT_SUCCESS = '[Auth] Logout is successful',
+  LOG_OUT_FAILURE = '[Auth] Login is failed',
 }
 
 export class Authenticate implements Action {
@@ -41,6 +43,14 @@ export class LogOut implements Action {
   readonly type = AuthActionTypes.LOG_OUT;
 }
 
+export class LogOutSuccess implements Action {
+  readonly type = AuthActionTypes.LOG_OUT_SUCCESS;
+}
+
+export class LogOutFailure implements Action {
+  readonly type = AuthActionTypes.LOG_OUT_FAILURE;
+}
+
 export class LogInSuccess implements Action {
   readonly type = AuthActionTypes.LOG_IN_SUCCESS;
 
@@ -54,6 +64,8 @@ export class LogInFailure implements Action {
 }
 
 export type AuthActionUnion =
+  | LogOutSuccess
+  | LogOutFailure
   | LogIn
   | RefreshAccess
   | LogOut

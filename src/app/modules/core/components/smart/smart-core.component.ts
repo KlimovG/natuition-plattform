@@ -5,7 +5,6 @@ import {
   map,
   Observable,
   Subscription,
-  tap,
 } from 'rxjs';
 import { TokenStorageService } from '../../../auth/service/token-storage.service';
 import { select, Store } from '@ngrx/store';
@@ -33,7 +32,7 @@ import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
   `,
 })
 export class SmartCoreComponent implements OnInit, OnDestroy {
-  intervalForRefresh$ = interval(6 * 59 * 60 * 1000); // 6 hours 59 minutes
+  intervalForRefresh$ = interval(5 * 59 * 60 * 1000); // 5 hours 59 minutes
   intervalForStatusRefresh$ = interval(60 * 1000); // 1 minute
 
   isSmallScreen$: Observable<any>;

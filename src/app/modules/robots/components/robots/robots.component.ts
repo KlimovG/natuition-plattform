@@ -1,10 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LogOut } from '../../../auth/state/auth.actions';
-import {
-  faHome,
-  faSeedling,
-  faSignal,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSeedling, faSignal } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -19,7 +14,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
       <app-header *ngIf="showHeader"></app-header>
     </div>
 
-    <div class="flex-col pr-2 overflow-scroll flex-1">
+    <div class="flex-col pr-2 overflow-y-scroll overflow-x-clip flex-1">
       <div
         *ngFor="let robot of robots; let i = index"
         class="
@@ -84,22 +79,17 @@ export class RobotsComponent {
   @Output() onRobotClick = new EventEmitter<RobotModel>();
 
   status = RobotStatus;
-  icon = faHome;
   showHome = false;
   faOnline = faSignal;
   faActive = faSeedling;
+  _isRobotListLoading: boolean;
+
   constructor(
     private store: Store<State>,
     private spinner: NgxSpinnerService
   ) {}
-  _isRobotListLoading: boolean;
+
   get isRobotListLoading() {
     return this._isRobotListLoading;
-  }
-  signOut() {
-    this.store.dispatch(new LogOut());
-  }
-  toggleHome() {
-    this.showHome = !this.showHome;
   }
 }
