@@ -14,6 +14,21 @@ import {
   MapData,
   PathType,
 } from '../../models/map.model';
+import { selectActiveSessionData } from '../../../sessions/state/sessions.reducer';
+import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
+import {
+  CoordinatesWithExtractedWeedFromRobot,
+  CoordinateWithExtractedWeed,
+} from '../../models/coordinate_with_extracted_weed.model';
+import { filter, map, Observable } from 'rxjs';
+import { selectMapData } from '../../state/map.reducer';
+import { MapDataFromServer } from '../../models/map-data-from-server.model';
+import { Store } from '@ngrx/store';
+import { MapDataPipe } from '../../pipes/mapData.pipe';
+import { WebSocketSubject } from 'rxjs/internal/observable/dom/WebSocketSubject';
+import { State } from '../../../../state';
+import { webSocket } from 'rxjs/webSocket';
+import { ExtractedWeedModel } from '../../models/extracted-weed.model';
 
 @Component({
   selector: 'app-map-container',
@@ -45,16 +60,16 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
   layerOrder = ['outline', 'field', 'path', 'extracted']; // the order of your layers
-  // activeSessionId$: Observable<number>;
-  // activeSessionId: number;
-  // activeRobot$: Observable<string>;
-  // robotWebSocket: WebSocketSubject<any>;
-  // new_map_value: MapDataFromServer;
-  //
-  // constructor(
-  //   private store: Store<State>,
-  //   private map_data_pipe: MapDataPipe
-  // ) { }
+  activeSessionId$: Observable<number>;
+  activeSessionId: number;
+  activeRobot$: Observable<string>;
+  robotWebSocket: WebSocketSubject<any>;
+  new_map_value: MapDataFromServer;
+
+  constructor(
+    private store: Store<State>,
+    private map_data_pipe: MapDataPipe
+  ) {}
 
   get center(): LngLat {
     return this._center;
@@ -64,58 +79,71 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
     this._center = points;
   }
 
-  // ngOnInit(): void {
-  //   this.activeSessionId$ = this.store.select(selectActiveSessionData()).pipe(
-  //     filter((s) => !!s),
-  //     map((session) => session.id)
-  //   );
-  //   this.activeSessionId$.subscribe(value => {
-  //     this.activeSessionId = value;
-  //   });
-  //
-  //   this.activeRobot$ = this.store.select(selectActiveRobotSerial());
-  //   this.activeRobot$.subscribe(value => {
-  //     this.robotWebSocket = webSocket('wss://fleet.natuition.com/api/v1/data_gathering/ws/client/' + value);
-  //     this.robotWebSocket.subscribe({
-  //       next: (data) => this.receiveDataOnRobotWebSocket(data),
-  //       error: (e) => console.error(e),
-  //       complete: () => console.info('complete')
-  //     });
-  //   });
-  //
-  //   this.store.select(selectMapData()).subscribe(value => this.new_map_value = value);
-  // }
+  ngOnInit(): void {
+    this.activeSessionId$ = this.store.select(selectActiveSessionData()).pipe(
+      filter((s) => !!s),
+      map((session) => session.id)
+    );
+    this.activeSessionId$.subscribe((value) => {
+      this.activeSessionId = value;
+    });
 
-  // receiveDataOnRobotWebSocket(data: CoordinatesWithExtractedWeedFromRobot) {
-  //   const coordinates_with_extracted_weeds: CoordinateWithExtractedWeed[] = data["coordinate_with_extracted_weed"];
-  //   if (coordinates_with_extracted_weeds != undefined) {
-  //     if (this.activeSessionId == data.session_id) {
-  //
-  //       var id = this.new_map_value.extracted.at(-1).id + 1;
-  //
-  //       for (const coordinate_with_extracted_weed of coordinates_with_extracted_weeds) {
-  //         for (let extracted_weed in coordinate_with_extracted_weed.extracted_weeds) {
-  //           var new_extracted_weed: ExtractedWeedModel = {
-  //             id: id,
-  //             pointPath: [coordinate_with_extracted_weed.current_coordinate[1],
-  //             coordinate_with_extracted_weed.current_coordinate[0]],
-  //             weedType: extracted_weed,
-  //             number: coordinate_with_extracted_weed.extracted_weeds[extracted_weed]
-  //           };
-  //           this.new_map_value.extracted.push(new_extracted_weed);
-  //           id += 1;
-  //         }
-  //
-  //         this.new_map_value.path.path.push([coordinate_with_extracted_weed.current_coordinate[1],
-  //         coordinate_with_extracted_weed.current_coordinate[0]]);
-  //
-  //       }
-  //       this.addPath(this.map_data_pipe.transform(this.new_map_value).path);
-  //       this.addExtracted(this.map_data_pipe.transform(this.new_map_value).extractedPoints);
-  //       this.reorderLayers();
-  //     }
-  //   }
-  // }
+    this.activeRobot$ = this.store.select(selectActiveRobotSerial());
+    this.activeRobot$.subscribe((value) => {
+      this.robotWebSocket = webSocket(
+        'wss://fleet.natuition.com/api/v1/data_gathering/ws/client/' + value
+      );
+      this.robotWebSocket.subscribe({
+        next: (data) => {
+          console.log('data from socket', data);
+          return this.receiveDataOnRobotWebSocket(data);
+        },
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
+    });
+
+    this.store
+      .select(selectMapData())
+      .subscribe((value) => (this.new_map_value = value));
+  }
+
+  receiveDataOnRobotWebSocket(data: CoordinatesWithExtractedWeedFromRobot) {
+    const coordinates_with_extracted_weeds: CoordinateWithExtractedWeed[] =
+      data['coordinate_with_extracted_weed'];
+    if (coordinates_with_extracted_weeds != undefined) {
+      if (this.activeSessionId == data.session_id) {
+        var id = this.new_map_value.extracted.at(-1).id + 1;
+
+        for (const coordinate_with_extracted_weed of coordinates_with_extracted_weeds) {
+          for (let extracted_weed in coordinate_with_extracted_weed.extracted_weeds) {
+            var new_extracted_weed: ExtractedWeedModel = {
+              id: id,
+              pointPath: [
+                coordinate_with_extracted_weed.current_coordinate[1],
+                coordinate_with_extracted_weed.current_coordinate[0],
+              ],
+              weedType: extracted_weed,
+              number:
+                coordinate_with_extracted_weed.extracted_weeds[extracted_weed],
+            };
+            this.new_map_value.extracted.push(new_extracted_weed);
+            id += 1;
+          }
+
+          this.new_map_value.path.path.push([
+            coordinate_with_extracted_weed.current_coordinate[1],
+            coordinate_with_extracted_weed.current_coordinate[0],
+          ]);
+        }
+        this.addPath(this.map_data_pipe.transform(this.new_map_value).path);
+        this.addExtracted(
+          this.map_data_pipe.transform(this.new_map_value).extractedPoints
+        );
+        this.reorderLayers();
+      }
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     const field: FieldType = changes['data']?.currentValue['field'];
