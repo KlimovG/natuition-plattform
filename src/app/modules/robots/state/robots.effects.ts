@@ -34,7 +34,9 @@ export class RobotsEffects {
 
   updateAllStatuses$ = createEffect(() =>
     this.action$.pipe(
-      ofType<UpdateStatusForAllRobots>(RobotsActionTypes.GET_ROBOTS_CUSTOMER),
+      ofType<UpdateStatusForAllRobots>(
+        RobotsActionTypes.UPDATE_STATUSES_FOR_ALL_ROBOTS
+      ),
       switchMap(() =>
         this.service.getRobotForUser().pipe(
           map((robots) => {
