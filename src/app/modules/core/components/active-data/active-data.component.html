@@ -26,9 +26,8 @@
 
         [title]="translationPrefix + 'online'"
       >
-      <fa-icon [icon]="faOnline" [fixedWidth]="true" [ngClass]="{
-                  'text-primary-main': status === predefinedStatus.ON,
-            'text-gray-200 ': status === predefinedStatus.OFF ,
+      <fa-icon [icon]="faOnline" [fixedWidth]="true" [ngClass]="{'text-primary-main': status === predefinedStatus.ON,
+            'text-gray-200 ': status === predefinedStatus.OFF
       }"></fa-icon>
       </app-title-section>
 
@@ -39,9 +38,7 @@
       <fa-icon [icon]="faActive" [fixedWidth]="true" [ngClass]="{
                   'text-primary-main': status === predefinedStatus.ACTIVE,
               'text-gray-200': status !== predefinedStatus.ACTIVE,
-              'text-red-500':
-                status === predefinedStatus.PROBLEM ||
-                status === predefinedStatus.LEFT_AREA
+              'text-red-500': status === predefinedStatus.PROBLEM || status === predefinedStatus.LEFT_AREA
       } " ></fa-icon>
       </app-title-section>
 
