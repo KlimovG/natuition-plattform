@@ -26,7 +26,9 @@ export class AppComponent implements OnInit {
 
     window.addEventListener('resize', (event: UIEvent) => {
       const availHeight = (event.target as Window).screen.availHeight;
-      this.availHeight.next(availHeight ?? window.innerHeight);
+      this.availHeight.next(
+        availHeight > window.innerHeight ? window.innerHeight : availHeight
+      );
     });
   }
 }
