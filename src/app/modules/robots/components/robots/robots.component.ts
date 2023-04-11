@@ -45,16 +45,20 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
             [icon]="faOnline"
             [fixedWidth]="true"
             [ngClass]="{
-              'text-primary-main': robot.status === status.ON,
+              'text-primary-main':
+                robot.status === status.ONLINE ||
+                robot.status === status.ON ||
+                robot.status === status.ACTIVE,
               'text-gray-200 ': robot.status === status.OFF
             }"
           ></fa-icon>
           <fa-icon
-            class="ml-2"
+            class="ml-2 "
             [icon]="faActive"
             [fixedWidth]="true"
             [ngClass]="{
               'text-primary-main': robot.status === status.ACTIVE,
+              'text-yellow-300': robot.status === status.ON,
               'text-gray-200': robot.status !== status.ACTIVE,
               'text-red-500':
                 robot.status === status.PROBLEM ||

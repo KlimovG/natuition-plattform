@@ -7,6 +7,7 @@ export class RobotModel {
 
 export enum RobotStatus {
   ON = 'ON',
+  ONLINE = 'ONLINE',
   ACTIVE = 'ACTIVE',
   LEFT_AREA = 'LEFT_AREA',
   PROBLEM = 'PROBLEM',
