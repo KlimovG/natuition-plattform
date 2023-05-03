@@ -9,7 +9,18 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
   selector: 'app-robots-list',
   template: `
     <div class="flex justify-between items-end sticky top-0 bg-gray-white pb-3">
-      <app-title-section title="robots.title"></app-title-section>
+      <fa-icon
+        class="ml-2"
+        [icon]="faOnline"
+        [fixedWidth]="true"
+        (click)="filterClick()"
+        [ngClass]="{
+          'text-primary-main': _onlineFilter,
+          'text-gray-200 ': !_onlineFilter
+        }"
+      ></fa-icon>
+
+      <app-title-section class="noselect" title="robots.title"></app-title-section>
 
       <app-header *ngIf="showHeader"></app-header>
     </div>
@@ -36,9 +47,12 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
           duration-300"
         role="button"
         (click)="onRobotClick.emit(robot)"
-        [ngClass]="{ 'shadow-robot-btn-active ': activeRobot === robot.serial }"
+        [ngClass]="{ 
+          'shadow-robot-btn-active ': activeRobot === robot.serial,
+          'hidden': _onlineFilter && robot.status === status.OFF
+        }"
       >
-        <h3>{{ robot.serial }}</h3>
+        <h3 class="noselect">{{ robot.serial }}</h3>
         <div class="flex justify-center">
           <fa-icon
             class="ml-2"
@@ -87,13 +101,18 @@ export class RobotsComponent {
   faOnline = faSignal;
   faActive = faSeedling;
   _isRobotListLoading: boolean;
+  _onlineFilter = false;
 
   constructor(
     private store: Store<State>,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   get isRobotListLoading() {
     return this._isRobotListLoading;
+  }
+
+  public filterClick() {
+    this._onlineFilter = !this._onlineFilter;
   }
 }
