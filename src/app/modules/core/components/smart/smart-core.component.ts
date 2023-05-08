@@ -66,9 +66,8 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
       .pipe(map((result) => result.matches));
 
     this.isLargeScreen$ = this.breakpointObserver
-      .observe([Breakpoints.Medium, Breakpoints.Large])
+      .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
       .pipe(map((result) => result.matches));
-
     this.subscriptionsList.push(
       this.intervalForRefresh$
         .pipe(combineLatestWith(isLogged$))

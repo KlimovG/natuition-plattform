@@ -1,6 +1,6 @@
   <div class="w-full h-full flex" *ngIf="(isLargeScreen$ | async)">
-    <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 mx-auto w-full max-w-dashboard-web h-dashboard flex-grow flex justify-between "
-         [ngClass]="{'min-w': isLargeScreen$ | async}"  >
+    <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 w-full max-w-dashboard-web h-dashboard flex-grow flex justify-between "
+         [ngClass]="{'min-w-dashboard-web': isLargeScreen$ | async}"  >
       <div class="w-1/4 flex flex-col">
         <app-smart-robots
           [showHeader]="true"
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 mx-auto w-full max-w-dashboard-web h-full grid grid-rows-core-mobile "
+  <div class="bg-white rounded-2xl mx-auto my-auto py-5 px-5 w-full max-w-dashboard-web h-full grid grid-rows-core-mobile "
        *ngIf="(isMediumScreen$ | async) || (isSmallScreen$ | async) ">
     <app-smart-active-data class="self-start"></app-smart-active-data>
 
