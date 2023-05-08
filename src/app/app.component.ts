@@ -4,6 +4,7 @@ import { State } from './state';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from './shared/i18n/translation.service';
 import { BehaviorSubject } from 'rxjs';
+import { Authenticate } from './modules/auth/state/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.translationHandler.init();
-
+    this.store.dispatch(new Authenticate());
     this.availHeight.next(window.innerHeight);
 
     window.addEventListener('resize', (event: UIEvent) => {

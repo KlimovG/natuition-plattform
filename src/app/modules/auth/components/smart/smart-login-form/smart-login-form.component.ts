@@ -4,7 +4,8 @@ import { InputListModel } from '../../../../../shared/components/form-components
 import { Store } from '@ngrx/store';
 import { State } from '../../../../../state';
 import { LogIn } from '../../../state/auth.actions';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { isInitialAuth } from '../../../state/auth.reducer';
 
 @Component({
   selector: 'app-smart-login-form-form',
@@ -13,13 +14,16 @@ import { BehaviorSubject } from 'rxjs';
 export class SmartLoginFormComponent implements OnInit {
   form: FormGroup;
   textData: InputListModel[];
+  isInitialAuth$: Observable<boolean>;
   isFormValid = new BehaviorSubject<boolean>(false);
   private prefix = 'login';
 
   constructor(private formBuilder: FormBuilder, private store: Store<State>) {}
 
   ngOnInit(): void {
+    this.isInitialAuth$ = this.store.select(isInitialAuth);
     this.form = this.initFormEmpty();
+    this.form.markAsTouched();
     this.textData = this.initText(this.form);
     this.form.valueChanges.subscribe(() =>
       this.isFormValid.next(this.form.valid)

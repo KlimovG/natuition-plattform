@@ -12,7 +12,7 @@ export interface AuthState {
 export const initialState: AuthState = {
   isLogged: false,
   isLoading: false,
-  firstAuth: true,
+  firstAuth: false,
   user: {
     id: 1,
     name: 'v.modylevskii@natuition.com',
@@ -35,11 +35,17 @@ export function reducer(
         isLogged: false,
         user: null,
         isLoading: false,
+        firstAuth: true,
       };
     case AuthActionTypes.LOG_OUT_FAILURE:
       return {
         ...state,
         isLoading: false,
+      };
+    case AuthActionTypes.AUTHENTICATE:
+      return {
+        ...state,
+        isLoading: true,
       };
     case AuthActionTypes.AUTHENTICATE_FAILURE:
       return {
@@ -47,12 +53,14 @@ export function reducer(
         isLogged: false,
         user: null,
         isLoading: false,
+        firstAuth: true,
       };
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
       return {
         ...state,
         isLogged: true,
         isLoading: false,
+        firstAuth: false,
       };
     case AuthActionTypes.LOG_IN_SUCCESS:
       return {
@@ -66,26 +74,6 @@ export function reducer(
         ...state,
         isLoading: true,
       };
-    case AuthActionTypes.AUTHENTICATE:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case AuthActionTypes.FIRST_AUTHENTICATE_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-        isLogged: true,
-        isLoading: false,
-        firstAuth: false,
-      };
-    case AuthActionTypes.FIRST_AUTHENTICATE_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        firstAuth: false,
-        isLogged: false,
-      };
     default:
       return state;
   }
@@ -95,5 +83,5 @@ export const selectUserID = (state: State): number => state.auth?.user?.id;
 export const isLogged = (state: State): boolean => state.auth?.isLogged;
 export const isLoadingUserAuth = (state: State): boolean =>
   state.auth?.isLoading;
-export const isInitialAuth = (state: State): boolean => state.auth.firstAuth;
+export const isInitialAuth = (state: State): boolean => !!state.auth?.firstAuth;
 export const getUserName = (state: State): string => state.auth?.user?.name;
