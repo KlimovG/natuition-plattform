@@ -5,9 +5,6 @@ import {
   AuthActionTypes,
   Authenticate,
   AuthenticateFailure,
-  FirstAuthentication,
-  FirstAuthenticationFailure,
-  FirstAuthenticationSuccess,
   LogIn,
   LogInFailure,
   LogInSuccess,
@@ -23,24 +20,6 @@ export class AuthEffects {
     private service: AuthService,
     protected router: Router
   ) {}
-
-  firstAuth$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType<FirstAuthentication>(AuthActionTypes.FIRST_AUTHENTICATE),
-      switchMap(() =>
-        this.service.isAuthenticated().pipe(
-          map((data) => {
-            if (!data?.id) return new FirstAuthenticationFailure();
-
-            return new FirstAuthenticationSuccess({
-              id: data.id,
-              name: data.name,
-            });
-          })
-        )
-      )
-    )
-  );
 
   auth$ = createEffect(() =>
     this.actions$.pipe(

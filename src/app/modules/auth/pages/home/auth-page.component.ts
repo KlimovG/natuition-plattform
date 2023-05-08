@@ -7,15 +7,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Authenticate, FirstAuthentication } from '../../state/auth.actions';
 import { isInitialAuth, isLoadingUserAuth } from '../../state/auth.reducer';
 import { State } from '../../../../state';
-import {
-  BehaviorSubject,
-  firstValueFrom,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { SmartLoginFormComponent } from '../../components/smart/smart-login-form/smart-login-form.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -24,37 +18,34 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './auth-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'flex',
+    class: 'flex h-full',
   },
 })
 export class AuthPageComponent implements OnInit, OnDestroy {
   @ViewChild(SmartLoginFormComponent) loginForm: SmartLoginFormComponent;
   isUserLoading$: Observable<boolean>;
   buttonDisabled$ = new BehaviorSubject<boolean>(true);
-  spinnerSubscription: Subscription;
   isInitialAuth$: Observable<boolean>;
-
+  subscriptions: Subscription[] = [];
   constructor(
     private router: Router,
     private store: Store<State>,
     private spinner: NgxSpinnerService
   ) {}
 
-  async ngOnInit() {
-    this.store.dispatch(new FirstAuthentication());
+  ngOnInit() {
+    this.buttonDisabled$.subscribe((value) => console.log('disabled', value));
     this.isInitialAuth$ = this.store.select(isInitialAuth);
     this.isUserLoading$ = this.store.select(isLoadingUserAuth);
-    const isLogged = await firstValueFrom(this.isUserLoading$);
-    if (!isLogged) {
-      this.store.dispatch(new Authenticate());
-    }
-    this.spinnerSubscription = this.isUserLoading$.subscribe((value) => {
-      value ? this.spinner.show('mainBtn') : this.spinner.hide('mainBtn');
-    });
+    this.subscriptions.push(
+      this.isUserLoading$.subscribe((value) => {
+        value ? this.spinner.show('mainBtn') : this.spinner.hide('mainBtn');
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.spinnerSubscription.unsubscribe();
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   activeUrl(path: string): boolean {
