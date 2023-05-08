@@ -7,6 +7,7 @@ import {
   AuthenticateFailure,
   FirstAuthentication,
   FirstAuthenticationFailure,
+  FirstAuthenticationSuccess,
   LogIn,
   LogInFailure,
   LogInSuccess,
@@ -31,7 +32,7 @@ export class AuthEffects {
           map((data) => {
             if (!data?.id) return new FirstAuthenticationFailure();
 
-            return new LogInSuccess({
+            return new FirstAuthenticationSuccess({
               id: data.id,
               name: data.name,
             });
