@@ -113,7 +113,7 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
       data['coordinate_with_extracted_weed'];
     if (coordinates_with_extracted_weeds != undefined) {
       if (this.activeSessionId == data.session_id) {
-        var id = this.new_map_value.extracted.at(-1).id + 1;
+        let id = this.new_map_value.extracted?.at(-1)?.id + 1;
 
         for (const coordinate_with_extracted_weed of coordinates_with_extracted_weeds) {
           for (let extracted_weed in coordinate_with_extracted_weed.extracted_weeds) {
@@ -141,6 +141,7 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
           this.map_data_pipe.transform(this.new_map_value).extractedPoints
         );
         this.reorderLayers();
+        this.map.triggerRepaint();
       }
     }
   }
@@ -159,10 +160,11 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
 
   initMapData(field: FieldType, path: PathType, extracted: ExtractedType) {
     if (field && field.geometry?.coordinates?.length > 0) {
-      const points: [number, number][] = field.geometry.coordinates
+      const [lng, lat]: [number, number][] = field.geometry.coordinates
         .flat()
         .map(([lng, lat]) => [lng, lat]);
-      const bounds = new LngLatBounds(points.at(0), points.at(2));
+      console.log('lng, lat', lng, lat);
+      const bounds = new LngLatBounds(lng, lat);
       this.map.fitBounds(bounds, { padding: 40, animate: false });
       this.addField(field);
     }

@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Authenticate } from '../../state/auth.actions';
-import { isLoadingUserAuth } from '../../state/auth.reducer';
+import { Authenticate, FirstAuthentication } from '../../state/auth.actions';
+import { isInitialAuth, isLoadingUserAuth } from '../../state/auth.reducer';
 import { State } from '../../../../state';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { SmartLoginFormComponent } from '../../components/smart/smart-login-form/smart-login-form.component';
@@ -27,6 +27,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   isUserLoading$: Observable<boolean>;
   buttonDisabled$ = new BehaviorSubject<boolean>(true);
   spinnerSubscription: Subscription;
+  isInitialAuth$: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -35,6 +36,8 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(new FirstAuthentication());
+    this.isInitialAuth$ = this.store.select(isInitialAuth);
     this.store.dispatch(new Authenticate());
     this.isUserLoading$ = this.store.select(isLoadingUserAuth);
     this.spinnerSubscription = this.isUserLoading$.subscribe((value) => {
@@ -54,10 +57,6 @@ export class AuthPageComponent implements OnInit, OnDestroy {
     switch (true) {
       case this.activeUrl('/login'):
         return 'login';
-      // case this.activeUrl('/home/registration'):
-      //   return 'registration';
-      // case this.activeUrl('/home'):
-      //   return 'home';
       default:
         return 'home';
     }

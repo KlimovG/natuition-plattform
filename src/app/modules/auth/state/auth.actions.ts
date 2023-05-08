@@ -7,6 +7,9 @@ export enum AuthActionTypes {
   REFRESH_ACCESS_TOKEN = '[Auth] Refresh access token',
   AUTHENTICATE_SUCCESS = '[Auth] Authentication success',
   AUTHENTICATE_FAILURE = '[Auth] Authentication failed',
+  FIRST_AUTHENTICATE = '[Auth] Initial Authentication',
+  FIRST_AUTHENTICATE_SUCCESS = '[Auth] Initial Authentication success',
+  FIRST_AUTHENTICATE_FAILURE = '[Auth] Initial Authentication failed',
   LOG_IN = '[Auth] Logging in',
   LOG_IN_SUCCESS = '[Auth] Login is successful',
   LOG_IN_FAILURE = '[Auth] Login is failed',
@@ -31,6 +34,20 @@ export class AuthenticateSuccess implements Action {
 
 export class AuthenticateFailure implements Action {
   readonly type = AuthActionTypes.AUTHENTICATE_FAILURE;
+}
+
+export class FirstAuthentication implements Action {
+  readonly type = AuthActionTypes.FIRST_AUTHENTICATE;
+}
+
+export class FirstAuthenticationSuccess implements Action {
+  readonly type = AuthActionTypes.FIRST_AUTHENTICATE_SUCCESS;
+
+  constructor(public payload: SignInOutputDto) {}
+}
+
+export class FirstAuthenticationFailure implements Action {
+  readonly type = AuthActionTypes.FIRST_AUTHENTICATE_FAILURE;
 }
 
 export class LogIn implements Action {
@@ -71,6 +88,9 @@ export type AuthActionUnion =
   | LogOut
   | AuthenticateFailure
   | LogInSuccess
+  | FirstAuthentication
+  | FirstAuthenticationSuccess
+  | FirstAuthenticationFailure
   | LogInFailure
   | Authenticate
   | AuthenticateSuccess;
