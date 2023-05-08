@@ -28,14 +28,13 @@ export class SmartNotificationComponent implements OnInit {
   constructor(private store: Store<State>) {}
   ngOnInit() {
     this.notifications$ = this.store.select(selectNotifications());
-    this.notifications$.subscribe((notification) => {
-      if (notification) {
-        console.log(notification);
-        // setTimeout(() => {
-        //   this.close();
-        // }, 3000);
-      }
-    });
+    // this.notifications$.subscribe((notification) => {
+    //   if (notification) {
+    //     // setTimeout(() => {
+    //     //   this.close();
+    //     // }, 3000);
+    //   }
+    // });
   }
   close() {
     this.store.dispatch(new CloseNotification());
