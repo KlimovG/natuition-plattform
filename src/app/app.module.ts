@@ -18,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExternalModule } from './modules/external/external.module';
 
 export const NgxSpinnerConfig = {
   type: 'cog',
@@ -49,6 +50,7 @@ export const NgxSpinnerConfig = {
     }),
     SharedModule,
     AuthModule,
+    ExternalModule,
   ],
   providers: [
     {

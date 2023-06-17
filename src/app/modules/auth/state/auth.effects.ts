@@ -43,8 +43,11 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType<AuthenticateFailure>(AuthActionTypes.AUTHENTICATE_FAILURE),
-        tap(() => {
-          return this.router.navigate(['/login']);
+        tap((): any => {
+          if (this.router.url !== '/video') {
+            return null;
+          }
+          return null;
         })
       ),
     { dispatch: false }

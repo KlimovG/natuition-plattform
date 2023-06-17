@@ -32,7 +32,9 @@ export class AuthService {
           return response.body;
         }),
         catchError((err) => {
-          this.router.navigate(['/login']);
+          if (this.router.url !== '/video') {
+            this.router.navigate(['/login']);
+          }
           return of(err);
         })
       );

@@ -3,6 +3,9 @@
     "btnPrimary": "Sign In",
     "btnSecondary": "Sign Up"
   },
+  "video": {
+    "noImage": "Wellcome, demonstration will start soon"
+  },
   "login": {
     "login": "Login",
     "password": "Password",

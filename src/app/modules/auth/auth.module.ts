@@ -14,7 +14,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AuthPageComponent,
-    AuthPageComponent,
     LoginFormComponent,
     SmartLoginFormComponent,
     AuthButtonsComponent,

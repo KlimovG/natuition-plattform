@@ -27,6 +27,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   buttonDisabled$ = new BehaviorSubject<boolean>(true);
   isInitialAuth$: Observable<boolean>;
   subscriptions: Subscription[] = [];
+
   constructor(
     private router: Router,
     private store: Store<State>,
@@ -34,7 +35,6 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.buttonDisabled$.subscribe((value) => console.log('disabled', value));
     this.isInitialAuth$ = this.store.select(isInitialAuth);
     this.isUserLoading$ = this.store.select(isLoadingUserAuth);
     this.subscriptions.push(

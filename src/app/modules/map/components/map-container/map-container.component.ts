@@ -163,7 +163,6 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
       const [lng, lat]: [number, number][] = field.geometry.coordinates
         .flat()
         .map(([lng, lat]) => [lng, lat]);
-      console.log('lng, lat', lng, lat);
       const bounds = new LngLatBounds(lng, lat);
       this.map.fitBounds(bounds, { padding: 40, animate: false });
       this.addField(field);
