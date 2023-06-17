@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
