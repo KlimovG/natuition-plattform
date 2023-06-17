@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StatisticModel } from '../../models/statistic.model';
+import { State } from '../../../../state';
+import { Store } from '@ngrx/store';
+import { selectActiveSessionData } from '../../../sessions/state/sessions.reducer';
+import { filter, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-robot-stats',
@@ -32,10 +36,9 @@ import { StatisticModel } from '../../models/statistic.model';
       <div class="mt-auto flex justify-center">
         <app-button-secondary
           class="min-w-stat"
-          [disabled]="true"
           [fullWidth]="true"
           [text]="translationPrefix + 'report'"
-          (click)="onReportClick.emit($event)"
+          (click)="onReportClick()"
         ></app-button-secondary>
       </div>
     </div>
@@ -44,5 +47,22 @@ import { StatisticModel } from '../../models/statistic.model';
 export class RobotStatsComponent {
   @Input() translationPrefix: string;
   @Input() stats: StatisticModel;
-  @Output() onReportClick = new EventEmitter<any>();
+  activeSessionId$: Observable<number>;
+  activeSessionId: number;
+
+  constructor(private store: Store<State>) { }
+
+  ngOnInit(): void {
+    this.activeSessionId$ = this.store.select(selectActiveSessionData()).pipe(
+      filter((s) => !!s),
+      map((session) => session.id)
+    );
+    this.activeSessionId$.subscribe((value) => {
+      this.activeSessionId = value;
+    });
+  }
+
+  onReportClick() {
+    window.open("https://report.natuition.com/?session_id=" + this.activeSessionId, '_blank').focus();
+  }
 }

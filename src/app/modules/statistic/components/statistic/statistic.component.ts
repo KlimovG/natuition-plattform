@@ -27,7 +27,6 @@ import { Observable } from 'rxjs';
         <app-robot-stats
           [stats]="stats"
           [translationPrefix]="translationPrefix + 'stats.'"
-          (onReportClick)="onReportClick.emit($event)"
         ></app-robot-stats>
       </div>
     </div>
@@ -44,11 +43,10 @@ export class StatisticComponent {
     value ? this.spinner.show('statistik') : this.spinner.hide('statistik');
     this._isDataLoading = value;
   }
-  @Output() onReportClick = new EventEmitter<any>();
   get isDataLoading(): boolean {
     return this._isDataLoading;
   }
   _isDataLoading: boolean;
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(private spinner: NgxSpinnerService) { }
 }

@@ -13,7 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     </div>
 
     <app-buttons-list
-      class="overflow-y-scroll overflow-x-hidden max-h-full block"
+      class="overflow-y-scroll overflow-x-hidden max-h-full block noselect"
       [buttonsData]="sessions"
       [active]="activeSession"
       (onClick)="onSessionClick.emit($event)"
@@ -51,5 +51,5 @@ export class SessionsComponent {
     return this._isDataLoading;
   }
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(private spinner: NgxSpinnerService) { }
 }

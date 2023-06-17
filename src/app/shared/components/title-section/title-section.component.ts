@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-title-section',
   template: `
     <h2
-      class="Montserrat-Bold text-xl text-center w-full"
+      class="Montserrat-Bold text-xl text-center w-full noselect"
       [ngClass]="{ 'text-2xl': big }"
     >
       {{ title | translate }}

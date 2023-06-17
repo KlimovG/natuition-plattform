@@ -58,7 +58,7 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
   isExtracted: boolean = true;
   _center: LngLat;
   map: mapboxgl.Map;
-  style = 'mapbox://styles/mapbox/streets-v11';
+  style = 'mapbox://styles/mapbox/streets-v12';
   layerOrder = ['outline', 'field', 'path', 'extracted']; // the order of your layers
   activeSessionId$: Observable<number>;
   activeSessionId: number;
@@ -69,7 +69,7 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
   constructor(
     private store: Store<State>,
     private map_data_pipe: MapDataPipe
-  ) {}
+  ) { }
 
   get center(): LngLat {
     return this._center;
@@ -188,11 +188,13 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
       zoom: 19,
       center: this.center,
     });
+    this.map.addControl(new mapboxgl.FullscreenControl());
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.on('load', () => {
       this.reorderLayers();
       this.map.resize();
     });
+    this.map.addControl(new mapboxgl.ScaleControl());
   }
 
   ngOnDestroy() {
