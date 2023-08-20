@@ -28,6 +28,7 @@ module.exports = {
       width: {
         divider: "1px",
         "dashboard-web": "49rem",
+        2: "2rem",
       },
       minWidth: {
         50: "50%",
@@ -49,6 +50,7 @@ module.exports = {
         wrapper: "51.5rem",
         dashboard: "42rem",
         "map-mobile": "40vh",
+        2: "2rem",
       },
       spacing: {
         "1-negative": "-1px",

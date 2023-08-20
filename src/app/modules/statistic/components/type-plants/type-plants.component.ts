@@ -10,7 +10,7 @@ type ChartConfig = ChartConfiguration<'doughnut'>['data']['datasets'];
     <app-title-column [title]="translationPrefix + 'title'"></app-title-column>
     <div class="w-full relative flex justify-center" *ngIf="data?.length > 0">
       <canvas
-        style="width: 100%; height: 230px;"
+        style="width: 100%; height: 186px;"
         class="max-w-stat-item w-full"
         baseChart
         [labels]="labels"
@@ -33,10 +33,10 @@ export class TypePlantsComponent implements OnChanges {
   _dataset: ChartConfig = [];
   options: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
-    radius: '50',
+    radius: '40',
     maintainAspectRatio: false,
     aspectRatio: 1,
-    cutout: 15,
+    cutout: 10,
     animation: false,
     plugins: {
       legend: {
