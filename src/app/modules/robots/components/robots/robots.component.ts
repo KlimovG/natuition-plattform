@@ -20,7 +20,10 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
         }"
       ></fa-icon>
 
-      <app-title-section class="noselect" title="robots.title"></app-title-section>
+      <app-title-section
+        class="noselect"
+        title="robots.title"
+      ></app-title-section>
 
       <app-header *ngIf="showHeader"></app-header>
     </div>
@@ -47,9 +50,9 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
           duration-300"
         role="button"
         (click)="onRobotClick.emit(robot)"
-        [ngClass]="{ 
+        [ngClass]="{
           'shadow-robot-btn-active ': activeRobot === robot.serial,
-          'hidden': _onlineFilter && robot.status === status.OFF
+          hidden: _onlineFilter && (robot.status$ | async) === status.OFF
         }"
       >
         <h3 class="noselect">{{ robot.serial }}</h3>
@@ -60,10 +63,10 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
             [fixedWidth]="true"
             [ngClass]="{
               'text-primary-main':
-                robot.status === status.ONLINE ||
-                robot.status === status.ON ||
-                robot.status === status.ACTIVE,
-              'text-gray-200 ': robot.status === status.OFF
+                (robot.status$ | async) === status.ONLINE ||
+                (robot.status$ | async) === status.ON ||
+                (robot.status$ | async) === status.ACTIVE,
+              'text-gray-200 ': (robot.status$ | async) === status.OFF
             }"
           ></fa-icon>
           <fa-icon
@@ -71,12 +74,12 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
             [icon]="faActive"
             [fixedWidth]="true"
             [ngClass]="{
-              'text-primary-main': robot.status === status.ACTIVE,
-              'text-yellow-300': robot.status === status.ON,
-              'text-gray-200': robot.status !== status.ACTIVE,
+              'text-primary-main': (robot.status$ | async) === status.ACTIVE,
+              'text-yellow-300': (robot.status$ | async) === status.ON,
+              'text-gray-200': (robot.status$ | async) !== status.ACTIVE,
               'text-red-500':
-                robot.status === status.PROBLEM ||
-                robot.status === status.LEFT_AREA
+                (robot.status$ | async) === status.PROBLEM ||
+                (robot.status$ | async) === status.LEFT_AREA
             }"
           ></fa-icon>
         </div>
@@ -106,7 +109,7 @@ export class RobotsComponent {
   constructor(
     private store: Store<State>,
     private spinner: NgxSpinnerService
-  ) { }
+  ) {}
 
   get isRobotListLoading() {
     return this._isRobotListLoading;

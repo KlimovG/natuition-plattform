@@ -16,7 +16,7 @@ import { RobotModel } from '../../models/robot.model';
     <app-robots-list
       class="p-4 pl-6 block h-full flex flex-col"
       *ngIf="robots$ | async"
-      [robots]="robots$ | async"
+      [robots]="robots$ | async | attachStatus"
       [activeRobot]="activeRobot$ | async"
       [showHeader]="showHeader"
       (onRobotClick)="onRobotClick($event)"
