@@ -23,7 +23,7 @@ export class RobotsService {
 
   getRobotStatus(robotName: string): Observable<any> {
     return new Observable((observer: Observer<any>) => {
-      this.socket.on(`robotStatus_${robotName}`, (status: any) => {
+      this.socket.on(`robotStatus_${robotName}`, (status: RobotStatus) => {
         observer.next(status);
       });
     });
@@ -36,7 +36,6 @@ export class RobotsService {
           query {
             getRobotForUser {
               serial
-              status
             }
           }
         `,
