@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { faSeedling, faSignal } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
@@ -30,7 +36,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
 
     <div class="flex-col pr-2 overflow-y-scroll overflow-x-clip flex-1">
       <div
-        *ngFor="let robot of robots; let i = index"
+        *ngFor="let robot of robots; let i = index; trackBy: trackById"
         class="
           flex
           flex-col
@@ -88,6 +94,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
     <app-spinner name="robotList" size="large"></app-spinner>
   `,
   styleUrls: ['./robots.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RobotsComponent {
   @Input() set isRobotListLoading(value: boolean) {
@@ -117,5 +124,10 @@ export class RobotsComponent {
 
   public filterClick() {
     this._onlineFilter = !this._onlineFilter;
+  }
+
+  trackById(index: number, button: RobotModel): string {
+    const id = Number(button.serial.replace('SN', ''));
+    return `${id}`;
   }
 }

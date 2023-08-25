@@ -22,10 +22,10 @@ import { Observable } from 'rxjs';
         [isDataLoading]="isDataLoading"
       ></app-chart-pie>
     </ng-container>
-    <app-chart-toggle
-      class="self-end mx-auto -mb-4"
-      (toggleType)="setChartType($event)"
-    ></app-chart-toggle>
+    <!--    <app-chart-toggle-->
+    <!--      class="self-end mx-auto -mb-4"-->
+    <!--      (toggleType)="setChartType($event)"-->
+    <!--    ></app-chart-toggle>-->
 
     <app-spinner name="statistik" size="medium"></app-spinner>
   `,
@@ -43,7 +43,7 @@ export class StatisticComponent {
     return this.#isDataLoading;
   }
   #isDataLoading: boolean;
-  #chartType: 'pie' | 'line';
+  #chartType: 'pie' | 'line' = 'pie';
 
   setChartType(type: 'pie' | 'line') {
     this.#chartType = type;

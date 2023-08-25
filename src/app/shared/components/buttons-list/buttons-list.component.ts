@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { RobotStatus } from '../../../modules/robots/models/robot.model';
 
 export interface IButtonsData {
@@ -15,9 +21,14 @@ export interface IButtonsData {
 @Component({
   selector: 'app-buttons-list',
   templateUrl: './buttons-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsListComponent {
   @Input() buttonsData: IButtonsData[];
   @Input() active: string | number;
   @Output() onClick = new EventEmitter<any>();
+
+  trackById(index: number, button: any): string {
+    return button.id;
+  }
 }

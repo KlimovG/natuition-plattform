@@ -35,6 +35,7 @@ export class RobotsService {
         query: gql`
           query {
             getRobotForUser {
+              id
               serial
             }
           }
