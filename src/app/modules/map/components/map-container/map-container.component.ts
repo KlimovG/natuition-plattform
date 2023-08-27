@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
@@ -49,6 +50,7 @@ import { ExtractedWeedModel } from '../../models/extracted-weed.model';
       <app-spinner name="map" size="medium"></app-spinner>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapContainerComponent implements OnChanges, OnDestroy {
   @Input() data: MapData;

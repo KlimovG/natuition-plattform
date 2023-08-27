@@ -33,7 +33,6 @@ import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 })
 export class SmartCoreComponent implements OnInit, OnDestroy {
   intervalForRefresh$ = interval(5 * 59 * 60 * 1000); // 5 hours 59 minutes
-  intervalForStatusRefresh$ = interval(60 * 1000); // 1 minute
 
   isSmallScreen$: Observable<any>;
   isMediumScreen$: Observable<any>;
@@ -74,13 +73,6 @@ export class SmartCoreComponent implements OnInit, OnDestroy {
         .subscribe(([_, isLogged]) => {
           if (isLogged) {
             this.authService.refresh();
-          }
-        }),
-      this.intervalForStatusRefresh$
-        .pipe(combineLatestWith(isLogged$))
-        .subscribe(([_, isLogged]) => {
-          if (isLogged) {
-            this.store.dispatch(new UpdateStatusForAllRobots());
           }
         }),
       this.isSmallScreen$.subscribe((value) => {

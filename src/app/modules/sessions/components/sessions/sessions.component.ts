@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -34,6 +40,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
     <ng-content></ng-content>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SessionsComponent {
   @Input() sessions: IButtonsData[];
@@ -51,5 +58,5 @@ export class SessionsComponent {
     return this._isDataLoading;
   }
 
-  constructor(private spinner: NgxSpinnerService) { }
+  constructor(private spinner: NgxSpinnerService) {}
 }

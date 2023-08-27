@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoreComponent {
   @Input() isSmallScreen$: Observable<any>;

@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { ChartData } from '../../models/chart-data.model';
 import { StatisticModel } from '../../models/statistic.model';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -29,6 +35,7 @@ import { Observable } from 'rxjs';
 
     <app-spinner name="statistik" size="medium"></app-spinner>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatisticComponent {
   @Input() isSmallScreen$: Observable<boolean>;

@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-map-button',
@@ -50,6 +56,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       </ng-container>
     </button>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapButtonComponent {
   @Input() name: string;

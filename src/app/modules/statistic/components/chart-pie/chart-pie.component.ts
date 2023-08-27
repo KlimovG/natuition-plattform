@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ChartData } from '../../models/chart-data.model';
 import { StatisticModel } from '../../models/statistic.model';
 
@@ -27,7 +26,7 @@ import { StatisticModel } from '../../models/statistic.model';
       </div>
     </div>
   `,
-  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartPieComponent {
   @Input() isSmallScreen: boolean;
