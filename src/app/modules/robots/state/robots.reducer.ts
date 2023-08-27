@@ -28,19 +28,6 @@ export function reducer(
         ...state,
         activeRobot: action.payload,
       };
-    case RobotsActionTypes.UPDATE_STATUSES_FOR_ALL_ROBOTS_SUCCESS:
-      return {
-        ...state,
-        robotsForCustomer: action.payload,
-      };
-    case RobotsActionTypes.UPDATE_ACTIVE_ROBOT_STATUS_SUCCESS:
-      return {
-        ...state,
-        activeRobot: {
-          ...state.activeRobot,
-          status: action.payload.status,
-        },
-      };
     case RobotsActionTypes.GET_ROBOTS_CUSTOMER_SUCCESS:
       return {
         ...state,

@@ -14,10 +14,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { isLogged } from '../../../auth/state/auth.reducer';
-import {
-  GetRobotsForCustomer,
-  UpdateStatusForAllRobots,
-} from '../../../robots/state/robots.actions';
+import { GetRobotsForCustomer } from '../../../robots/state/robots.actions';
 import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 
 @Component({
