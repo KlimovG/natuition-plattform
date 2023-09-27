@@ -40,7 +40,7 @@ export class GetMoreSessionsForRobotSuccess implements Action {
   constructor(public payload: SessionModel[]) {}
 }
 
-export class SetActiveSession implements Action {
+export class SetLastSession implements Action {
   readonly type = SessionsActionTypes.SET_ACTIVE_SESSION;
 
   constructor(public payload: string) {}
@@ -48,7 +48,7 @@ export class SetActiveSession implements Action {
 
 export type SessionsActionUnion =
   | GetLastSessionForRobot
-  | SetActiveSession
+  | SetLastSession
   | GetSessionsForRobot
   | GetMoreSessionsForRobot
   | GetMoreSessionsForRobotSuccess

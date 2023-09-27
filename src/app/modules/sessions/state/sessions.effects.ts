@@ -10,7 +10,7 @@ import {
   GetSessionsForRobot,
   GetSessionsForRobotSuccess,
   SessionsActionTypes,
-  SetActiveSession,
+  SetLastSession,
 } from './sessions.actions';
 import { GetMapForSession } from '../../map/state/map.actions';
 import { GetStatistic } from '../../statistic/state/statistic.actions';
@@ -23,31 +23,34 @@ export class SessionsEffects {
     this.action$.pipe(
       ofType<GetSessionsForRobot>(SessionsActionTypes.GET_SESSIONS_ROBOT),
       switchMap(({ payload }) =>
-        this.service.getSessionsForRobot(payload).pipe(
-          map((sessions) => {
-            return new GetSessionsForRobotSuccess(sessions);
-          })
-        )
+        this.service
+          .getSessionsForRobot(payload)
+          .pipe(
+            mergeMap((sessions) => [
+              new GetSessionsForRobotSuccess(sessions),
+              new SetLastSession(sessions.at(0).id.toString()),
+            ])
+          )
       )
     )
   );
 
-  getLastSession$ = createEffect(() =>
-    this.action$.pipe(
-      ofType<GetLastSessionForRobot>(SessionsActionTypes.GET_LAST_SESSION),
-      switchMap(({ payload }) =>
-        this.service.getLastSession(payload).pipe(
-          map((sessions) => {
-            return new SetActiveSession(sessions);
-          })
-        )
-      )
-    )
-  );
+  // getLastSession$ = createEffect(() =>
+  //   this.action$.pipe(
+  //     ofType<GetLastSessionForRobot>(SessionsActionTypes.GET_LAST_SESSION),
+  //     switchMap(({ payload }) =>
+  //       this.service.getLastSession(payload).pipe(
+  //         map((sessions) => {
+  //           return new SetLastSession(sessions);
+  //         })
+  //       )
+  //     )
+  //   )
+  // );
 
   setActiveSessionStatistik$ = createEffect(() =>
     this.action$.pipe(
-      ofType<SetActiveSession>(SessionsActionTypes.SET_ACTIVE_SESSION),
+      ofType<SetLastSession>(SessionsActionTypes.SET_ACTIVE_SESSION),
       mergeMap(({ payload }) => {
         return [
           new GetMapForSession(Number(payload)),

@@ -10,7 +10,7 @@ import {
 } from '../../state/sessions.reducer';
 import {
   GetMoreSessionsForRobot,
-  SetActiveSession,
+  SetLastSession,
 } from '../../state/sessions.actions';
 import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
@@ -78,7 +78,7 @@ export class SmartSessionsComponent implements OnInit {
   }
 
   onSessionClick(session: string) {
-    this.store.dispatch(new SetActiveSession(session));
+    this.store.dispatch(new SetLastSession(session));
   }
 
   async getMoreSessions() {

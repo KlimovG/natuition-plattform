@@ -11,7 +11,6 @@ export class AttachStatusPipe implements PipeTransform {
   transform(robots: RobotModel[]): RobotModel[] {
     return robots.map((robot) => {
       this.socketService.subscribeRobot(robot.serial);
-      console.log('robot from server', robot.serial);
       const status$ = this.socketService.getRobotStatus(robot.serial);
       return { ...robot, status$ };
     });

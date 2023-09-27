@@ -30,13 +30,10 @@ export class RobotsEffects {
     )
   );
 
-  setActiveSession$ = createEffect(() =>
+  setSessionsForActiveRobot$ = createEffect(() =>
     this.action$.pipe(
       ofType<SetActiveRobot>(RobotsActionTypes.SET_ACTIVE_ROBOT),
-      mergeMap(({ payload }) => [
-        new GetLastSessionForRobot(payload.serial),
-        new GetSessionsForRobot(payload.serial),
-      ])
+      mergeMap(({ payload }) => [new GetSessionsForRobot(payload.serial)])
     )
   );
 
