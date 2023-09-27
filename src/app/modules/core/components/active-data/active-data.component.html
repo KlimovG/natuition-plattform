@@ -27,7 +27,7 @@
         [title]="translationPrefix + 'online'"
       >
       <fa-icon [icon]="faOnline" [fixedWidth]="true" [ngClass]="{'text-primary-main': status === predefinedStatus.ON,
-            'text-gray-200 ': status === predefinedStatus.OFF
+            'text-gray-200': status !== predefinedStatus.ON
       }"></fa-icon>
       </app-title-section>
 
