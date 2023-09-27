@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
@@ -19,7 +20,7 @@ import { selectActiveRobotSerial } from '../../../robots/state/robots.reducer';
 import {
   CoordinatesWithExtractedWeedFromRobot,
   CoordinateWithExtractedWeed,
-} from '../../models/coordinate_with_extracted_weed.model';
+} from '../../models/coordinate-with-extracted-weed.model';
 import { filter, map, Observable } from 'rxjs';
 import { selectMapData } from '../../state/map.reducer';
 import { MapDataFromServer } from '../../models/map-data-from-server.model';
@@ -49,6 +50,7 @@ import { ExtractedWeedModel } from '../../models/extracted-weed.model';
       <app-spinner name="map" size="medium"></app-spinner>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapContainerComponent implements OnChanges, OnDestroy {
   @Input() data: MapData;
@@ -56,7 +58,7 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
   isPath: boolean = true;
   isField: boolean = true;
   isExtracted: boolean = true;
-  _center: LngLat;
+  #center: LngLat;
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v12';
   layerOrder = ['outline', 'field', 'path', 'extracted']; // the order of your layers
@@ -64,19 +66,16 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
   activeSessionId: number;
   activeRobot$: Observable<string>;
   robotWebSocket: WebSocketSubject<any>;
-  new_map_value: MapDataFromServer;
+  newMapValue: MapDataFromServer;
 
-  constructor(
-    private store: Store<State>,
-    private map_data_pipe: MapDataPipe
-  ) { }
+  constructor(private store: Store<State>, private mapDataPipe: MapDataPipe) {}
 
   get center(): LngLat {
-    return this._center;
+    return this.#center;
   }
 
   set center(points) {
-    this._center = points;
+    this.#center = points;
   }
 
   ngOnInit(): void {
@@ -105,40 +104,39 @@ export class MapContainerComponent implements OnChanges, OnDestroy {
 
     this.store
       .select(selectMapData())
-      .subscribe((value) => (this.new_map_value = value));
+      .subscribe((value) => (this.newMapValue = value));
   }
 
   receiveDataOnRobotWebSocket(data: CoordinatesWithExtractedWeedFromRobot) {
-    const coordinates_with_extracted_weeds: CoordinateWithExtractedWeed[] =
-      data['coordinate_with_extracted_weed'];
-    if (coordinates_with_extracted_weeds != undefined) {
-      if (this.activeSessionId == data.session_id) {
-        let id = this.new_map_value.extracted?.at(-1)?.id + 1;
+    const coordinatesWithExtractedWeeds: CoordinateWithExtractedWeed[] =
+      data['coordinateWithExtractedWeed'];
+    if (coordinatesWithExtractedWeeds != undefined) {
+      if (this.activeSessionId == data.sessionId) {
+        let id = this.newMapValue.extracted?.at(-1)?.id + 1;
 
-        for (const coordinate_with_extracted_weed of coordinates_with_extracted_weeds) {
-          for (let extracted_weed in coordinate_with_extracted_weed.extracted_weeds) {
-            var new_extracted_weed: ExtractedWeedModel = {
+        for (const coordinate of coordinatesWithExtractedWeeds) {
+          for (let extractedWeed in coordinate.extractedWeeds) {
+            const newExtractedWeed: ExtractedWeedModel = {
               id: id,
               pointPath: [
-                coordinate_with_extracted_weed.current_coordinate[1],
-                coordinate_with_extracted_weed.current_coordinate[0],
+                coordinate.currentCoordinate[1],
+                coordinate.currentCoordinate[0],
               ],
-              weedType: extracted_weed,
-              number:
-                coordinate_with_extracted_weed.extracted_weeds[extracted_weed],
+              weedType: extractedWeed,
+              number: coordinate.extractedWeeds[extractedWeed],
             };
-            this.new_map_value.extracted.push(new_extracted_weed);
+            this.newMapValue.extracted.push(newExtractedWeed);
             id += 1;
           }
 
-          this.new_map_value.path.path.push([
-            coordinate_with_extracted_weed.current_coordinate[1],
-            coordinate_with_extracted_weed.current_coordinate[0],
+          this.newMapValue.path.path.push([
+            coordinate.currentCoordinate[1],
+            coordinate.currentCoordinate[0],
           ]);
         }
-        this.addPath(this.map_data_pipe.transform(this.new_map_value).path);
+        this.addPath(this.mapDataPipe.transform(this.newMapValue).path);
         this.addExtracted(
-          this.map_data_pipe.transform(this.new_map_value).extractedPoints
+          this.mapDataPipe.transform(this.newMapValue).extractedPoints
         );
         this.reorderLayers();
         this.map.triggerRepaint();

@@ -11,6 +11,7 @@ import { reducer } from './state/map.reducer';
 import { MapButtonsComponent } from './components/map-buttons/map-buttons.component';
 import { ClusterPipe } from './pipes/cluster.pipe';
 import { MapDataPipe } from './pipes/mapData.pipe';
+import { MapButtonComponent } from './components/map-button/map-button.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MapDataPipe } from './pipes/mapData.pipe';
     MapButtonsComponent,
     ClusterPipe,
     MapDataPipe,
+    MapButtonComponent,
   ],
   exports: [SmartMapComponent],
   imports: [

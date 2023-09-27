@@ -1,4 +1,4 @@
-<div class="flex flex-col pr-2" *ngFor="let button of buttonsData; let i = index">
+<div class="flex flex-col pr-2" *ngFor="let button of buttonsData; let i = index; trackBy: trackById">
   <div
     *ngIf="!!button?.date"
     class="

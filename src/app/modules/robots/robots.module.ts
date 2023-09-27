@@ -9,9 +9,10 @@ import { reducer } from './state/robots.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { RobotsEffects } from './state/robots.effects';
 import { SharedModule } from '../../shared/shared.module';
+import { AttachStatusPipe } from './pipe/attach-status.pipe';
 
 @NgModule({
-  declarations: [RobotsComponent, SmartRobotsComponent],
+  declarations: [RobotsComponent, SmartRobotsComponent, AttachStatusPipe],
   imports: [
     CommonModule,
     RobotsRoutingModule,

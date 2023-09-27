@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from '../../../../state';
@@ -22,6 +27,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
       [data]="map$ | async | mapData"
     ></app-map-container>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmartMapComponent implements OnInit, OnDestroy {
   translationPrefix = 'map.';

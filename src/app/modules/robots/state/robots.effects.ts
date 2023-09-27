@@ -6,8 +6,6 @@ import {
   GetRobotsForCustomerSuccess,
   RobotsActionTypes,
   SetActiveRobot,
-  UpdateStatusForAllRobots,
-  UpdateStatusForAllRobotsSuccess,
 } from './robots.actions';
 import { map, mergeMap, switchMap } from 'rxjs';
 import {
@@ -32,28 +30,10 @@ export class RobotsEffects {
     )
   );
 
-  updateAllStatuses$ = createEffect(() =>
-    this.action$.pipe(
-      ofType<UpdateStatusForAllRobots>(
-        RobotsActionTypes.UPDATE_STATUSES_FOR_ALL_ROBOTS
-      ),
-      switchMap(() =>
-        this.service.getRobotForUser().pipe(
-          map((robots) => {
-            return new UpdateStatusForAllRobotsSuccess(robots);
-          })
-        )
-      )
-    )
-  );
-
-  setActiveSession$ = createEffect(() =>
+  setSessionsForActiveRobot$ = createEffect(() =>
     this.action$.pipe(
       ofType<SetActiveRobot>(RobotsActionTypes.SET_ACTIVE_ROBOT),
-      mergeMap(({ payload }) => [
-        new GetLastSessionForRobot(payload.serial),
-        new GetSessionsForRobot(payload.serial),
-      ])
+      mergeMap(({ payload }) => [new GetSessionsForRobot(payload.serial)])
     )
   );
 
