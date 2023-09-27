@@ -35,7 +35,9 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
     </div>
 
     <div class="flex-col pr-2 overflow-y-scroll overflow-x-clip flex-1">
-      <ng-container *ngFor="let robot of robots; let i = index">
+      <ng-container
+        *ngFor="let robot of robots; let i = index; trackBy: trackById"
+      >
         <div
           *ngIf="!onlineFilter && (robot.status$ | async) === status.OFF"
           class="

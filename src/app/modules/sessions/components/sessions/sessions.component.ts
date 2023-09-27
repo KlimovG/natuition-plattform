@@ -6,7 +6,6 @@ import {
   Output,
 } from '@angular/core';
 import { IButtonsData } from '../../../../shared/components/buttons-list/buttons-list.component';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -26,6 +25,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     >
       <div *ngIf="sessions" class="w-full pt-5 mt-auto pr-2">
         <app-button-main
+          style="overflow-anchor:none"
           css="bg-primary-main text-white lg:hover:bg-white lg:hover:text-primary-main border border-primary-main"
           [fullWidth]="true"
           (click)="onMoreClick.emit($event)"
@@ -45,12 +45,11 @@ export class SessionsComponent {
   @Input() sessions: IButtonsData[];
   @Input() activeSession: string;
   @Input() set isDataLoading(value: boolean) {
-    // value ? this.spinner.show('sessionList') : this.spinner.hide('sessionList');
+    value ? this.spinner.show('sessionList') : this.spinner.hide('sessionList');
     this._isDataLoading = value;
   }
   @Output() onSessionClick = new EventEmitter<string>();
   @Output() onMoreClick = new EventEmitter<any>();
-  icon = faDownload;
   _isDataLoading: boolean;
 
   get isDataLoading(): boolean {
