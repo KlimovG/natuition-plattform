@@ -9,6 +9,7 @@ export const environment = {
       'pk.eyJ1IjoienRyYW5leiIsImEiOiJja3dtanE4ZWoxdDlxMnBwa3dmNjMyemhwIn0.zYkQpYBO9jo_F9g-OQyDPQ',
   },
   graphQl: 'http://localhost:3000/graphql',
+  socket: 'http://localhost:3000',
 };
 
 /*
