@@ -13,7 +13,7 @@ export class RobotsService {
   private socket: Socket;
 
   constructor(private apollo: Apollo) {
-    this.socket = io(environment.socket);
+    this.socket = io('https://fleet.natuition.com');
   }
   subscribeRobot(robotName: string) {
     this.socket.emit('subscribeRobot', robotName);
