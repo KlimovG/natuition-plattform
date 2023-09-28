@@ -9,10 +9,10 @@ export class RobotModel {
 }
 
 export enum RobotStatus {
-  ON = 'ON',
+  ON = 'OP',
   ONLINE = 'ONLINE',
-  ACTIVE = 'ACTIVE',
-  LEFT_AREA = 'LEFT_AREA',
-  PROBLEM = 'PROBLEM',
+  ACTIVE = 'WORKING',
+  LEFT_AREA = 'ANTI THEFT',
+  PROBLEM = 'HS',
   OFF = 'OFF',
 }

@@ -39,7 +39,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
         *ngFor="let robot of robots; let i = index; trackBy: trackById"
       >
         <div
-          *ngIf="!onlineFilter && (robot.status$ | async) === status.OFF"
+          *ngIf="!onlineFilter"
           class="
             flex
             flex-col
@@ -140,7 +140,6 @@ export class RobotsComponent implements OnInit {
 
   public filterClick() {
     this.onlineFilter = !this.onlineFilter;
-    console.log('online filter', this.onlineFilter);
     this.cdr.detectChanges();
   }
 
