@@ -4,7 +4,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { faSeedling, faSignal } from '@fortawesome/free-solid-svg-icons';
@@ -39,7 +38,13 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
         *ngFor="let robot of robots; let i = index; trackBy: trackById"
       >
         <div
-          *ngIf="!onlineFilter"
+          *ngIf="
+            (onlineFilter &&
+              ((robot.status$ | async) === status.ONLINE ||
+                (robot.status$ | async) === status.ON ||
+                (robot.status$ | async) === status.ACTIVE)) ||
+            !onlineFilter
+          "
           class="
             flex
             flex-col
@@ -99,7 +104,7 @@ import { RobotModel, RobotStatus } from '../../models/robot.model';
   styleUrls: ['./robots.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RobotsComponent implements OnInit {
+export class RobotsComponent {
   @Input() set isRobotListLoading(value: boolean) {
     value ? this.spinner.show('robotList') : this.spinner.hide('robotList');
     this.#isRobotListLoading = value;
@@ -119,12 +124,6 @@ export class RobotsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private spinner: NgxSpinnerService
   ) {}
-
-  ngOnInit() {
-    this.robots.forEach((robot) =>
-      robot.status$.subscribe((data) => `status for ${robot.serial} ${data}`)
-    );
-  }
 
   get isRobotListLoading(): boolean {
     return this.#isRobotListLoading;

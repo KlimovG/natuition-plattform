@@ -13,9 +13,7 @@ export class RobotsService {
   private socket: Socket;
 
   constructor(private apollo: Apollo) {
-    this.socket = io(environment.socket, { path: '' });
-    console.log('environment socket', environment.socket);
-    console.log('this.socket', this.socket);
+    this.socket = io(environment.socket);
   }
   subscribeRobot(robotName: string) {
     this.socket.emit('subscribeRobot', robotName);
